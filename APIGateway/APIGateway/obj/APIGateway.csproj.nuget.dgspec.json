@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\Authentication-authorization\\TheSocialBaz.Server\\TheSocialBaz.Server.csproj": {}
+    "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\APIGateway\\APIGateway\\APIGateway.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\Authentication-authorization\\TheSocialBaz.Server\\TheSocialBaz.Server.csproj": {
+    "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\APIGateway\\APIGateway\\APIGateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\Authentication-authorization\\TheSocialBaz.Server\\TheSocialBaz.Server.csproj",
-        "projectName": "TheSocialBaz.Server",
-        "projectPath": "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\Authentication-authorization\\TheSocialBaz.Server\\TheSocialBaz.Server.csproj",
+        "projectUniqueName": "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\APIGateway\\APIGateway\\APIGateway.csproj",
+        "projectName": "APIGateway",
+        "projectPath": "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\APIGateway\\APIGateway\\APIGateway.csproj",
         "packagesPath": "C:\\Users\\Sebas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\Authentication-authorization\\TheSocialBaz.Server\\obj\\",
+        "outputPath": "C:\\Users\\Sebas\\source\\repos\\Authentication-authorization\\APIGateway\\APIGateway\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sebas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -42,35 +42,19 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
-            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
-              "version": "[5.0.1, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[5.0.1, )"
-            },
-            "Microsoft.AspNetCore.Identity.UI": {
-              "target": "Package",
-              "version": "[5.0.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[5.0.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.0, )"
             },
             "Ocelot": {
               "target": "Package",
               "version": "[17.0.0, )"
             },
-            "Swashbuckle.AspNetCore": {
+            "Ocelot.Provider.Consul": {
               "target": "Package",
-              "version": "[5.6.3, )"
+              "version": "[17.0.0, )"
             }
           },
           "imports": [

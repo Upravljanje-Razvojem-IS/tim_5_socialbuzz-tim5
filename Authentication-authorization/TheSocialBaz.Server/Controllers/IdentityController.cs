@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -88,23 +87,11 @@ namespace TheSocialBaz.Server.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var encryptedToken = tokenHandler.WriteToken(token);
-            var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-
-            if(signInResult.Succeeded)
-            {
-                return Ok("It works");
-            }
 
             return new
             {
                 Token = encryptedToken
             };
         }
-
-        //public async Task<ActionResult> LogOut()
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    return Ok("Signed out");
-        //}
     }
 }
