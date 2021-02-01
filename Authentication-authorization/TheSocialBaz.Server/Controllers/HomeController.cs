@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace TheSocialBaz.Server.Controllers
 {
@@ -10,7 +11,7 @@ namespace TheSocialBaz.Server.Controllers
         /// Home page for the SocialBaz
         /// </summary>
         /// <returns></returns>
-        [Authorize]
+        [Authorize(Roles = "Member, Admin")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult Get()
