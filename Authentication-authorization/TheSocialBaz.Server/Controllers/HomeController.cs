@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Security.Claims;
 
 namespace TheSocialBaz.Server.Controllers
 {
@@ -18,6 +19,8 @@ namespace TheSocialBaz.Server.Controllers
         {
             var currentUser = HttpContext.User;
 
+           // var claim = currentUser.Claims.First(c => c.Type == ClaimTypes.Role).Value;
+            
             if (currentUser.IsInRole("Member"))
             {
                 return Ok("Member");
@@ -25,6 +28,10 @@ namespace TheSocialBaz.Server.Controllers
             else if (currentUser.IsInRole("Admin"))
             {
                 return Ok("Admin");
+            }
+            else if (currentUser.IsInRole("Corporate"))
+            {
+                return Ok("Corporate");
             }
 
             return Ok("Works");

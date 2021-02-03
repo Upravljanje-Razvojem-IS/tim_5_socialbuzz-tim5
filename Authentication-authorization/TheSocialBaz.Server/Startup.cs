@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TheSocialBaz.Server.Data;
 using TheSocialBaz.Server.Data.Models;
@@ -63,23 +64,11 @@ namespace TheSocialBaz.Server
 
             CreateRoles(serviceProvider).Wait();
         }
+
+        // Have to put this in a separate file
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
-            // Adding custom roles
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
-            string[] roleNames = { "Admin", "Member" };
-            IdentityResult roleResult;
-
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await RoleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    // Create the roles and seed them to the database
-                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
+            var _userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
             // Create a super user who will maintain the web app
             var poweruser = new User
@@ -89,16 +78,15 @@ namespace TheSocialBaz.Server
             };
 
             string userPWD = Configuration["ApplicationSettings:UserPassword"];
-            var _user = await UserManager.FindByEmailAsync(Configuration["ApplicationSettings:AdminUserEmail"]);
+            var _user = await _userManager.FindByEmailAsync(Configuration["ApplicationSettings:AdminUserEmail"]);
 
             if (_user == null)
             {
-                var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
+                var createPowerUser = await _userManager.CreateAsync(poweruser, userPWD);
                 if (createPowerUser.Succeeded)
                 {
                     // Tie the new user to the role
-                    await UserManager.AddToRoleAsync(poweruser, "Admin");
-
+                    await _userManager.AddClaimAsync(poweruser, new Claim(ClaimTypes.Role, "Admin"));
                 }
             }
         }

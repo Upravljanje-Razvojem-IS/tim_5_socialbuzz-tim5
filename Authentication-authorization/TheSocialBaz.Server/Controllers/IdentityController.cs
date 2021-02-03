@@ -18,16 +18,13 @@ namespace TheSocialBaz.Server.Controllers
     {
 
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly AppSettings _appSettings;
 
         public IdentityController(
             UserManager<User> userManager,
-            SignInManager<User> signInManager,
             IOptions<AppSettings> appSettings)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _appSettings = appSettings.Value;
         }
 
@@ -40,17 +37,32 @@ namespace TheSocialBaz.Server.Controllers
             var user = new User
             {
                 Email = model.Email,
-                UserName = model.Username
+                UserName = model.Username,
             };
+
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                // Give him the role of a Member account
-                await _userManager.AddToRoleAsync(user, "Member");
+                // Add claims to the user
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Name, model.Name.ToString()));
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Surname, model.Surname.ToString()));
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Email, model.Email.ToString()));
+                await _userManager.AddClaimAsync(user, new Claim("Claim.JoinedAt", user.ToString()));
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Member"));
+
+                // Non required properties
+                if (model.PhoneNumber != null)
+                    await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.MobilePhone, model.PhoneNumber.ToString()));
+                if (model.Gender != null)
+                    await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Gender, model.Gender.ToString()));
+                if (model.DoB != null)
+                    await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.DateOfBirth, model.DoB.ToString()));
+
                 return Created("", user);
             }
-
+            
             return BadRequest(result.Errors);
         }
 
@@ -60,8 +72,10 @@ namespace TheSocialBaz.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<object>> Login(LoginRequestModel model)
         {
+            // Get the user
             var user = await _userManager.FindByNameAsync(model.Username);
 
+            // Check if the user exists
             if(user == null)
             {
                 return Unauthorized();
@@ -74,21 +88,10 @@ namespace TheSocialBaz.Server.Controllers
                 return Unauthorized();
             }
 
-            // List of claims for user
-            var authClaims = new List<Claim>
-            {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName.ToString()),
-            };
+            // Get claims for the user
+            var claims = await _userManager.GetClaimsAsync(user);
 
-            // Get user roles for the user that is trying to log in
-            var userRoles = await _userManager.GetRolesAsync(user);
-
-            // Add a claim to the list
-            foreach (var userRole in userRoles)
-            {
-                authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            }
+            var authClaims = new List<Claim>(claims);
 
             // Generating properties for token
             var tokenHandler = new JwtSecurityTokenHandler();
