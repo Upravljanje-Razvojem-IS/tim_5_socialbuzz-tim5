@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -65,6 +66,38 @@ namespace TheSocialBaz.Server.Controllers
             
             return BadRequest(result.Errors);
         }
+        [HttpPost]
+        [Route(nameof(RegisterCorporation))]
+        [Authorize(Roles = "Member, Admin")]
+        public async Task<ActionResult> RegisterCorporation(RegisterCorporationRequestModel model)
+        {
+            var corporation = new User
+            {
+                Email = model.Email,
+                UserName = model.Username,
+            };
+
+            // User which created the corporate account
+            var currentUser = HttpContext.User;
+            var userId = currentUser.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = await _userManager.CreateAsync(corporation, model.Password);
+
+            if (result.Succeeded)
+            {
+                // Add claims to the corporation
+                await _userManager.AddClaimAsync(corporation, new Claim(ClaimTypes.NameIdentifier, corporation.Id.ToString()));
+                await _userManager.AddClaimAsync(corporation, new Claim(ClaimTypes.Name, model.NameOfCorporation.ToString()));
+                await _userManager.AddClaimAsync(corporation, new Claim("Claim.FoundedAt", model.FoundedAt.ToString()));
+                await _userManager.AddClaimAsync(corporation, new Claim("Claim.UserId", userId.ToString()));
+                await _userManager.AddClaimAsync(corporation, new Claim(ClaimTypes.Role, "Corporate"));
+
+                return Created("", corporation);
+            }
+
+            return BadRequest(result.Errors);
+        }
+
 
         [HttpPost]
         [Route(nameof(Login))]
@@ -83,9 +116,15 @@ namespace TheSocialBaz.Server.Controllers
 
             var passwordValid = await _userManager.CheckPasswordAsync(user, model.Password);
 
+            // Check if the password is correct or if the account has been disabled
             if (!passwordValid)
             {
                 return Unauthorized();
+            }
+
+            if(user.IsDisabled)
+            {
+                return Unauthorized("Your account has been disabled.");
             }
 
             // Get claims for the user

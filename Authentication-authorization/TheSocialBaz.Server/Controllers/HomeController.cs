@@ -1,25 +1,33 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using TheSocialBaz.Server.Data.Models;
 
 namespace TheSocialBaz.Server.Controllers
 {
     public class HomeController : ApiController
     {
+        private readonly UserManager<User> _userManager;
+        public HomeController(
+            UserManager<User> userManager)
+        {
+            _userManager = userManager;
+        }
+
         /// <summary>
         /// Home page for the SocialBaz
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "Member, Admin")]
+        [Authorize(Roles = "Member, Admin, Corporate")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Get()
+        public async Task<ActionResult<object>> Get()
         {
             var currentUser = HttpContext.User;
-
-           // var claim = currentUser.Claims.First(c => c.Type == ClaimTypes.Role).Value;
             
             if (currentUser.IsInRole("Member"))
             {
@@ -31,7 +39,17 @@ namespace TheSocialBaz.Server.Controllers
             }
             else if (currentUser.IsInRole("Corporate"))
             {
-                return Ok("Corporate");
+                var corporateHolderId = currentUser.FindFirstValue("Claim.UserId");
+                var corporateHolder = await _userManager.FindByIdAsync(corporateHolderId);
+                var corporateHolderClaims = await _userManager.GetClaimsAsync(corporateHolder);
+
+                // Get a claim
+                // This is how I would access properties of the corporate holder/owner
+                var corporationName = currentUser.FindFirstValue(ClaimTypes.Name);
+                var corporateHolderName = corporateHolderClaims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+                return Ok("Corporation name: " + corporationName.ToString() +
+                    " " + "Corporation holder name: " + corporateHolderName.ToString());
             }
 
             return Ok("Works");
