@@ -4,9 +4,9 @@ namespace TheSocialBaz.Server.Models.Identity
 {
     public class LoginRequestModel
     {
-        [Required]
+        [Required(ErrorMessage = "Username is required.")]
         public string Username { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
     }
 }

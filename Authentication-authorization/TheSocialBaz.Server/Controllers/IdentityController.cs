@@ -29,6 +29,28 @@ namespace TheSocialBaz.Server.Controllers
             _appSettings = appSettings.Value;
         }
 
+        /// <summary>
+        /// Registering a Member user.
+        /// </summary>
+        /// <param name="model">RegisterUserRequest is a model needed for the registration.</param>
+        /// <returns>Returns the created Member user.</returns>
+        ///         /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Identity/Register
+        ///     {
+        ///        "username": "test",
+        ///        "email": "test@test.com",
+        ///        "password": "test123",
+        ///        "name": "Sebastijan",
+        ///        "surname": "Kokai",
+        ///        "gender": "Male",
+        ///        "phonenumber": "061-123-45-56"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the created Member user.</response>
+        /// <response code="400">Returns bad request if some of required information is not sent or is not valid.</response>
         [HttpPost]
         [Route(nameof(Register))]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -66,9 +88,32 @@ namespace TheSocialBaz.Server.Controllers
             
             return BadRequest(result.Errors);
         }
+
+        /// <summary>
+        /// Registering a Corporate user. Member user token required in order to process the registration.
+        /// </summary>
+        /// <param name="model">RegisterCorporationRequestModel is a model needed for the registration.</param>
+        /// <returns>Returns the created Corporation user.</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Identity/RegisterCorporation
+        ///     {
+        ///        "username": "corpTest",
+        ///        "email": "corp@test.com",
+        ///        "password": "test123",
+        ///        "nameofcorporation": "Test",
+        ///        "foundedat": "03-08-1998"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the created Corporation user.</response>
+        /// <response code="400">Returns bad request if some of required information is not sent or is not valid.</response>
         [HttpPost]
         [Route(nameof(RegisterCorporation))]
         [Authorize(Roles = "Member, Admin")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> RegisterCorporation(RegisterCorporationRequestModel model)
         {
             var corporation = new User
@@ -98,7 +143,23 @@ namespace TheSocialBaz.Server.Controllers
             return BadRequest(result.Errors);
         }
 
-
+        /// <summary>
+        /// Login for users.
+        /// </summary>
+        /// <param name="model">LoginRequestModel is a model needed for the registration.</param>
+        /// <returns>Returns a token.</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Identity/Login
+        ///     {
+        ///        "username": "Username",
+        ///        "password": "Password123"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns a token for a user if the user credentials are valid.</response>
+        /// <response code="400">Returns bad request if user credentials are not valid.</response>
         [HttpPost]
         [Route(nameof(Login))]
         [ProducesResponseType(StatusCodes.Status200OK)]

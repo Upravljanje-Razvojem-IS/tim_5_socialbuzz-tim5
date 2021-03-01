@@ -138,11 +138,5 @@ C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authoriz
 C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\obj\Debug\net5.0\ref\TheSocialBaz.Server.dll
 C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\obj\Debug\net5.0\TheSocialBaz.Server.pdb
 C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\obj\Debug\net5.0\TheSocialBaz.Server.genruntimeconfig.cache
-C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\FluentValidation.dll
-C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
-C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\Microsoft.AspNetCore.MiddlewareAnalysis.dll
-C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\Microsoft.Extensions.DiagnosticAdapter.dll
-C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\Newtonsoft.Json.dll
-C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
-C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\Ocelot.dll
+C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\TheSocialBaz.Server.xml
+C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\obj\Debug\net5.0\TheSocialBaz.Server.xml

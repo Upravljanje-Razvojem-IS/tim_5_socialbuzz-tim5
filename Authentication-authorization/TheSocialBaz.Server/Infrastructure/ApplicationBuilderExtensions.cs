@@ -13,9 +13,10 @@ namespace TheSocialBaz.Server.Infrastructure
                 .UseSwagger()
                 .UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentification and Authorization API");
                     c.RoutePrefix = string.Empty;
                 });
+
         }
         public static void ApplyMigrations(this IApplicationBuilder app)
         {
@@ -25,6 +26,8 @@ namespace TheSocialBaz.Server.Infrastructure
 
             dbContext.Database.Migrate();
         }
+
+        
 
     }
 }

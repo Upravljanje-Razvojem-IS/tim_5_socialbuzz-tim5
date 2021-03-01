@@ -16,5 +16,6 @@ namespace TheSocialBaz.Server.Infrastructure
             services.Configure<AppSettings>(appSettingsConfiguration);
             return appSettingsConfiguration.Get<AppSettings>();
         }
+        
     }
 }

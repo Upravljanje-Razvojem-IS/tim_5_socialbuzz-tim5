@@ -4,15 +4,15 @@ namespace TheSocialBaz.Server.Models.Identity
 {
     public class RegisterCorporationRequestModel
     {
-        [Required]
+        [Required(ErrorMessage = "Username is required.")]
         public string Username { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Name of corporation is required.")]
         public string NameOfCorporation { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Date when is the corporation founded is required.")]
         public string FoundedAt { get; set; }
     }
 }
