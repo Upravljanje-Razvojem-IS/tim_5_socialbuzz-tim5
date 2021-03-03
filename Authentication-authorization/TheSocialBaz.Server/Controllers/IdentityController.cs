@@ -34,7 +34,7 @@ namespace TheSocialBaz.Server.Controllers
         /// </summary>
         /// <param name="model">RegisterUserRequest is a model needed for the registration.</param>
         /// <returns>Returns the created Member user.</returns>
-        ///         /// <remarks>
+        /// <remarks>
         /// Sample request:
         ///
         ///     POST /Identity/Register
@@ -47,6 +47,7 @@ namespace TheSocialBaz.Server.Controllers
         ///        "gender": "Male",
         ///        "phonenumber": "061-123-45-56"
         ///     }
+        ///     --header Content-Type application/json
         ///
         /// </remarks>
         /// <response code="201">Returns the created Member user.</response>
@@ -72,7 +73,7 @@ namespace TheSocialBaz.Server.Controllers
                 await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Name, model.Name.ToString()));
                 await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Surname, model.Surname.ToString()));
                 await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Email, model.Email.ToString()));
-                await _userManager.AddClaimAsync(user, new Claim("Claim.JoinedAt", user.ToString()));
+                await _userManager.AddClaimAsync(user, new Claim("Claim.JoinedAt", user.CreatedAt.ToString()));
                 await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Member"));
 
                 // Non required properties
@@ -105,6 +106,7 @@ namespace TheSocialBaz.Server.Controllers
         ///        "nameofcorporation": "Test",
         ///        "foundedat": "03-08-1998"
         ///     }
+        ///     --header Authorization: "Token of Member user"
         ///
         /// </remarks>
         /// <response code="201">Returns the created Corporation user.</response>
@@ -147,7 +149,7 @@ namespace TheSocialBaz.Server.Controllers
         /// Login for users.
         /// </summary>
         /// <param name="model">LoginRequestModel is a model needed for the registration.</param>
-        /// <returns>Returns a token.</returns>
+        /// <returns>Returns a JWT token.</returns>
         /// <remarks>
         /// Sample request:
         ///
@@ -156,6 +158,7 @@ namespace TheSocialBaz.Server.Controllers
         ///        "username": "Username",
         ///        "password": "Password123"
         ///     }
+        ///     --header Content-type application/json
         ///
         /// </remarks>
         /// <response code="200">Returns a token for a user if the user credentials are valid.</response>

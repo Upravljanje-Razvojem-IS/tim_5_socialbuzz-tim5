@@ -1,4 +1,4 @@
-﻿namespace TheSocialBaz.Server
+﻿namespace APIGateway
 {
     public class AppSettings
     {
