@@ -140,3 +140,4 @@ C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authoriz
 C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\obj\Debug\net5.0\TheSocialBaz.Server.genruntimeconfig.cache
 C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\TheSocialBaz.Server.xml
 C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\obj\Debug\net5.0\TheSocialBaz.Server.xml
+C:\Users\Sebas\source\repos\Authentication-authorization\Authentication-authorization\TheSocialBaz.Server\bin\Debug\net5.0\PostmanCollection\Authorization.postman_collection.json
