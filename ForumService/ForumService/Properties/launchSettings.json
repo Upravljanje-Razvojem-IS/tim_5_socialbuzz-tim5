@@ -3,9 +3,13 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/ForumService",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:58630",
-      "sslPort": 44305
+      "applicationUrl": "http://localhost:52351",
+      "sslPort": 44378
     }
   },
   "profiles": {
@@ -15,7 +19,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:44300"
     },
     "ForumService": {
       "commandName": "Project",

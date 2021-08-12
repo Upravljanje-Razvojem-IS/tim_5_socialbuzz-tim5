@@ -44,7 +44,7 @@ namespace ForumService
                 c.SwaggerDoc("ForumApiSpecification",
                     new OpenApiInfo 
                     { 
-                        Title = "Forum messaging", 
+                        Title = "Forum messaging API", 
                         Version = "v1" ,
                         Description = "API koji omogucava javnu komunikaciju izmedju korisnika u posebnim, forum grupama.",
                         Contact = new OpenApiContact{ 
@@ -66,10 +66,7 @@ namespace ForumService
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(setupAction => {
-                    setupAction.SwaggerEndpoint("/swagger/RatingsApiSpecification/swagger.json", "Forum messaging API");
-                    setupAction.RoutePrefix = ""; //odmah mi otvori swagger dokumentaciju kada pokrenem servis u browseru
-                });
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/ForumApiSpecification/swagger.json", "Forum messaging API"));
             }
             else
             {
