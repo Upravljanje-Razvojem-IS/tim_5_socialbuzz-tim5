@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ForumService.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace ForumService
 {
@@ -27,11 +30,33 @@ namespace ForumService
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(setup =>
+            {
+                setup.ReturnHttpNotAcceptable = true;
+            }).AddXmlDataContractSerializerFormatters(); //podrska za application/xml
+
+            services.AddDbContext<DataContext>(opt => {
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ForumService", Version = "v1" });
+                c.SwaggerDoc("ForumApiSpecification",
+                    new OpenApiInfo 
+                    { 
+                        Title = "Forum messaging", 
+                        Version = "v1" ,
+                        Description = "API koji omogucava javnu komunikaciju izmedju korisnika u posebnim, forum grupama.",
+                        Contact = new OpenApiContact{ 
+                            Name = "Sara Lazarevic",
+                            Email = "sara.lola.2@gmail.com"
+                        },
+                        License = new OpenApiLicense { 
+                            Name = "FTN licenca"
+                        }
+                    });
             });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +66,21 @@ namespace ForumService
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ForumService v1"));
+                app.UseSwaggerUI(setupAction => {
+                    setupAction.SwaggerEndpoint("/swagger/RatingsApiSpecification/swagger.json", "Forum messaging API");
+                    setupAction.RoutePrefix = ""; //odmah mi otvori swagger dokumentaciju kada pokrenem servis u browseru
+                });
+            }
+            else
+            {
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("There has been error. Please try later!");
+                    });
+                });
             }
 
             app.UseHttpsRedirection();
