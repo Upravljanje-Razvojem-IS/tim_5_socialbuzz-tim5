@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ForumService.Repository.FollowingMock
 {
-    interface IFollowingMockRepository
+    public interface IFollowingMockRepository
     {
         List<int> GetFollowedUsers(int userId);
 
