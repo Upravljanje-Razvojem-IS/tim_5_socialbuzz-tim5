@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace ForumService.Service
 {
-    public class ForumService : IForumService
+    public class ForumsService : IForumService
     {
         private readonly IForumRepository _forumRepository;
         private readonly IUserMockRepository _userMockRepository;
         private readonly IMapper mapper;
 
-        public ForumService(IForumRepository forumRepository, IUserMockRepository userMockRepository, IMapper mapper)
+        public ForumsService(IForumRepository forumRepository, IUserMockRepository userMockRepository, IMapper mapper)
         {
             this._forumRepository = forumRepository;
             this._userMockRepository = userMockRepository;

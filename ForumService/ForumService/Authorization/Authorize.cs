@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ForumService.Authorization
 {
-    public class Authorization : IAuthorization
+    public class Authorize : IAuthorization
     {
         private readonly IConfiguration configuration;
 
-        public Authorization(IConfiguration configuration)
+        public Authorize(IConfiguration configuration)
         {
             this.configuration = configuration;
         }

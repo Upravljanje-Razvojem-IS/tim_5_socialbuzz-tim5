@@ -30,7 +30,7 @@ namespace ForumService.Repository
 
         public List<ForumMessage> GetAllForumMessages()
         {
-            throw new NotImplementedException();
+            return contextDB.ForumMessages.ToList();
         }
 
         public List<ForumMessage> GetForumMessagesByForumID(int forumId)

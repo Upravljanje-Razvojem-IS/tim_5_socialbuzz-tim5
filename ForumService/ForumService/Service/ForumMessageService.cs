@@ -26,6 +26,11 @@ namespace ForumService.Service
         public ForumMessageDTO CreateForumMessage(ForumMessageDTO newForumMessage)
         {
             ForumMessage entity = mapper.Map<ForumMessage>(newForumMessage);
+            var user = _userMockRepository.GetUserByID(entity.SenderID);
+
+            if (user == null) {
+                throw new NotFoundException("There is no user with that ID!");
+            }
 
             try
             {

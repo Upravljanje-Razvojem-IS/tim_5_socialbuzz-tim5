@@ -14,6 +14,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using ForumService.Service;
+using ForumService.Repository;
+using ForumService.Repository.UserMock;
+using ForumService.Logger;
+using ForumService.Authorization;
+using System.Reflection;
+using System.IO;
 
 namespace ForumService
 {
@@ -55,8 +62,22 @@ namespace ForumService
                             Name = "FTN licenca"
                         }
                     });
+
+                var xmlComments = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml"; //refleksija
+                var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments); //spaja vise stringova
+
+                c.IncludeXmlComments(xmlCommentsPath); //da bi swagger mogao citati xml komenatare
             });
-           
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<IAuthorization, Authorize>();
+            services.AddScoped<IForumService, ForumsService>();
+            services.AddScoped<IForumMessageService, ForumMessageService>();
+            services.AddScoped<IForumRepository, ForumRepository>();
+            services.AddScoped<IForumMessageRepository, ForumMessageRepository>();
+            services.AddScoped<IUserMockRepository, UserMockRepository>();
+            services.AddSingleton(typeof(ILoggerRepository<>), typeof(LoggerRepository<>));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
