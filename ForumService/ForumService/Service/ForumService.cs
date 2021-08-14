@@ -87,7 +87,7 @@ namespace ForumService.Service
             var forums = _forumRepository.GetForumsByOwner(ownerID);
 
             if (forums == null || forums.Count == 0) {
-                throw new ErrorOccurException("This user has not yet given any rate...");
+                throw new ErrorOccurException("This user has not yet created any forum...");
             }
 
             return mapper.Map<List<ForumDTO>>(forums);
