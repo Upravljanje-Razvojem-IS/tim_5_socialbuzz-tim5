@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ForumService.Authorization;
 using ForumService.DTO;
+using ForumService.Entity;
 using ForumService.Logger;
 using ForumService.Service;
 using Microsoft.AspNetCore.Http;
@@ -162,7 +163,7 @@ namespace ForumService.Controllers
         /// <returns></returns>
         /// <remarks>
         /// POST 'https://localhost:44378/api/forum/' \
-        /// Primer zahteva za uspesno dodavanje nove ocene \
+        /// Primer zahteva za uspesno dodavanje novog foruma \
         ///  --header 'Authorization: Bearer URIS2021' \
         /// {     \
         ///  "forumID": 3, \
@@ -214,7 +215,7 @@ namespace ForumService.Controllers
         /// </summary>
         /// <returns></returns>
         /// <remarks>
-        /// Primer zahteva za brisanje ocene
+        /// Primer zahteva za brisanje foruma
         /// DELETE 'https://localhost:44378/api/forum/forumID' \
         ///     --header 'Authorization: Bearer URIS2021' \
         ///     --param  'forumID = 3'
@@ -254,6 +255,62 @@ namespace ForumService.Controllers
                 }
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting forum!");
+            }
+        }
+
+        /// <summary>
+        /// Modifikacija postojeceg foruma
+        /// </summary>
+        /// <param name="key">Authorization Header Bearer Key Value</param>
+        /// <param name="updatedForum">Model foruma koji se modifikuje</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za azuriranje foruma  \
+        /// PUT 'https://localhost:44378/api/forum/' \
+        ///     --header 'Authorization: Bearer URIS2021'  \
+        /// {     \
+        ///  "forumID": 4, \
+        ///  "userID": 3, \
+        ///  "forumName": "MakeupForum", \
+        ///  "forumDescription": "Forum about makeup" ,\
+        ///  "logoLink": "linktologo", \
+        ///  "isOpen": true \
+        /// } \
+        /// </remarks>
+        /// <response code="200">Vraća potvrdu da je uspesno izmenjen forum.</response>
+        /// <response code="401">Neuspesna autorizacija korisnika.</response>
+        /// <response code="404">Ne postoji forum koji korisnik pokusava da modifikuje.</response>
+        /// <response code="500">Greska na serveru.</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Consumes("application/json")]
+        [HttpPut]
+        public IActionResult UpdateForum([FromHeader] string key, [FromBody] ForumDTO updatedForum)
+        {
+            if (!_authorizationService.AuthorizeUser(key))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
+            }
+
+            var newForum = mapper.Map<Forum>(updatedForum);
+
+            try
+            {
+                _forumService.UpdateForum(updatedForum);
+                var res = mapper.Map<Forum>(newForum);
+
+                return Ok(res);
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error updating forum: " + ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+
             }
         }
     }

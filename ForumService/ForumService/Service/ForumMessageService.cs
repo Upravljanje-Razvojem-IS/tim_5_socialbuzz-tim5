@@ -140,6 +140,15 @@ namespace ForumService.Service
                 throw new ErrorOccurException("Forum message ID can not be changed!");
             }
 
+            if (newForumMess.SenderID != oldForumMess.SenderID) {
+                throw new ErrorOccurException("Forum message sender ID can not be changed!");
+            }
+
+            if (newForumMess.Title != oldForumMess.Title)
+            {
+                throw new ErrorOccurException("Forum message title can not be changed!");
+            }
+
             try
             {
                 newForumMess.SenderID = oldForumMess.SenderID;

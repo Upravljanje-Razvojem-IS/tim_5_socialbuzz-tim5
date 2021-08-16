@@ -106,6 +106,7 @@ namespace ForumService.Service
                 throw new ErrorOccurException("Forum ID can not be changed!");
             }
 
+          
             try
             {
                 newForum.UserID = oldForum.UserID;
