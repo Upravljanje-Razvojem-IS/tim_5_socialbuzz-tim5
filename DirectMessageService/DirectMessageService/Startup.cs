@@ -5,6 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using DirectMessageService.Entity;
+using DirectMessageService.Logger;
+using DirectMessageService.Repository;
+using DirectMessageService.Repository.BlockMock;
+using DirectMessageService.Repository.FollowingMock;
+using DirectMessageService.Repository.UserMock;
+using DirectMessageService.Service;
+using ForumService.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -63,9 +70,18 @@ namespace DirectMessageService
                 var xmlComments = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml"; //refleksija
                 var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments); //spaja vise stringova
 
-                c.IncludeXmlComments(xmlCommentsPath); //da bi swagger mogao citati xml komenatare
+                c.IncludeXmlComments(xmlCommentsPath);
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<IUserMockRepository, UserMockRepository>();
+            services.AddScoped<IFollowingMockRepository, FollowingMockRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IBlockMockRepository, BlockMockRepository>();
+            services.AddScoped<IAuthorization, Authorize>();
+
+            services.AddSingleton(typeof(ILoggerRepository<>), typeof(LoggerRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

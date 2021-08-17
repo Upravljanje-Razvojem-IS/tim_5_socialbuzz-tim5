@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ForumService.Repository.UserMock
+namespace DirectMessageService.Repository.UserMock
 {
     public class UserMockRepository : IUserMockRepository
     {

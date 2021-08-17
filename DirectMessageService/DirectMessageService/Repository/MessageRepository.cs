@@ -1,6 +1,6 @@
 ﻿using DirectMessageService.Entity;
-using ForumService.Repository.BlockMock;
-using ForumService.Repository.FollowingMock;
+using DirectMessageService.Repository.BlockMock;
+using DirectMessageService.Repository.FollowingMock;
 using System;
 using System.Collections.Generic;
 using System.Linq;

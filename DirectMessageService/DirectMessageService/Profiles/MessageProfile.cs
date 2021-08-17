@@ -13,7 +13,11 @@ namespace DirectMessageService.Profiles
         public MessageProfile()
         {
             CreateMap<Message, MessageDTO>();
+            CreateMap<Message, MessageCreateDTO>();
+            CreateMap<MessageCreateDTO, Message>();
             CreateMap<Message, Message>();
+            CreateMap<MessageDTO, MessageCreateDTO>();
+            CreateMap<MessageCreateDTO, MessageDTO>();
             CreateMap<MessageDTO, Message>();
         }
     }

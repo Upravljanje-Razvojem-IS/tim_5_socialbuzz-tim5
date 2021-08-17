@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ForumService.Authorization
 {
-    public class Authorization : IAuthorization
+    public class Authorize : IAuthorization
     {
         private readonly IConfiguration configuration;
 
-        public Authorization(IConfiguration configuration)
+        public Authorize(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
@@ -29,7 +29,7 @@ namespace ForumService.Authorization
             var storedKey4 = configuration.GetValue<string>("Authorization:Secret3");
             var storedKey5 = configuration.GetValue<string>("Authorization:Secret4");
 
-            List<String> list = new List<String>;
+            List<String> list = new List<String>();
             list.Add(storedKey1);
             list.Add(storedKey2);
             list.Add(storedKey3);
