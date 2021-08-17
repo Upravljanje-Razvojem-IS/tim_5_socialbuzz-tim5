@@ -56,7 +56,7 @@ namespace DirectMessageService.Controllers
         [HttpHead]
         public ActionResult<List<MessageDTO>> GetAllMessages([FromHeader] string key)
         {
-            if (!_authorizationService.AuthorizeUser(key))
+            if (!key.Equals("Bearer URIS2021"))
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
             }
@@ -72,5 +72,280 @@ namespace DirectMessageService.Controllers
 
             return Ok(mess);
         }
+
+        /// <summary>
+        /// Vraca poruke na osnovu prosledjenog ID-a.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva Get Message By ID
+        /// GET 'https://localhost:44378/api/message/messageID/messageID' \
+        ///     --header 'Authorization: Bearer URIS2021'
+        /// </remarks>
+        /// <param name="key">Authorization Header Bearer Key Value</param>
+        /// <param name="messageID">ID poruke</param>
+        /// <response code="200">Uspesno vracena poruka na osnovu ID-a.</response>
+        /// <response code="401">Neuspesna autorizacija korisnika.</response>
+        /// <response code="404">Nije pronadjen nijedna poruka sa zadatim ID-jem.</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("messageID/{messageID}")]
+        public ActionResult<MessageDTO> GetMessageByID([FromHeader] string key, int messageID)
+        {
+            if (!key.Equals("Bearer URIS2021"))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
+            }
+
+            try
+            {
+                var mess = _messageService.GetMessageByID(messageID);
+
+                logger.LogInformation("Successfully returned message by messageID.");
+
+                return Ok(mess);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Vraca poruke na osnovu prosledjenog ID-a posiljaoca.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva Get Message By Sender
+        /// GET 'https://localhost:44378/api/message/sender/senderID' \
+        ///     --header 'Authorization: Bearer URIS2021'
+        /// </remarks>
+        /// <param name="key">Authorization Header Bearer Key Value</param>
+        /// <param name="senderID">ID posiljaoca</param>
+        /// <response code="200">Uspesno vracena poruka na osnovu ID-a posiljaoca.</response>
+        /// <response code="401">Neuspesna autorizacija korisnika.</response>
+        /// <response code="404">Nije pronadjen nijedna poruka sa zadatim ID-jem.</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("sender/{senderID}")]
+        public ActionResult<MessageDTO> GetMessagesBySender([FromHeader] string key, int senderID)
+        {
+            if (!key.Equals("Bearer URIS2021"))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
+            }
+
+            try
+            {
+                var mess = _messageService.GetMessagesBySender(senderID);
+
+                logger.LogInformation("Successfully returned messages by senderID.");
+
+                return Ok(mess);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Vraca poruke na osnovu prosledjenog ID-a primaoca.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva Get Message By Receiver
+        /// GET 'https://localhost:44378/api/message/receiver/receiverID' \
+        ///     --header 'Authorization: Bearer URIS2021'
+        /// </remarks>
+        /// <param name="key">Authorization Header Bearer Key Value</param>
+        /// <param name="receiverID">ID primaoca</param>
+        /// <response code="200">Uspesno vracena poruka na osnovu ID-a primaoca.</response>
+        /// <response code="401">Neuspesna autorizacija korisnika.</response>
+        /// <response code="404">Nije pronadjen nijedna poruka sa zadatim ID-jem.</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("receiver/{receiverID}")]
+        public ActionResult<MessageDTO> GetMessagesByReceiver([FromHeader] string key, int receiverID)
+        {
+            if (!key.Equals("Bearer URIS2021"))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
+            }
+
+            try
+            {
+                var mess = _messageService.GetMessagesByReceiver(receiverID);
+
+                logger.LogInformation("Successfully returned messages by receiverID.");
+
+                return Ok(mess);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Vraca poruke na osnovu prosledjenog ID-a primaoca.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva Get Message By Receiver
+        /// GET 'https://localhost:44378/api/message/receiver/receiverID' \
+        ///     --header 'Authorization: Bearer URIS2021'
+        ///     --logovanje korisnika - 'Authorization: Bearer 1' , 'Authorization: Bearer 2', 'Authorization: Bearer 3', 'Authorization: Bearer 4'
+        /// </remarks>
+        /// <param name="key">Authorization Header Bearer Key Value</param>
+        /// <response code="200">Uspesno vracena poruka na osnovu ID-a primaoca.</response>
+        /// <response code="401">Neuspesna autorizacija korisnika.</response>
+        /// <response code="404">Nije pronadjen nijedna poruka sa zadatim ID-jem.</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("user")]
+        public ActionResult<MessageDTO> GetMessagesForUser([FromHeader] string key)
+        {
+            if (!_authorizationService.AuthorizeUser(key))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
+            }
+            var keyOnly = key.Substring(key.IndexOf("Bearer") + 7);
+            int userID = Convert.ToInt32(keyOnly);
+
+            try
+            {
+                var mess = _messageService.GetMessagesForUser(userID);
+
+                logger.LogInformation("Successfully returned messages for user.");
+
+                return Ok(mess);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Slanje nove poruke.
+        /// </summary>
+        /// <param name="key">Authorization Header Bearer Key Value</param>
+        /// <param name="newMessage">Parametri poruke koja se kreira</param>
+        /// 
+        /// <returns></returns>
+        /// <remarks>
+        /// POST 'https://localhost:44378/api/message/' \
+        /// Primer zahteva za uspesno slanje poruke \
+        ///     --logovanje korisnika - 'Authorization: Bearer 1' , 'Authorization: Bearer 2', 'Authorization: Bearer 3', 'Authorization: Bearer 4'
+        ///  
+        /// {     \
+        ///  "receiverID": 3, \
+        ///  "Body": "Ovo je moja nova poruka" \
+        /// } \
+        /// </remarks>
+        /// <response code="201">Vraca poslatu poruku.</response>
+        /// <response code="401">Neuspesna autorizacija korisnika.</response>
+        /// <response code="500">Greska na serveru.</response>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Consumes("application/json")]
+        [HttpPost]
+        public ActionResult<MessageDTO> CreateForum([FromHeader] string key, [FromBody] MessageCreateDTO newMessage)
+        {
+            if (!_authorizationService.AuthorizeUser(key))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
+            }
+
+            try
+            {
+                var keyOnly = key.Substring(key.IndexOf("Bearer") + 7);
+                int userID = Convert.ToInt32(keyOnly);
+                var created = _messageService.CreateMessage(newMessage,userID);
+
+
+                string location = linkGenerator.GetPathByAction("GetMessageByID", "Message", new { messageID = created.MessageID });
+
+                return Created(location, created);
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error sending message: " + ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Vrši brisanje poruke na osnovu ID-ja poruke. 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Svaki korisnik moze da obrise samo onu poruku koju je on poslao!
+        /// Primer zahteva za brisanje foruma
+        /// DELETE 'https://localhost:44378/api/message/messageID' \
+        ///     --header 'Authorization: Bearer URIS2021' \
+        ///     --param  'messageID = 3'
+        /// </remarks>
+        /// <param name="key">Authorization Header Bearer Key Value</param>
+        /// <param name="messageID">ID poruke koja se brise</param>
+        /// <response code="204">Uspesno obrisana poruka.</response>
+        /// <response code="401" > Neuspesna autorizacija korisnika.</response>
+        /// <response code="404">Korisnik pokusava da obrise nepostojecu poruku.</response>
+        /// <response code="500">Greska na serveru.</response>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpDelete("{messageID}")]
+        public IActionResult DeleteMessage([FromHeader] string key, int messageID)
+        {
+            if (!_authorizationService.AuthorizeUser(key))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
+            }
+
+            var keyOnly = key.Substring(key.IndexOf("Bearer") + 7);
+            int userID = Convert.ToInt32(keyOnly);
+
+            var message = _messageService.GetMessageByID(messageID);
+
+            if (message.SenderID != userID) {
+                return StatusCode(StatusCodes.Status401Unauthorized, "You can not delete message you did not send!");
+            }
+
+            try
+            {
+                _messageService.DeleteMessage(messageID);
+
+                return NoContent();
+            }
+
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting message: " + ex.Message);
+
+                if (ex.Message.Contains("There is no message with that ID!"))
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+                }
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting forum!");
+            }
+        }
+
     }
 }
