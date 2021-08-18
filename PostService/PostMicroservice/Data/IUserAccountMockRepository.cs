@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using PostMicroservice.Entities;
+
 
 namespace PostMicroservice.Data
 {
-    interface IUserAccountMockRepository
+    interface IUserAccountMockRepository 
     {
+        UserAccountDTO GetAccountByUserAccountID(int userAccountID);
+        UserAccountDTO GetAccountByUserName(string userName);
     }
+
 }
