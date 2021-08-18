@@ -51,6 +51,7 @@ namespace DirectMessageService.Service
                 throw new BlockingException("You have blocked this user and you can not send him message.");
             }
 
+
             if (!_messageRepository.CheckDoIFollowUser(senderID, entity.ReceiverID))
             {
                 throw new BlockingException("You are not following this user and you can not send him message.");

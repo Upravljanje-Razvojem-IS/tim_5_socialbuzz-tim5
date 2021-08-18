@@ -17,17 +17,17 @@ namespace DirectMessageService.Repository.BlockMock
 
         private void FillData()
         {
-            BlockMockDTO block = new BlockMockDTO();//user 1 blokirao 2
+            BlockMockDTO block = new();//user 1 blokirao 4
             block.BlockingID = Guid.Parse("c48dfbaf-9710-4fa6-8773-4c778ef2d885");
             block.BlockerID = 1;
-            block.BlockedID = 2;
+            block.BlockedID = 4;
 
-            //BlockedUsers.Add(block);
+            BlockedUsers.Add(block);
         }
 
         public List<int> GetBlockedUsers(int userId)
         {
-            List<int> blockedUsers = new List<int>();
+            List<int> blockedUsers = new();
 
             var query = from l1 in BlockedUsers
                         select l1;

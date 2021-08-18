@@ -25,15 +25,15 @@ namespace DirectMessageService.Controllers
         private readonly ILoggerRepository<MessageController> logger;
         private readonly LinkGenerator linkGenerator;
         private readonly IAuthorization _authorizationService;
-        private readonly IMapper mapper;
+        
 
         public MessageController(IMessageService messageService, ILoggerRepository<MessageController> logger, 
-            LinkGenerator linkGenerator, IAuthorization authorization, IMapper mapper) {
+            LinkGenerator linkGenerator, IAuthorization authorization) {
             this._messageService = messageService;
             this.logger = logger;
             this.linkGenerator = linkGenerator;
             this._authorizationService = authorization;
-            this.mapper = mapper;
+            
         }
 
         /// <summary>
@@ -194,19 +194,18 @@ namespace DirectMessageService.Controllers
         }
 
         /// <summary>
-        /// Vraca poruke na osnovu prosledjenog ID-a primaoca.
+        /// Vraca sve poruke za odredjenog korisnika.
         /// </summary>
         /// <returns></returns>
         /// <remarks>
         /// Primer zahteva Get Message By Receiver
         /// GET 'https://localhost:44378/api/message/receiver/receiverID' \
-        ///     --header 'Authorization: Bearer URIS2021'
         ///     --logovanje korisnika - 'Authorization: Bearer 1' , 'Authorization: Bearer 2', 'Authorization: Bearer 3', 'Authorization: Bearer 4'
         /// </remarks>
         /// <param name="key">Authorization Header Bearer Key Value</param>
         /// <response code="200">Uspesno vracena poruka na osnovu ID-a primaoca.</response>
         /// <response code="401">Neuspesna autorizacija korisnika.</response>
-        /// <response code="404">Nije pronadjen nijedna poruka sa zadatim ID-jem.</response>
+        /// <response code="404">Nije pronadjena nijedna poruka sa zadatim ID-jem.</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -217,12 +216,16 @@ namespace DirectMessageService.Controllers
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
             }
-            var keyOnly = key.Substring(key.IndexOf("Bearer") + 7);
+            string keyOnly = key[(key.IndexOf("Bearer") + 7)..];
             int userID = Convert.ToInt32(keyOnly);
 
             try
             {
                 var mess = _messageService.GetMessagesForUser(userID);
+
+                if (!mess.Any()) {
+                    return StatusCode(StatusCodes.Status200OK, "User still has no messages!");
+                }
 
                 logger.LogInformation("Successfully returned messages for user.");
 
@@ -250,7 +253,10 @@ namespace DirectMessageService.Controllers
         /// {     \
         ///  "receiverID": 3, \
         ///  "Body": "Ovo je moja nova poruka" \
-        /// } \
+        /// } 
+        /// 
+        /// Ako se uloguje korisnik 1 i pokusa da posalje korisniku 4 poruku, nece biti dozvoljeno jer je blokiran.
+        /// Ako se uloguje korisnik 3 i pokusa da posalje korusniku 1 poruku, nece biti dozvoljeno jer korisnik 3 ne prati korisnika 1.
         /// </remarks>
         /// <response code="201">Vraca poslatu poruku.</response>
         /// <response code="401">Neuspesna autorizacija korisnika.</response>
@@ -261,7 +267,7 @@ namespace DirectMessageService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes("application/json")]
         [HttpPost]
-        public ActionResult<MessageDTO> CreateForum([FromHeader] string key, [FromBody] MessageCreateDTO newMessage)
+        public ActionResult<MessageDTO> CreateMessage([FromHeader] string key, [FromBody] MessageCreateDTO newMessage)
         {
             if (!_authorizationService.AuthorizeUser(key))
             {
@@ -270,10 +276,16 @@ namespace DirectMessageService.Controllers
 
             try
             {
-                var keyOnly = key.Substring(key.IndexOf("Bearer") + 7);
+                string keyOnly = key[(key.IndexOf("Bearer") + 7)..];
                 int userID = Convert.ToInt32(keyOnly);
-                var created = _messageService.CreateMessage(newMessage,userID);
 
+                if (newMessage.ReceiverID == userID) {
+                
+                    return StatusCode(StatusCodes.Status400BadRequest, "You can not send a message to yourself!");
+
+                }
+
+                var created = _messageService.CreateMessage(newMessage,userID);
 
                 string location = linkGenerator.GetPathByAction("GetMessageByID", "Message", new { messageID = created.MessageID });
 
@@ -295,10 +307,11 @@ namespace DirectMessageService.Controllers
         /// <returns></returns>
         /// <remarks>
         /// Svaki korisnik moze da obrise samo onu poruku koju je on poslao!
+        /// 
         /// Primer zahteva za brisanje foruma
         /// DELETE 'https://localhost:44378/api/message/messageID' \
         ///     --header 'Authorization: Bearer URIS2021' \
-        ///     --param  'messageID = 3'
+        ///     --param  'messageID = 5'
         /// </remarks>
         /// <param name="key">Authorization Header Bearer Key Value</param>
         /// <param name="messageID">ID poruke koja se brise</param>
@@ -318,7 +331,7 @@ namespace DirectMessageService.Controllers
                 return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
             }
 
-            var keyOnly = key.Substring(key.IndexOf("Bearer") + 7);
+            string keyOnly = key[(key.IndexOf("Bearer") + 7)..];
             int userID = Convert.ToInt32(keyOnly);
 
             var message = _messageService.GetMessageByID(messageID);
@@ -345,6 +358,23 @@ namespace DirectMessageService.Controllers
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting forum!");
             }
+        }
+
+        /// <summary>
+        /// Prikaz HTTP metoda koje korisnik moze da pozove.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za prikaz dostupnih HTTP metoda
+        /// OPTIONS 'https://localhost:44378/api/message/' \
+        /// </remarks>
+        /// <response code="200">Uspesno prikazane dostupne metode.</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpOptions]
+        public IActionResult GetReactionsOpstions()
+        {
+            Response.Headers.Add("Allow", " GET,  POST,  DELETE");
+            return Ok();
         }
 
     }

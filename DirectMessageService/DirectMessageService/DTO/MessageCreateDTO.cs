@@ -7,7 +7,6 @@ namespace DirectMessageService.DTO
 {
     public class MessageCreateDTO
     {
-        public int MessageID { get; set; }
         public int ReceiverID { get; set; }
         public String Body { get; set; }
     }

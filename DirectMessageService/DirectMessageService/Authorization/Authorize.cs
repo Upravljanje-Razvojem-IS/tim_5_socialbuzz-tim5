@@ -22,14 +22,14 @@ namespace ForumService.Authorization
                 return false;
             }
 
-            var keyOnly = key.Substring(key.IndexOf("Bearer") + 7);
+            string keyOnly = key[(key.IndexOf("Bearer") + 7)..];
             var storedKey1 = configuration.GetValue<string>("Authorization:Secret");
-            var storedKey2 = configuration.GetValue<string>("Authorization:Secret1");
-            var storedKey3 = configuration.GetValue<string>("Authorization:Secret2");
-            var storedKey4 = configuration.GetValue<string>("Authorization:Secret3");
-            var storedKey5 = configuration.GetValue<string>("Authorization:Secret4");
+            var storedKey2 = configuration.GetValue<string>("Authorization:Secret2");
+            var storedKey3 = configuration.GetValue<string>("Authorization:Secret3");
+            var storedKey4 = configuration.GetValue<string>("Authorization:Secret4");
+            var storedKey5 = configuration.GetValue<string>("Authorization:Secret5");
 
-            List<String> list = new List<String>();
+            List<String> list = new();
             list.Add(storedKey1);
             list.Add(storedKey2);
             list.Add(storedKey3);
