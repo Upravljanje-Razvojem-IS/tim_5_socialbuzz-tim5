@@ -260,7 +260,7 @@ namespace ForumService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes("application/json")]
         [HttpPost]
-        public ActionResult<ForumMessageDTO> CreateForumMessage([FromHeader] string key, [FromBody] ForumMessageDTO newForumMessage)
+        public ActionResult<ForumMessageDTO> CreateForumMessage([FromHeader] string key, [FromBody] ForumMessageCreateDTO newForumMessage)
         {
             if (!_authorizationService.AuthorizeUser(key))
             {
@@ -279,9 +279,9 @@ namespace ForumService.Controllers
                 var created = _forumMessageService.CreateForumMessage(newForumMessage);
 
 
-                string location = linkGenerator.GetPathByAction("GetForumMessageByID", "ForumMessage", new { forumMessageID = created.ForumMessageID });
+              //  string location = linkGenerator.GetPathByAction("GetForumMessageByID", "ForumMessage", new { forumMessageID = created.ForumMessageID });
 
-                return Created(location, created);
+                return created;
 
             }
             catch (Exception ex)
@@ -301,7 +301,7 @@ namespace ForumService.Controllers
         /// Primer zahteva za brisanje forum poruke
         /// DELETE 'https://localhost:44378/api/forumMessage/forumMessageID' \
         ///     --header 'Authorization: Bearer URIS2021' \
-        ///     --param  'forumMessageID = 5'
+        ///     --param  'forumMessageID = 12'
         /// </remarks>
         /// <param name="key">Authorization Header Bearer Key Value</param>
         /// <param name="forumMessageID">ID poruke koji se brise</param>
@@ -356,7 +356,7 @@ namespace ForumService.Controllers
         ///  "forumID": 1, \
         ///  "senderID": 3, \
         ///  "title": "Makeup", \
-        ///  "body": "Forum about makeup and stuff" \
+        ///  "body": "Forum about proffesional makeup" \
         /// } \
         /// </remarks>
         /// <response code="200">Vraća potvrdu da je uspesno izmenjena poruka.</response>
@@ -394,6 +394,23 @@ namespace ForumService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
 
             }
+        }
+
+        /// <summary>
+        /// Prikaz HTTP metoda koje korisnik moze da pozove.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za prikaz dostupnih HTTP metoda
+        /// OPTIONS 'https://localhost:44378/api/forumMessage/' \
+        /// </remarks>
+        /// <response code="200">Uspesno prikazane dostupne metode.</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpOptions]
+        public IActionResult GetReactionsOpstions()
+        {
+            Response.Headers.Add("Allow", " GET,  POST,  PUT,  DELETE");
+            return Ok();
         }
     }
 }

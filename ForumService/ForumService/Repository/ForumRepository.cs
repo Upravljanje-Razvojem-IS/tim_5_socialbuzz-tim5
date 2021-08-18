@@ -1,6 +1,4 @@
 ﻿using ForumService.Entity;
-using ForumService.Repository.BlockMock;
-using ForumService.Repository.FollowingMock;
 using System;
 using System.Collections.Generic;
 using System.Linq;

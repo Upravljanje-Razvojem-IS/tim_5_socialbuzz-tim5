@@ -15,7 +15,7 @@ namespace ForumService.Service
 
         List<ForumMessageDTO> GetForumMessagesBySender(int senderId);
 
-        ForumMessageDTO CreateForumMessage(ForumMessageDTO newForumMessage);
+        ForumMessageDTO CreateForumMessage(ForumMessageCreateDTO newForumMessage);
 
         void UpdateForumMessage(ForumMessageDTO updatedForumMessage);
 

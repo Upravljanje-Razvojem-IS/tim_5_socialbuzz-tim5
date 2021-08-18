@@ -14,6 +14,8 @@ namespace ForumService.Profiles
 
             CreateMap<ForumMessage, ForumMessageDTO>();
             CreateMap<ForumMessageDTO, ForumMessage>();
+            CreateMap<ForumMessageCreateDTO, ForumMessage>();
+            CreateMap<ForumMessage, ForumMessageCreateDTO>();
             CreateMap<ForumMessage, ForumMessage>();
         }
     }

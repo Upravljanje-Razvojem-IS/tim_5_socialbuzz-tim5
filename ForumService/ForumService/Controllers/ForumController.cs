@@ -166,10 +166,9 @@ namespace ForumService.Controllers
         /// Primer zahteva za uspesno dodavanje novog foruma \
         ///  --header 'Authorization: Bearer URIS2021' \
         /// {     \
-        ///  "forumID": 3, \
         ///  "userID": 3, \
-        ///  "forumName": "Makeup", \
-        ///  "forumDescription": "Forum about makeup" ,\
+        ///  "forumName": "Bitcoin", \
+        ///  "forumDescription": "Forum about bitcoins" ,\
         ///  "logoLink": "linktologo", \
         ///  "isOpen": true \
         /// } \
@@ -218,7 +217,7 @@ namespace ForumService.Controllers
         /// Primer zahteva za brisanje foruma
         /// DELETE 'https://localhost:44378/api/forum/forumID' \
         ///     --header 'Authorization: Bearer URIS2021' \
-        ///     --param  'forumID = 3'
+        ///     --param  'forumID = 4'
         /// </remarks>
         /// <param name="key">Authorization Header Bearer Key Value</param>
         /// <param name="forumID">ID foruma koji se brise</param>
@@ -312,6 +311,23 @@ namespace ForumService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
 
             }
+        }
+
+        /// <summary>
+        /// Prikaz HTTP metoda koje korisnik moze da pozove.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za prikaz dostupnih HTTP metoda
+        /// OPTIONS 'https://localhost:44378/api/forum/' \
+        /// </remarks>
+        /// <response code="200">Uspesno prikazane dostupne metode.</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpOptions]
+        public IActionResult GetReactionsOpstions()
+        {
+            Response.Headers.Add("Allow", " GET,  POST,  PUT,  DELETE");
+            return Ok();
         }
     }
 }

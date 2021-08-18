@@ -23,7 +23,7 @@ namespace ForumService.Service
             this.mapper = mapper;
         }
 
-        public ForumMessageDTO CreateForumMessage(ForumMessageDTO newForumMessage)
+        public ForumMessageDTO CreateForumMessage(ForumMessageCreateDTO newForumMessage)
         {
             ForumMessage entity = mapper.Map<ForumMessage>(newForumMessage);
             var user = _userMockRepository.GetUserByID(entity.SenderID);
