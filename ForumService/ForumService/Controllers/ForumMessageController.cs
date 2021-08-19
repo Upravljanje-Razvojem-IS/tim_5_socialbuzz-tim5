@@ -21,18 +21,16 @@ namespace ForumService.Controllers
     {
         private readonly IForumMessageService _forumMessageService;
         private readonly ILoggerRepository<ForumNessageController> logger;
-        private readonly LinkGenerator linkGenerator;
         private readonly IAuthorization _authorizationService;
         private readonly IMapper mapper;
 
         public ForumNessageController(IForumMessageService forumMessageService, ILoggerRepository<ForumNessageController> loggerRepository,
-                                IAuthorization authorization, LinkGenerator linkGenerator,IMapper mapper)
+                                IAuthorization authorization, IMapper mapper)
         {
             this._forumMessageService = forumMessageService;
             this._authorizationService = authorization;
             this.logger = loggerRepository;
             this.mapper = mapper;
-            this.linkGenerator = linkGenerator;
         }
 
         /// <summary>
@@ -277,9 +275,6 @@ namespace ForumService.Controllers
             {
 
                 var created = _forumMessageService.CreateForumMessage(newForumMessage);
-
-
-              //  string location = linkGenerator.GetPathByAction("GetForumMessageByID", "ForumMessage", new { forumMessageID = created.ForumMessageID });
 
                 return created;
 

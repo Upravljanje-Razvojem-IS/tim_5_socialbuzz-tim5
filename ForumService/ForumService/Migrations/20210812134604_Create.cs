@@ -6,11 +6,12 @@ namespace ForumService.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            // Method Up
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            // Method Down
 
         }
     }
