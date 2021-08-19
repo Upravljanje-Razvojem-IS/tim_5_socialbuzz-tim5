@@ -20,17 +20,20 @@ namespace ForumService.Controllers
     public class ForumNessageController : ControllerBase
     {
         private readonly IForumMessageService _forumMessageService;
+        private readonly IForumService _forumService;
+
         private readonly ILoggerRepository<ForumNessageController> logger;
         private readonly IAuthorization _authorizationService;
         private readonly IMapper mapper;
 
         public ForumNessageController(IForumMessageService forumMessageService, ILoggerRepository<ForumNessageController> loggerRepository,
-                                IAuthorization authorization, IMapper mapper)
+                                IAuthorization authorization, IMapper mapper, IForumService forumService)
         {
             this._forumMessageService = forumMessageService;
             this._authorizationService = authorization;
             this.logger = loggerRepository;
             this.mapper = mapper;
+            this._forumService = forumService;
         }
 
         /// <summary>
@@ -269,6 +272,10 @@ namespace ForumService.Controllers
 
             if (newmess.ForumID == 0 || newmess.Body == "" || _forumMessageService.GetForumMessagesByForumID(newmess.ForumID) == null) {
                 return StatusCode(StatusCodes.Status400BadRequest, "Unvalid message! Check your data!");
+            }
+            if (_forumService.GetForumByID(newmess.ForumID).IsOpen == false)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "Forum is closed! You can not send message!");
             }
 
             try
