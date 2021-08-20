@@ -6,11 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace PostMicroservice.FakeLogger
 {
-    interface IFakeLoggerRepository
+    public interface IFakeLoggerRepository
     {
-        public interface IFakeLoggerRepository
-        {
+       
             void Log(LogLevel logLevel, string requestId, string previousRequestId, string message, Exception exception);
-        }
+        
     }
 }

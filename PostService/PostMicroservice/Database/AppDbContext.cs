@@ -16,6 +16,6 @@ namespace PostMicroservice.Database
         }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Content> Contents { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<Picture> Images { get; set; }
     }
 }

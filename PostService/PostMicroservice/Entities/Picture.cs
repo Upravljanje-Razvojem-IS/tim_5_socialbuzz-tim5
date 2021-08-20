@@ -12,7 +12,7 @@ namespace PostMicroservice.Entities
     /// <summary>
     /// Entity class which represents image
     /// </summary>
-    public class Image
+    public class Picture
     {
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace PostMicroservice.Entities
         [Required]
         [ForeignKey("PostID")]
         public Guid PostID { get; set; }
-        public Post Post { get; set; }
+        //public Post Post { get; set; }
 
 
     }
