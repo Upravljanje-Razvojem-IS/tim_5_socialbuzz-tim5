@@ -16,6 +16,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PostMicroservice.Controllers
 {
+    /// <summary>
+    /// Picture controller to perform crud operations.
+    /// </summary>
     [ApiController]
     [Route("api/pictures")]
     [Produces("application/json", "application/xml")]
@@ -36,6 +39,14 @@ namespace PostMicroservice.Controllers
             this.contextAccessor = contextAccessor;
             this.mapper = mapper;
         }
+
+        /// <summary>
+        /// Returns list of all pictures
+        /// </summary>
+        /// <returns>List of pictures</returns>
+        /// <response code="200">Success, returns list of all pictures</response>
+        /// <response code="404">No photos found</response>
+        /// <response code="500">Server error</response>
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -57,6 +68,16 @@ namespace PostMicroservice.Controllers
 
         }
 
+
+
+        /// <summary>
+        /// Returns a photo based on the forwarded id.
+        /// </summary>
+        /// <param name="pictureId">ID of the picture</param>
+        /// <returns></returns>
+        /// <response code="200">Success, returns the specified picture</response>
+        /// <response code="404">A photo with that ID does not exist</response>
+        /// <response code="500">Server error</response>
         [HttpGet("{pictureId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -76,6 +97,38 @@ namespace PostMicroservice.Controllers
         }
 
 
+        /* /// <summary>
+         /// Add new picture.
+         /// </summary>
+         /// <param name="picture">Model of picture</param>
+          /// <remarks>
+         /// Example of request \
+         /// POST 'https://localhost:44386/api/pictures/'\
+         /// Example: \
+         /// { \
+         ///     "ImageId" : "F684F7AE-B1B6-4DFA-A01C-7EDC54C689DB", \
+         ///     "Url" : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.b92.net%2Fautomobili%2Faktuelno.php%3Fyyyy%3D2019%26mm%3D03%26nav_id%3D1512759&psig=AOvVaw1Hyozs6evTc8pGcGrpfp6l&ust=1629464928590000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCMDVx-GUvfICFQAAAAAdAAAAABAD",\
+         ///     "PostID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+         /// }
+         /// </remarks>
+         /// <response code="201">Successfully added photo.</response>
+         /// <response code="500">Server error.</response>*/
+
+        /// /// <summary>
+        /// Add new picture.
+        /// </summary>
+        /// <param name="picture">Model of picture</param>
+        /// <remarks>
+        /// Example of request \
+        /// POST /api/pictures \
+        /// {     \
+        ///     "ImageId" : "F684F7AE-B1B6-4DFA-A01C-7EDC54C689DB", \
+        ///     "Url" : "url",\
+        ///     "PostID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+        ///}
+        /// </remarks>
+        /// <response code="200">Successfully added photo.</response>
+        /// <response code="500">Server error.</response>
 
         [Consumes("application/json")]
         [HttpPost]
@@ -91,6 +144,8 @@ namespace PostMicroservice.Controllers
                 pictureRepository.CreatePicture(pictureEntity);
                 pictureRepository.SaveChanges();
                 string location = linkGenerator.GetPathByAction("GetPictureById", "Picture", new { pictureId = picture.ImageId });
+                fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Picture created", null);
+
                 return Created(location, mapper.Map<PictureConfirmationDTO>(pictureEntity));
 
 
@@ -98,11 +153,22 @@ namespace PostMicroservice.Controllers
             }
             catch (Exception ex)
             {
+                fakeLoggerRepository.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Error while adding picture", null);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
 
 
             }
         }
+
+
+        /// <summary>
+        /// Update photo with forwarded ID.
+        /// </summary>
+        /// <param name="picture">Model of the photo to be updated.</param>
+        /// <response code="200">Success, returns updated picture.</response>
+        /// <response code="400">The picture to be updated was not found.</response>
+        /// <response code="500">Server error</response>
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -118,17 +184,32 @@ namespace PostMicroservice.Controllers
                     return NotFound(); 
                 }
                 Picture pictureEntity = mapper.Map<Picture>(picture);
-                mapper.Map(pictureEntity, oldPicture);            
-                pictureRepository.SaveChanges();
+
+                mapper.Map(pictureEntity, oldPicture);             
+
+                pictureRepository.SaveChanges(); 
                 return Ok(mapper.Map<PictureDTO>(oldPicture));
+
+
+               
+
 
             }
             catch (Exception)
             {
+                fakeLoggerRepository.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Error with updating picture", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
             }
         }
 
+        /// <summary>
+        /// Deletes the photo based on the forwarded ID.
+        /// </summary>
+        /// <param name="pictureId">Picture ID</param>
+        /// <returns>Status 204 (NoContent)</returns>
+        /// <response code="204">Success, photo deleted.</response>
+        /// <response code="404">Picture to deleted, not found.</response>
+        /// <response code="500">Server error.</response>
         [HttpDelete("{pictureId}")]
         public IActionResult DeletePicture(Guid pictureId)
         {
@@ -143,13 +224,22 @@ namespace PostMicroservice.Controllers
 
                 pictureRepository.DeletePicture(pictureId);
                 pictureRepository.SaveChanges();
+                fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Picture deleted", null);
+
                 return NoContent();
             }
             catch (Exception)
             {
+                fakeLoggerRepository.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Delete picture error", null);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete error");
             }
         }
+
+        /// <summary>
+        /// Returns options for working with photos.
+        /// </summary>
+        /// <returns></returns>
         [HttpOptions]
         [AllowAnonymous] 
         public IActionResult GetPictureOptions()

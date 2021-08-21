@@ -11,7 +11,7 @@ namespace PostMicroservice.Data
         List<Picture> GetPictures();
         Picture GetPictureById(Guid pictureId);
         void CreatePicture(Picture picture);
-        void UpdatePicture(Picture oldPicture, Picture newPicture);
+        void UpdatePicture(Picture picture);
         void DeletePicture(Guid pictureId);
         bool SaveChanges();
         List<Picture> GetPicturesByPostId(Guid id);

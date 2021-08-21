@@ -124,3 +124,11 @@ C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\
 C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\obj\Debug\netcoreapp3.1\PostMicroservice.RazorTargetAssemblyInfo.cache
 C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\obj\Debug\netcoreapp3.1\PostMicroservice.csproj.CopyComplete
 C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\obj\Debug\netcoreapp3.1\PostMicroservice.genruntimeconfig.cache
+C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\obj\Debug\netcoreapp3.1\PostMicroservice.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Milica\source\repos\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\PostMicroservice.xml

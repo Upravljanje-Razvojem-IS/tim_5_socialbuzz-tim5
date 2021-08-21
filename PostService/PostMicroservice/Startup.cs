@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,14 +9,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PostMicroservice.Data;
-using PostMicroservice.Data.Content;
+using PostMicroservice.Data.ContentRepository;
 using PostMicroservice.Data.Image;
 using PostMicroservice.Data.PostRepository;
 using PostMicroservice.Database;
 using PostMicroservice.FakeLogger;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PostMicroservice
@@ -44,10 +46,33 @@ namespace PostMicroservice
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PostsDB")));
             services.AddScoped<IPictureRepository, PictureRepository>();
             services.AddHttpContextAccessor();
-          
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IContentRepository, ContentRepository>();
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("PostOpenApiSpecification",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "PostMicroservice API",
+                        Version = "1",
+                        Description = "This API allows you to create, post new, modify, view, and delete existing posts. It also allows you to add, edit, delete and display content and photos in a post.",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                        {
+                            Name = "Milica Despotović",
+                            Email = "milica.despotovic981@gmail.com",
+                            Url = new Uri("http://www.ftn.uns.ac.rs/")
+                        },
+                        License = new Microsoft.OpenApi.Models.OpenApiLicense
+                        {
+                            Name = "FTN licence",
+                            Url = new Uri("http://www.ftn.uns.ac.rs/")
+                        },
+                    });
+               var xmlComments = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml";
+                var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments);
 
-           /*  services.AddScoped<IPostRepository, PostRepository>();
-             services.AddScoped<IContentRepository, ContentRepository>();*/
+                setupAction.IncludeXmlComments(xmlCommentsPath);
+            });
 
 
             services.AddSingleton<IFakeLoggerRepository, FakeLoggerRepository>();
@@ -83,8 +108,15 @@ namespace PostMicroservice
                 endpoints.MapControllers();
             });
 
-            //app.UseSwagger();
-            //app.UseSwaggerUI();
+            app.UseSwagger();
+          
+
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint("/swagger/PostOpenApiSpecification/swagger.json", "PostMicroservice API");
+                setupAction.RoutePrefix = "";
+            });
+
         }
     }
 }

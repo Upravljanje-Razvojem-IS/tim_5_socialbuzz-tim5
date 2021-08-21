@@ -39,7 +39,7 @@ namespace PostMicroservice.Data.Image
             return context.Images.ToList();
         }
 
-        public void UpdatePicture(Picture oldPicture, Picture newPicture)
+        public void UpdatePicture(Picture picture)
         {
           
         }
