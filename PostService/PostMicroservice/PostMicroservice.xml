@@ -9,26 +9,35 @@
             Picture controller to perform crud operations.
             </summary>
         </member>
-        <member name="M:PostMicroservice.Controllers.PictureController.GetPictures">
+        <member name="M:PostMicroservice.Controllers.PictureController.GetPictures(System.Nullable{System.Guid})">
             <summary>
             Returns list of all pictures
             </summary>
-            <returns>List of pictures</returns>
-            <response code="200">Success, returns list of all pictures</response>
-            <response code="404">No photos found</response>
-            <response code="500">Server error</response>
+            <param name="postID">ID of the post</param>
+            <returns>List of all pictures</returns>
+             /// <remarks> 
+            Example of request \
+            GET 'https://localhost:44200/api/pictures' \
+            </remarks>
+            <response code="200">Success, returns list of all pictures.</response>
+            <response code="404">No pictures found.</response>
+            <response code="500">Server error.</response>
         </member>
         <member name="M:PostMicroservice.Controllers.PictureController.GetPictureById(System.Guid)">
             <summary>
-            Returns a photo based on the forwarded id.
+            Returns a picture based on the forwarded id.
             </summary>
             <param name="pictureId">ID of the picture</param>
-            <returns></returns>
-            <response code="200">Success, returns the specified picture</response>
-            <response code="404">A photo with that ID does not exist</response>
-            <response code="500">Server error</response>
+             /// <remarks>        
+            Example of request \
+            GET 'https://localhost:44200/api/pictures/' \
+                --param  'pictureId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'
+            </remarks>
+            <response code="200">Success, returns the specified picture.</response>
+            <response code="404">A photo with that ID does not exist.</response>
+            <response code="500">Server error.</response>
         </member>
-        <member name="M:PostMicroservice.Controllers.PictureController.CreatePicture(PostMicroservice.Models.PictureCreationDTO)">
+        <member name="M:PostMicroservice.Controllers.PictureController.CreatePicture(PostMicroservice.Models.PictureCreationDTO,System.String)">
              /// <summary>
              Add new picture.
              </summary>
@@ -45,7 +54,7 @@
              <response code="200">Successfully added photo.</response>
              <response code="500">Server error.</response>
         </member>
-        <member name="M:PostMicroservice.Controllers.PictureController.UpdatePicture(PostMicroservice.Models.PictureUpdateDTO)">
+        <member name="M:PostMicroservice.Controllers.PictureController.UpdatePicture(PostMicroservice.Models.PictureUpdateDTO,System.String)">
             <summary>
             Update photo with forwarded ID.
             </summary>
@@ -54,7 +63,7 @@
             <response code="400">The picture to be updated was not found.</response>
             <response code="500">Server error</response>
         </member>
-        <member name="M:PostMicroservice.Controllers.PictureController.DeletePicture(System.Guid)">
+        <member name="M:PostMicroservice.Controllers.PictureController.DeletePicture(System.Guid,System.String)">
             <summary>
             Deletes the photo based on the forwarded ID.
             </summary>

@@ -21,6 +21,8 @@ namespace PostMicroservice.Profiles
 
             CreateMap<PictureUpdateDTO, Picture>();
             CreateMap<Picture, PictureConfirmationDTO>();
+            CreateMap<Picture, Picture>();
+
         }
     }
 }

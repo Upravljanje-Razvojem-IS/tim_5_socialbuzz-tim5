@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PostMicroservice.Auth;
 using PostMicroservice.Data;
 using PostMicroservice.Data.ContentRepository;
 using PostMicroservice.Data.Image;
@@ -48,6 +49,7 @@ namespace PostMicroservice
             services.AddHttpContextAccessor();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc("PostOpenApiSpecification",

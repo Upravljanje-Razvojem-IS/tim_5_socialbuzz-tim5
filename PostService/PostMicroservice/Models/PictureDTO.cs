@@ -12,8 +12,6 @@ namespace PostMicroservice.Models
     /// </summary>
     public class PictureDTO
     {
-
-
         /// <summary>
         /// Image ID.
         /// </summary>

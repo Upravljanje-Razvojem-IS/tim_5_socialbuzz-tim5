@@ -34,10 +34,6 @@ namespace PostMicroservice.Data.Image
             return context.Images.FirstOrDefault(e => e.ImageId == pictureId);
         }
 
-        public List<Picture> GetPictures()
-        {
-            return context.Images.ToList();
-        }
 
         public void UpdatePicture(Picture picture)
         {
@@ -49,11 +45,10 @@ namespace PostMicroservice.Data.Image
             return context.SaveChanges() > 0;
         }
 
-        public List<Picture> GetPicturesByPostId(Guid id)
+
+        public List<Picture> GetPictures(Guid? postID = null)
         {
-            return context.Images.Where(e => (e.PostID == id)).ToList();
-
-
+            return context.Images.Where(e => (postID == null || e.PostID == postID)).ToList();
         }
     }
 }
