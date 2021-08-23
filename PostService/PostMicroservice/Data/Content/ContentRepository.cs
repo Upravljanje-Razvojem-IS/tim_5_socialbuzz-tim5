@@ -28,17 +28,20 @@ namespace PostMicroservice.Data.ContentRepository
 
         public void DeleteContent(Guid contentId)
         {
-            throw new NotImplementedException();
+            var content = GetContentById(contentId);
+            context.Remove(content);
         }
 
         public Entities.Content GetContentById(Guid contentId)
         {
-            throw new NotImplementedException();
+            return context.Contents.FirstOrDefault(e => e.ContentId == contentId);
+
         }
 
-        public List<Entities.Content> GetContents()
+        public List<Entities.Content> GetContents(string title = null)
         {
-            throw new NotImplementedException();
+            return context.Contents.Where(e => (title == null || e.Title == title)).ToList();
+
         }
 
         public bool SaveChanges()
@@ -47,9 +50,9 @@ namespace PostMicroservice.Data.ContentRepository
 
         }
 
-        public void UpdateContent(Entities.Content oldContent, Entities.Content newContent)
+        public void UpdateContent(Picture picture)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

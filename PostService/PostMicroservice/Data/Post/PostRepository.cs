@@ -24,17 +24,20 @@ namespace PostMicroservice.Data.PostRepository
 
         public void DeletePost(Guid postId)
         {
-            throw new NotImplementedException();
+            var post = GetPostById(postId);
+            context.Remove(post);
         }
 
         public Post GetPostById(Guid postId)
         {
-            throw new NotImplementedException();
+            return context.Posts.FirstOrDefault(e => e.PostId == postId);
+
         }
 
-        public List<Post> GetPosts()
+        public List<Post> GetPosts(DateTime dateOfPublication)
         {
-            throw new NotImplementedException();
+            return context.Posts.Where(e => (dateOfPublication == null || e.DateOfPublication == dateOfPublication)).ToList();
+
         }
 
         public bool SaveChanges()
@@ -43,9 +46,9 @@ namespace PostMicroservice.Data.PostRepository
 
         }
 
-        public void UpdatePost(Post oldPost, Post newPost)
+        public void UpdatePost(Post post)
         {
-            throw new NotImplementedException();
+ 
         }
     }
 }

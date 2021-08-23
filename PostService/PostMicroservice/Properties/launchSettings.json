@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/PostMicroservice",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:61257",
       "sslPort": 44386

@@ -9,12 +9,11 @@ namespace PostMicroservice.Data.PostRepository
     public interface IPostRepository
     {
 
-        List<Post> GetPosts();
+        List<Post> GetPosts(DateTime dateOfPublication);
         Post GetPostById(Guid postId);
         void CreatePost(Post post);
-        void UpdatePost(Post oldPost, Post newPost);
+        void UpdatePost(Post post);
         void DeletePost(Guid postId);
         bool SaveChanges();
-        //List<Picture> GetPicturesByPostId(Guid id);
     }
 }

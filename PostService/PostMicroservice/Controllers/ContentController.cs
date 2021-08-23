@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
+using PostMicroservice.Auth;
 using PostMicroservice.Data.ContentRepository;
 using PostMicroservice.Entities;
 using PostMicroservice.FakeLogger;
+using PostMicroservice.Models.ContentDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,43 +26,273 @@ namespace PostMicroservice.Controllers
         private readonly IHttpContextAccessor contextAccessor;
         private readonly IFakeLoggerRepository fakeLoggerRepository;
         private readonly IMapper mapper;
+        private readonly IAuthService authService;
 
 
-        public ContentController(IContentRepository contentRepository, LinkGenerator linkGenerator, IFakeLoggerRepository fakeLoggerRepository, IHttpContextAccessor contextAccessor, IMapper mapper)
+        public ContentController(IContentRepository contentRepository, LinkGenerator linkGenerator, IFakeLoggerRepository fakeLoggerRepository, IHttpContextAccessor contextAccessor, IMapper mapper,IAuthService authService)
         {
             this.contentRepository = contentRepository;
             this.linkGenerator = linkGenerator;
             this.fakeLoggerRepository = fakeLoggerRepository;
             this.contextAccessor = contextAccessor;
             this.mapper = mapper;
+            this.authService = authService;
+        }
+
+        /// <summary>
+        /// Returns list of all contents
+        /// </summary>
+        /// <param name="contentID">ID of the content</param>
+        /// <returns>List of all contents</returns>
+        ///  /// <remarks> 
+        /// Example of request \
+        /// GET '/api/contents' \
+        /// </remarks>
+        /// <response code="200">Success, returns list of all contents.</response>
+        /// <response code="404">No contents found.</response>
+        /// <response code="500">Server error.</response>
+        [HttpGet]
+        [HttpHead]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<List<ContentDTO>> GetContents(string title)
+        {
+
+            var contents = contentRepository.GetContents(title);
+            if (contents == null || contents.Count == 0)
+            {
+                return NoContent();
+            }
+            fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all contents", null);
+            return Ok(mapper.Map<List<ContentDTO>>(contents));
+
+
+
+
         }
 
 
+
+        /// <summary>
+        /// Returns a content based on the forwarded id.
+        /// </summary>
+        /// <param name="contentId">ID of the content</param>
+        ///  /// <remarks>        
+        /// Example of request \
+        /// GET 'https://localhost:44200/api/pictures/' \
+        ///     --param  'contentId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'
+        /// </remarks>
+        /// <response code="200">Success, returns the specified content.</response>
+        /// <response code="404">A content with that ID does not exist.</response>
+        /// <response code="500">Server error.</response>
+        [HttpGet("{contentId}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<ContentDTO> GetContentById(Guid contentId)
+        {
+
+            var content = contentRepository.GetContentById(contentId);
+
+            if (content == null)
+            {
+                return NotFound();
+            }
+
+            fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get content by id", null);
+            return Ok(mapper.Map<ContentDTO>(content));
+
+        }
+
+
+        /// /// <summary>
+        /// Add new content.
+        /// </summary>
+        /// <param name="content">Model of content</param>
+        /// <param name="key">Key for authorization user</param>
+        /// <remarks>
+        /// Example of request \
+        /// POST /api/contents \
+        /// --header 'key: Bearer Milica' \
+        /// {     \
+        ///     "Title" : "Prodaja rolera",\
+        ///     "Text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
+        ///     "Replacement" : false,\
+        ///     "State" : "odlicno",\
+        ///     "ItemForSaleID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+        ///}
+        /// </remarks>
+        /// <response code="200">Successfully added content.</response>
+        /// <response code="401">Unauthorized user.</response>
+        /// <response code="500">Server error.</response>
         [Consumes("application/json")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<Content> CreateContent([FromBody] Content content)
+        public ActionResult<ContentConfirmationDTO> CreateContent([FromBody] ContentCreationDTO content, [FromHeader] string key)
         {
+            if (!authService.Authorize(key))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "The user is not authorized!");
+            }
+
             try
             {
 
-                //Content contentEntity = mapper.Map<Picture>(picture);
-
-                contentRepository.CreateContent(content);
+                Content contentEntity = mapper.Map<Content>(content);
+                contentRepository.CreateContent(contentEntity);
                 contentRepository.SaveChanges();
-                //string location = linkGenerator.GetPathByAction("GetContentById", "Content", new { contentId = content.ContentId });
-                return Created("", content);
+                string location = linkGenerator.GetPathByAction("GetContentById", "Content", new { contentId = contentEntity.ContentId });
+                fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Content created", null);
+
+                return Created(location, mapper.Map<ContentConfirmationDTO>(contentEntity));
 
 
 
             }
             catch (Exception ex)
             {
+                fakeLoggerRepository.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Error while adding content", null);
+
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
 
 
             }
         }
+
+
+        /// <summary>
+        /// Update content with forwarded ID.
+        /// </summary>
+        /// <param name="content">Model of the content to be updated.</param>
+        /// <param name="key">Key for authorization user</param>
+        /// <remarks>
+        /// Example of request \
+        /// PUT /api/contents \
+        /// --header 'key: Bearer Milica' \
+        ///  {     \
+        ///     "ContentID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538",\
+        ///     "Title" : "Prodaja rolera",\
+        ///     "Text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
+        ///     "Replacement" : false,\
+        ///     "State" : "odlicno",\
+        ///     "ItemForSaleID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+        ///}
+        /// </remarks>
+        /// <response code="200">Success, returns updated content.</response>
+        /// <response code="401">Unauthorized user.</response>
+        /// <response code="404">A content with that ID does not exist.</response>
+        /// <response code="500">Server error.</response>
+        [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<ContentDTO> UpdateContent(ContentUpdateDTO content, [FromHeader] string key)
+        {
+            if (!authService.Authorize(key))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "The user is not authorized!");
+            }
+
+            try
+            {
+                var oldContent = contentRepository.GetContentById(content.ContentId);
+                if (oldContent == null)
+                {
+                    return NotFound();
+                }
+                Content contentEntity = mapper.Map<Content>(content);
+
+                mapper.Map(contentEntity, oldContent);
+
+                contentRepository.SaveChanges();
+                fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Content updated", null);
+
+                return Ok(mapper.Map<ContentDTO>(oldContent));
+
+
+
+
+
+            }
+            catch (Exception)
+            {
+                fakeLoggerRepository.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Error with updating content", null);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
+            }
+        }
+
+        /// <summary>
+        /// Delete content based on the forwarded ID.
+        /// </summary>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="key">User authorization key</param>
+        /// <remarks>
+        /// Example of request \
+        /// DELETE '/api/contents/'\
+        ///  --header 'key: Bearer Milica' \
+        ///  --param  'contentId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db' 
+        /// </remarks>
+        /// <response code="204">Success, deleted content.</response>
+        /// <response code="401">Unauthorized user.</response>
+        /// <response code="404">Content not found.</response>
+        /// <response code="500">Server error.</response>
+        [HttpDelete("{contentId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteContent(Guid contentId, [FromHeader] string key)
+        {
+            if (!authService.Authorize(key))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "The user is not authorized!");
+            }
+
+            try
+            {
+                var content = contentRepository.GetContentById(contentId);
+
+                if (content == null)
+                {
+                    return NotFound();
+                }
+
+                contentRepository.DeleteContent(contentId);
+                contentRepository.SaveChanges();
+                fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Content deleted", null);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                fakeLoggerRepository.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Delete content error", null);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Delete error");
+            }
+        }
+
+        /// <summary>
+        /// Returns options for working with contents.
+        /// </summary>
+        /// <remarks>
+        /// Example of request \
+        /// OPTIONS '/api/contents'
+        /// </remarks>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpOptions]
+        [AllowAnonymous]
+        public IActionResult GetContentOptions()
+        {
+            Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");
+            return Ok();
+        }
+
     }
 }

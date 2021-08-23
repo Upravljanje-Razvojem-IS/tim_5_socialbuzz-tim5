@@ -8,27 +8,27 @@ using System.Threading.Tasks;
 namespace PostMicroservice.Models
 {
     /// <summary>
-    /// DTO class which represents image
+    /// DTO class which represents picture.
     /// </summary>
     public class PictureDTO
     {
         /// <summary>
-        /// Image ID.
+        /// Picture ID.
         /// </summary>
         [Key]
-        [Required]
+        [Required(ErrorMessage = "You must enter id of the picture.")]
         public Guid ImageId { get; set; }
 
         /// <summary>
-        /// Url path of the image.
+        /// Url path of the picture.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "You must enter url path of the picture.")]
         public string Url { get; set; }
 
         /// <summary>
-        /// ID of the post for which the image was published.
+        /// ID of the post for which the picture was published.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "You must enter post for the picture.")]
         [ForeignKey("PostID")]
         public Guid PostID { get; set; }
         //public Post Post { get; set; }

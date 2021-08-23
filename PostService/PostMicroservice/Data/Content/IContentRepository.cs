@@ -10,12 +10,12 @@ namespace PostMicroservice.Data.ContentRepository
     {
 
 
-        List<Content> GetContents();
+        List<Content> GetContents(string title = null);
         Content GetContentById(Guid contentId);
         void CreateContent(Content content);
-        void UpdateContent(Content oldContent, Content newContent);
+        void UpdateContent(Content content);
         void DeleteContent(Guid contentId);
         bool SaveChanges();
-        //List<Picture> GetPicturesByPostId(Guid id);
+     
     }
 }

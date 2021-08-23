@@ -49,7 +49,7 @@ namespace PostMicroservice.Controllers
         /// <returns>List of all pictures</returns>
         ///  /// <remarks> 
         /// Example of request \
-        /// GET 'https://localhost:44200/api/pictures' \
+        /// GET '/api/pictures' \
         /// </remarks>
         /// <response code="200">Success, returns list of all pictures.</response>
         /// <response code="404">No pictures found.</response>
@@ -92,8 +92,8 @@ namespace PostMicroservice.Controllers
         /// <response code="500">Server error.</response>
         [HttpGet("{pictureId}")]
         [AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<PictureDTO> GetPictureById(Guid pictureId)
         {
@@ -121,7 +121,6 @@ namespace PostMicroservice.Controllers
         /// POST /api/pictures \
         /// --header 'key: Bearer Milica' \
         /// {     \
-        ///     "ImageId" : "F684F7AE-B1B6-4DFA-A01C-7EDC54C689DB", \
         ///     "Url" : "url",\
         ///     "PostID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
         ///}
@@ -147,7 +146,7 @@ namespace PostMicroservice.Controllers
                 Picture pictureEntity = mapper.Map<Picture>(picture);
                 pictureRepository.CreatePicture(pictureEntity);
                 pictureRepository.SaveChanges();
-                string location = linkGenerator.GetPathByAction("GetPictureById", "Picture", new { pictureId = picture.ImageId });
+                string location = linkGenerator.GetPathByAction("GetPictureById", "Picture", new { pictureId = pictureEntity.ImageId });
                 fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Picture created", null);
 
                 return Created(location, mapper.Map<PictureConfirmationDTO>(pictureEntity));
@@ -167,9 +166,9 @@ namespace PostMicroservice.Controllers
 
 
         /// <summary>
-        /// Update photo with forwarded ID.
+        /// Update picture with forwarded ID.
         /// </summary>
-        /// <param name="picture">Model of the photo to be updated.</param>
+        /// <param name="picture">Model of the picture to be updated.</param>
         /// <param name="key">Key for authorization user</param>
         /// <remarks>
         /// Example of request \
@@ -183,13 +182,13 @@ namespace PostMicroservice.Controllers
         /// </remarks>
         /// <response code="200">Success, returns updated picture.</response>
         /// <response code="401">Unauthorized user.</response>
-        /// <response code="404">A photo with that ID does not exist.</response>
-        /// <response code="500">Server error</response>
+        /// <response code="404">A picture with that ID does not exist.</response>
+        /// <response code="500">Server error.</response>
         [HttpPut]
         [Consumes("application/json")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<PictureDTO> UpdatePicture(PictureUpdateDTO picture, [FromHeader] string key)
         {
@@ -227,17 +226,17 @@ namespace PostMicroservice.Controllers
         }
 
         /// <summary>
-        /// Deletes the picture based on the forwarded ID.
+        /// Delete picture based on the forwarded ID.
         /// </summary>
-        /// <param name="pictureId">Picture ID</param>
-        /// <param name="key">Key for authorization user</param>
+        /// <param name="pictureId">ID of the picture</param>
+        /// <param name="key">User authorization key</param>
         /// <remarks>
         /// Example of request \
-        /// DELETE 'https://localhost:44200/api/pictures/'\
+        /// DELETE '/api/pictures/'\
         ///  --header 'key: Bearer Milica' \
-        ///  --param  'pictureId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db' -> change this for testing\
+        ///  --param  'pictureId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db' 
         /// </remarks>
-        /// <response code="204">Success, photo deleted.</response>
+        /// <response code="204">Success, deleted picture.</response>
         /// <response code="401">Unauthorized user.</response>
         /// <response code="404">Picture not found.</response>
         /// <response code="500">Server error.</response>
@@ -277,11 +276,11 @@ namespace PostMicroservice.Controllers
         }
 
         /// <summary>
-        /// Returns options for working with photos.
+        /// Returns options for working with pictures.
         /// </summary>
         /// <remarks>
         /// Example of request \
-        /// OPTIONS 'https://localhost:44200/api/pictures'
+        /// OPTIONS '/api/pictures'
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpOptions]

@@ -4,6 +4,106 @@
         <name>PostMicroservice</name>
     </assembly>
     <members>
+        <member name="M:PostMicroservice.Controllers.ContentController.GetContents(System.String)">
+            <summary>
+            Returns list of all contents
+            </summary>
+            <param name="contentID">ID of the content</param>
+            <returns>List of all contents</returns>
+             /// <remarks> 
+            Example of request \
+            GET '/api/contents' \
+            </remarks>
+            <response code="200">Success, returns list of all contents.</response>
+            <response code="404">No contents found.</response>
+            <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.ContentController.GetContentById(System.Guid)">
+            <summary>
+            Returns a content based on the forwarded id.
+            </summary>
+            <param name="contentId">ID of the content</param>
+             /// <remarks>        
+            Example of request \
+            GET 'https://localhost:44200/api/pictures/' \
+                --param  'contentId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'
+            </remarks>
+            <response code="200">Success, returns the specified content.</response>
+            <response code="404">A content with that ID does not exist.</response>
+            <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.ContentController.CreateContent(PostMicroservice.Models.ContentDTO.ContentCreationDTO,System.String)">
+             /// <summary>
+             Add new content.
+             </summary>
+             <param name="content">Model of content</param>
+             <param name="key">Key for authorization user</param>
+             <remarks>
+             Example of request \
+             POST /api/contents \
+             --header 'key: Bearer Milica' \
+             {     \
+                 "Title" : "Prodaja rolera",\
+                 "Text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
+                 "Replacement" : false,\
+                 "State" : "odlicno",\
+                 "ItemForSaleID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+            }
+             </remarks>
+             <response code="200">Successfully added content.</response>
+             <response code="401">Unauthorized user.</response>
+             <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.ContentController.UpdateContent(PostMicroservice.Models.ContentDTO.ContentUpdateDTO,System.String)">
+             <summary>
+             Update content with forwarded ID.
+             </summary>
+             <param name="content">Model of the content to be updated.</param>
+             <param name="key">Key for authorization user</param>
+             <remarks>
+             Example of request \
+             PUT /api/contents \
+             --header 'key: Bearer Milica' \
+              {     \
+                 "ContentID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538",\
+                 "Title" : "Prodaja rolera",\
+                 "Text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
+                 "Replacement" : false,\
+                 "State" : "odlicno",\
+                 "ItemForSaleID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+            }
+             </remarks>
+             <response code="200">Success, returns updated content.</response>
+             <response code="401">Unauthorized user.</response>
+             <response code="404">A content with that ID does not exist.</response>
+             <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.ContentController.DeleteContent(System.Guid,System.String)">
+            <summary>
+            Delete content based on the forwarded ID.
+            </summary>
+            <param name="contentId">ID of the content</param>
+            <param name="key">User authorization key</param>
+            <remarks>
+            Example of request \
+            DELETE '/api/contents/'\
+             --header 'key: Bearer Milica' \
+             --param  'contentId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db' 
+            </remarks>
+            <response code="204">Success, deleted content.</response>
+            <response code="401">Unauthorized user.</response>
+            <response code="404">Content not found.</response>
+            <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.ContentController.GetContentOptions">
+            <summary>
+            Returns options for working with contents.
+            </summary>
+            <remarks>
+            Example of request \
+            OPTIONS '/api/contents'
+            </remarks>
+        </member>
         <member name="T:PostMicroservice.Controllers.PictureController">
             <summary>
             Picture controller to perform crud operations.
@@ -17,7 +117,7 @@
             <returns>List of all pictures</returns>
              /// <remarks> 
             Example of request \
-            GET 'https://localhost:44200/api/pictures' \
+            GET '/api/pictures' \
             </remarks>
             <response code="200">Success, returns list of all pictures.</response>
             <response code="404">No pictures found.</response>
@@ -42,42 +142,66 @@
              Add new picture.
              </summary>
              <param name="picture">Model of picture</param>
+             <param name="key">Key for authorization user</param>
              <remarks>
              Example of request \
              POST /api/pictures \
+             --header 'key: Bearer Milica' \
+             {     \
+                 "Url" : "url",\
+                 "PostID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+            }
+             </remarks>
+             <response code="200">Successfully added photo.</response>
+             <response code="401">Unauthorized user.</response>
+             <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.PictureController.UpdatePicture(PostMicroservice.Models.PictureUpdateDTO,System.String)">
+             <summary>
+             Update picture with forwarded ID.
+             </summary>
+             <param name="picture">Model of the picture to be updated.</param>
+             <param name="key">Key for authorization user</param>
+             <remarks>
+             Example of request \
+             PUT /api/pictures \
+             --header 'key: Bearer Milica' \
              {     \
                  "ImageId" : "F684F7AE-B1B6-4DFA-A01C-7EDC54C689DB", \
                  "Url" : "url",\
                  "PostID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
             }
              </remarks>
-             <response code="200">Successfully added photo.</response>
+             <response code="200">Success, returns updated picture.</response>
+             <response code="401">Unauthorized user.</response>
+             <response code="404">A picture with that ID does not exist.</response>
              <response code="500">Server error.</response>
-        </member>
-        <member name="M:PostMicroservice.Controllers.PictureController.UpdatePicture(PostMicroservice.Models.PictureUpdateDTO,System.String)">
-            <summary>
-            Update photo with forwarded ID.
-            </summary>
-            <param name="picture">Model of the photo to be updated.</param>
-            <response code="200">Success, returns updated picture.</response>
-            <response code="400">The picture to be updated was not found.</response>
-            <response code="500">Server error</response>
         </member>
         <member name="M:PostMicroservice.Controllers.PictureController.DeletePicture(System.Guid,System.String)">
             <summary>
-            Deletes the photo based on the forwarded ID.
+            Delete picture based on the forwarded ID.
             </summary>
-            <param name="pictureId">Picture ID</param>
-            <returns>Status 204 (NoContent)</returns>
-            <response code="204">Success, photo deleted.</response>
-            <response code="404">Picture to deleted, not found.</response>
+            <param name="pictureId">ID of the picture</param>
+            <param name="key">User authorization key</param>
+            <remarks>
+            Example of request \
+            DELETE '/api/pictures/'\
+             --header 'key: Bearer Milica' \
+             --param  'pictureId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db' 
+            </remarks>
+            <response code="204">Success, deleted picture.</response>
+            <response code="401">Unauthorized user.</response>
+            <response code="404">Picture not found.</response>
             <response code="500">Server error.</response>
         </member>
         <member name="M:PostMicroservice.Controllers.PictureController.GetPictureOptions">
             <summary>
-            Returns options for working with photos.
+            Returns options for working with pictures.
             </summary>
-            <returns></returns>
+            <remarks>
+            Example of request \
+            OPTIONS '/api/pictures'
+            </remarks>
         </member>
         <member name="T:PostMicroservice.Entities.Content">
             <summary>
@@ -179,6 +303,141 @@
             Username of the user account
             </summary>
         </member>
+        <member name="T:PostMicroservice.Models.ContentDTO.ContentConfirmationDTO">
+            <summary>
+            DTO class which represents model of content for confirmation.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentConfirmationDTO.ContentId">
+            <summary>
+            Content ID.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentConfirmationDTO.Title">
+            <summary>
+            Title of the content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentConfirmationDTO.Text">
+            <summary>
+            Text of the content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentConfirmationDTO.Replacement">
+            <summary>
+            The possibility of replacing the content that is published.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentConfirmationDTO.State">
+            <summary>
+            The state of the content that is published.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentConfirmationDTO.ItemForSaleID">
+            <summary>
+            ID of item for sale.
+            </summary>
+        </member>
+        <member name="T:PostMicroservice.Models.ContentDTO.ContentCreationDTO">
+            <summary>
+            DTO class which represents model of content for creation.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentCreationDTO.Title">
+            <summary>
+            Title of the content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentCreationDTO.Text">
+            <summary>
+            Text of the content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentCreationDTO.Replacement">
+            <summary>
+            The possibility of replacing the content that is published.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentCreationDTO.State">
+            <summary>
+            The state of the content that is published.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentCreationDTO.ItemForSaleID">
+            <summary>
+            ID of item for sale.
+            </summary>
+        </member>
+        <member name="T:PostMicroservice.Models.ContentDTO.ContentDTO">
+            <summary>
+            DTO class which represents model of content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentDTO.ContentId">
+            <summary>
+            Content ID.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentDTO.Title">
+            <summary>
+            Title of the content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentDTO.Text">
+            <summary>
+            Text of the content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentDTO.Replacement">
+            <summary>
+            The possibility of replacing the content that is published.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentDTO.State">
+            <summary>
+            The state of the content that is published.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentDTO.ItemForSaleID">
+            <summary>
+            ID of item for sale.
+            </summary>
+        </member>
+        <member name="T:PostMicroservice.Models.ContentDTO.ContentUpdateDTO">
+            <summary>
+            DTO class which represents model of content for update.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentUpdateDTO.ContentId">
+            <summary>
+            Content ID.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentUpdateDTO.Title">
+            <summary>
+            Title of the content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentUpdateDTO.Text">
+            <summary>
+            Text of the content.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentUpdateDTO.Replacement">
+            <summary>
+            The possibility of replacing the content that is published.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentUpdateDTO.State">
+            <summary>
+            The state of the content that is published.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.ContentDTO.ContentUpdateDTO.ItemForSaleID">
+            <summary>
+            ID of item for sale.
+            </summary>
+        </member>
         <member name="P:PostMicroservice.Models.ObjectForSaleDTO.ObjectForSaleId">
             <summary>
             ID of object for sale
@@ -191,82 +450,77 @@
         </member>
         <member name="T:PostMicroservice.Models.PictureConfirmationDTO">
             <summary>
-            DTO class which represents image
+            DTO class which represents model of picture for confirmation.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureConfirmationDTO.ImageId">
             <summary>
-            Image ID.
+            Picture ID.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureConfirmationDTO.Url">
             <summary>
-            Url path of the image.
+            Url path of the picture.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureConfirmationDTO.PostID">
             <summary>
-            ID of the post for which the image was published.
+            ID of the post for which the picture was published.
             </summary>
         </member>
         <member name="T:PostMicroservice.Models.PictureCreationDTO">
             <summary>
-            DTO class which represents image
-            </summary>
-        </member>
-        <member name="P:PostMicroservice.Models.PictureCreationDTO.ImageId">
-            <summary>
-            Image ID.
+            DTO class which represents model of picture for creation.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureCreationDTO.Url">
             <summary>
-            Url path of the image.
+            Url path of the picture.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureCreationDTO.PostID">
             <summary>
-            ID of the post for which the image was published.
+            ID of the post for which the picture was published.
             </summary>
         </member>
         <member name="T:PostMicroservice.Models.PictureDTO">
             <summary>
-            DTO class which represents image
+            DTO class which represents picture.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureDTO.ImageId">
             <summary>
-            Image ID.
+            Picture ID.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureDTO.Url">
             <summary>
-            Url path of the image.
+            Url path of the picture.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureDTO.PostID">
             <summary>
-            ID of the post for which the image was published.
+            ID of the post for which the picture was published.
             </summary>
         </member>
         <member name="T:PostMicroservice.Models.PictureUpdateDTO">
             <summary>
-            DTO class which represents image
+            DTO class which represents model of picture for update.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureUpdateDTO.ImageId">
             <summary>
-            Image ID.
+            Picture ID.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureUpdateDTO.Url">
             <summary>
-            Url path of the image.
+            Url path of the picture.
             </summary>
         </member>
         <member name="P:PostMicroservice.Models.PictureUpdateDTO.PostID">
             <summary>
-            ID of the post for which the image was published.
+            ID of the post for which the picture was published.
             </summary>
         </member>
     </members>
