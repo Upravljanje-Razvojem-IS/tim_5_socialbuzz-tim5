@@ -4,18 +4,23 @@
         <name>PostMicroservice</name>
     </assembly>
     <members>
+        <member name="T:PostMicroservice.Controllers.ContentController">
+            <summary>
+            Content controller to perform crud operations.
+            </summary>
+        </member>
         <member name="M:PostMicroservice.Controllers.ContentController.GetContents(System.String)">
             <summary>
-            Returns list of all contents
+            Returns list of all contents.
             </summary>
-            <param name="contentID">ID of the content</param>
+            <param name="title">Title of the content</param>
             <returns>List of all contents</returns>
              /// <remarks> 
             Example of request \
             GET '/api/contents' \
             </remarks>
             <response code="200">Success, returns list of all contents.</response>
-            <response code="404">No contents found.</response>
+            <response code="204">No contents found.</response>
             <response code="500">Server error.</response>
         </member>
         <member name="M:PostMicroservice.Controllers.ContentController.GetContentById(System.Guid)">
@@ -25,8 +30,8 @@
             <param name="contentId">ID of the content</param>
              /// <remarks>        
             Example of request \
-            GET 'https://localhost:44200/api/pictures/' \
-                --param  'contentId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'
+            GET '/api/contents/' \
+            param  'contentId = 2959689a-c09f-4c0b-6ceb-08d96643ade7'
             </remarks>
             <response code="200">Success, returns the specified content.</response>
             <response code="404">A content with that ID does not exist.</response>
@@ -41,16 +46,17 @@
              <remarks>
              Example of request \
              POST /api/contents \
-             --header 'key: Bearer Milica' \
+             header 'key: Bearer Milica' \
              {     \
-                 "Title" : "Prodaja rolera",\
-                 "Text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
-                 "Replacement" : false,\
-                 "State" : "odlicno",\
-                 "ItemForSaleID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+                 "title" : "Prodaja rolera",\
+                 "text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
+                 "replacement" : false,\
+                 "state" : "odlicno",\
+                 "itemForSaleID" : 5 \
             }
              </remarks>
-             <response code="200">Successfully added content.</response>
+             <response code="201">Successfully added content.</response>
+             <response code="400">Bad request, object for sale with that ID does not exist.</response>
              <response code="401">Unauthorized user.</response>
              <response code="500">Server error.</response>
         </member>
@@ -65,15 +71,16 @@
              PUT /api/contents \
              --header 'key: Bearer Milica' \
               {     \
-                 "ContentID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538",\
-                 "Title" : "Prodaja rolera",\
-                 "Text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
-                 "Replacement" : false,\
-                 "State" : "odlicno",\
-                 "ItemForSaleID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+                 "contentID" : "2959689a-c09f-4c0b-6ceb-08d96643ade7",\
+                 "title" : "Prodaja rolera",\
+                 "text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
+                 "replacement" : false,\
+                 "state" : "odlicno",\
+                 "itemForSaleID" : 5 \
             }
              </remarks>
              <response code="200">Success, returns updated content.</response>
+              <response code="400">Bad request, object for sale with that ID does not exist.</response>
              <response code="401">Unauthorized user.</response>
              <response code="404">A content with that ID does not exist.</response>
              <response code="500">Server error.</response>
@@ -87,8 +94,8 @@
             <remarks>
             Example of request \
             DELETE '/api/contents/'\
-             --header 'key: Bearer Milica' \
-             --param  'contentId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db' 
+             header 'key: Bearer Milica' \
+             param  'contentId = 2959689a-c09f-4c0b-6ceb-08d96643ade7' 
             </remarks>
             <response code="204">Success, deleted content.</response>
             <response code="401">Unauthorized user.</response>
@@ -111,16 +118,17 @@
         </member>
         <member name="M:PostMicroservice.Controllers.PictureController.GetPictures(System.Nullable{System.Guid})">
             <summary>
-            Returns list of all pictures
+            Returns list of all pictures.
             </summary>
             <param name="postID">ID of the post</param>
             <returns>List of all pictures</returns>
              /// <remarks> 
             Example of request \
             GET '/api/pictures' \
+              param  'postId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'
             </remarks>
             <response code="200">Success, returns list of all pictures.</response>
-            <response code="404">No pictures found.</response>
+            <response code="204">No pictures found.</response>
             <response code="500">Server error.</response>
         </member>
         <member name="M:PostMicroservice.Controllers.PictureController.GetPictureById(System.Guid)">
@@ -131,7 +139,7 @@
              /// <remarks>        
             Example of request \
             GET 'https://localhost:44200/api/pictures/' \
-                --param  'pictureId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'
+                param  'pictureId = da74fb64-4edc-468e-4373-08d9661a6abd'
             </remarks>
             <response code="200">Success, returns the specified picture.</response>
             <response code="404">A photo with that ID does not exist.</response>
@@ -146,13 +154,14 @@
              <remarks>
              Example of request \
              POST /api/pictures \
-             --header 'key: Bearer Milica' \
+             header 'key: Bearer Milica' \
              {     \
-                 "Url" : "url",\
-                 "PostID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+                 "url" : "url",\
+                 "postID" : "0c059681-6f1d-4663-c934-08d966e9793d" \
             }
              </remarks>
-             <response code="200">Successfully added photo.</response>
+             <response code="201">Successfully added photo.</response>
+             <response code="400">Bad request, post with that ID does not exist.</response>
              <response code="401">Unauthorized user.</response>
              <response code="500">Server error.</response>
         </member>
@@ -165,14 +174,15 @@
              <remarks>
              Example of request \
              PUT /api/pictures \
-             --header 'key: Bearer Milica' \
+             header 'key: Bearer Milica' \
              {     \
-                 "ImageId" : "F684F7AE-B1B6-4DFA-A01C-7EDC54C689DB", \
-                 "Url" : "url",\
-                 "PostID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+                 "pictureId" : "da74fb64-4edc-468e-4373-08d9661a6abd", \
+                 "url" : "url",\
+                 "postID" : "0c059681-6f1d-4663-c934-08d966e9793d" \
             }
              </remarks>
              <response code="200">Success, returns updated picture.</response>
+              <response code="400">Bad request, post with that ID does not exist.</response>
              <response code="401">Unauthorized user.</response>
              <response code="404">A picture with that ID does not exist.</response>
              <response code="500">Server error.</response>
@@ -186,8 +196,8 @@
             <remarks>
             Example of request \
             DELETE '/api/pictures/'\
-             --header 'key: Bearer Milica' \
-             --param  'pictureId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db' 
+             header 'key: Bearer Milica' \
+             param  'pictureId = da74fb64-4edc-468e-4373-08d9661a6abd' 
             </remarks>
             <response code="204">Success, deleted picture.</response>
             <response code="401">Unauthorized user.</response>
@@ -201,6 +211,113 @@
             <remarks>
             Example of request \
             OPTIONS '/api/pictures'
+            </remarks>
+        </member>
+        <member name="T:PostMicroservice.Controllers.PostController">
+            <summary>
+            Post controller to perform crud operations.
+            </summary>
+        </member>
+        <member name="M:PostMicroservice.Controllers.PostController.GetPosts(System.Nullable{System.DateTime},System.String)">
+            <summary>
+            Returns list of all posts.
+            </summary>
+            <param name="dateOfPublication">Date of publication post</param>
+             <param name="userName">Username of the user who posted the post</param>
+            <returns>List of all posts</returns>
+             /// <remarks> 
+            Example of request \
+            GET '/api/posts' \
+            param  'dateOfPublication = 2021-08-24T12:25:11.1407013'
+            param  'userName = milica_despotovic'
+            </remarks>
+            <response code="200">Success, returns list of all posts.</response>
+            <response code="204">No posts found.</response>
+            <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.PostController.GetPostById(System.Guid)">
+            <summary>
+            Returns a post based on the forwarded id.
+            </summary>
+            <param name="postId">ID of the post</param>
+            <remarks>        
+            Example of request \
+            GET '/api/posts/' \
+            param  'postId = 0c059681-6f1d-4663-c934-08d966e9793d'
+            </remarks>
+            <response code="200">Success, returns the specified post.</response>
+            <response code="404">A post with that ID does not exist.</response>
+            <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.PostController.CreatePost(PostMicroservice.Models.PostDTO.PostCreationDTO,System.String)">
+            /// <summary>
+            Add new post.
+            </summary>
+            <param name="post">Model of post</param>
+            <param name="key">Key for authorization user</param>
+            <remarks>
+            Example of request \
+            POST /api/posts \
+            header 'key: Bearer Milica' \
+            {      \
+             "contentId" : "2959689a-c09f-4c0b-6ceb-08d96643ade7",  \
+              "userId" : 5  \
+             } \
+            </remarks>
+            <response code="201">Successfully added post.</response>
+            <response code="401">Unauthorized user.</response>
+            <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.PostController.UpdatePost(PostMicroservice.Models.PostDTO.PostUpdateDTO,System.Int32,System.String)">
+            <summary>
+            Update post with forwarded ID.
+            </summary>
+            <param name="post">Model of the post to be updated.</param>
+            <param name="key">Key for authorization user</param>
+            <remarks>
+            Example of request \
+            PUT /api/posts \
+            header 'key: Bearer Milica' \
+            header 'accountId = 5'  \ 
+             {       \
+              "postID" : "0c059681-6f1d-4663-c934-08d966e9793d",   \
+              "contentId" : "33676ac7-b6c2-446a-969a-60eccba73965",  \
+              "userId" : 5  \
+             }
+            </remarks>
+            <response code="200">Success, returns updated post.</response>
+            <response code="400">Bad request, content or user with that ID does not exist.</response>
+            <response code="401">Unauthorized user.</response>
+            <response code="403">Not allowed</response>
+            <response code="404">A post with that ID does not exist.</response>
+            <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.PostController.DeletePost(System.Guid,System.String,System.Int32)">
+            <summary>
+            Delete post based on the forwarded ID.
+            </summary>
+            <param name="postID">ID of the post</param>
+            <param name="key">User authorization key</param>
+            <remarks>
+            Example of request \
+            DELETE '/api/posts/'\
+             --header 'key: Bearer Milica' \
+             --header 'accountId = 5'  \
+             --param  'postId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'  \
+            </remarks>
+            <response code="204">Success, deleted post.</response>
+            <response code="401">Unauthorized user.</response>
+             <response code="403">Not allowed.</response>
+            <response code="404">Post not found.</response>
+            <response code="500">Server error.</response>
+        </member>
+        <member name="M:PostMicroservice.Controllers.PostController.GetPostOptions">
+            <summary>
+            Returns options for working with posts.
+            </summary>
+            <remarks>
+            Example of request \
+            OPTIONS '/api/posts'
             </remarks>
         </member>
         <member name="T:PostMicroservice.Entities.Content">
@@ -243,7 +360,7 @@
             Entity class which represents image
             </summary>
         </member>
-        <member name="P:PostMicroservice.Entities.Picture.ImageId">
+        <member name="P:PostMicroservice.Entities.Picture.PictureId">
             <summary>
             Image ID.
             </summary>
@@ -453,7 +570,7 @@
             DTO class which represents model of picture for confirmation.
             </summary>
         </member>
-        <member name="P:PostMicroservice.Models.PictureConfirmationDTO.ImageId">
+        <member name="P:PostMicroservice.Models.PictureConfirmationDTO.PictureId">
             <summary>
             Picture ID.
             </summary>
@@ -488,7 +605,7 @@
             DTO class which represents picture.
             </summary>
         </member>
-        <member name="P:PostMicroservice.Models.PictureDTO.ImageId">
+        <member name="P:PostMicroservice.Models.PictureDTO.PictureId">
             <summary>
             Picture ID.
             </summary>
@@ -508,7 +625,7 @@
             DTO class which represents model of picture for update.
             </summary>
         </member>
-        <member name="P:PostMicroservice.Models.PictureUpdateDTO.ImageId">
+        <member name="P:PostMicroservice.Models.PictureUpdateDTO.PictureId">
             <summary>
             Picture ID.
             </summary>
@@ -521,6 +638,101 @@
         <member name="P:PostMicroservice.Models.PictureUpdateDTO.PostID">
             <summary>
             ID of the post for which the picture was published.
+            </summary>
+        </member>
+        <member name="T:PostMicroservice.Models.PostDTO.PostConfirmationDTO">
+            <summary>
+            DTO class which represents post for confirmation.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostConfirmationDTO.PostId">
+            <summary>
+            Post ID
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostConfirmationDTO.DateOfPublication">
+            <summary>
+            Date and time publication of the post.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostConfirmationDTO.ExpiryDate">
+            <summary>
+            Date and time of publication expiration.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostConfirmationDTO.ContentId">
+            <summary>
+            Content of the post.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostConfirmationDTO.UserId">
+            <summary>
+            Id of the user who posted the post.
+            </summary>
+        </member>
+        <member name="T:PostMicroservice.Models.PostDTO.PostCreationDTO">
+            <summary>
+            DTO class which represents post.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostCreationDTO.ContentId">
+            <summary>
+            Content of the post.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostCreationDTO.UserId">
+            <summary>
+            Id of the user who posted the post.
+            </summary>
+        </member>
+        <member name="T:PostMicroservice.Models.PostDTO.PostDTO">
+            <summary>
+            DTO class which represents post.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostDTO.PostId">
+            <summary>
+            Post ID
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostDTO.DateOfPublication">
+            <summary>
+            Date and time publication of the post.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostDTO.ExpiryDate">
+            <summary>
+            Date and time of publication expiration.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostDTO.ContentId">
+            <summary>
+            Content of the post.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostDTO.UserId">
+            <summary>
+            Id of the user who posted the post.
+            </summary>
+        </member>
+        <member name="T:PostMicroservice.Models.PostDTO.PostUpdateDTO">
+            <summary>
+            DTO class which represents post for update.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostUpdateDTO.PostId">
+            <summary>
+            Post ID
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostUpdateDTO.ContentId">
+            <summary>
+            Content of the post.
+            </summary>
+        </member>
+        <member name="P:PostMicroservice.Models.PostDTO.PostUpdateDTO.UserId">
+            <summary>
+            Id of the user who posted the post.
             </summary>
         </member>
     </members>

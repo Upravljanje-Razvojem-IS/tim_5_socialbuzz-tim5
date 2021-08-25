@@ -1,6 +1,7 @@
 ﻿using PostMicroservice.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PostMicroservice.Data
 {
@@ -40,9 +41,10 @@ namespace PostMicroservice.Data
             });
         }
 
-        public ObjectForSaleDTO GetObjectForSaleByID(string objectForSaleID)
+        public ObjectForSaleDTO GetObjectForSaleByID(int objectForSaleID)
         {
-            throw new NotImplementedException();
+            return ObjectsForSale.FirstOrDefault(e => e.ObjectForSaleId == objectForSaleID);
+
         }
 
         public ObjectForSaleDTO GetObjectForSaleByName(string name)

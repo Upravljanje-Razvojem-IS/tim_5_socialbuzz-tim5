@@ -8,10 +8,10 @@ namespace PostMicroservice.Data
 {
     public interface IPictureRepository
     {
-        List<Picture> GetPictures(Guid? postID = null);
-        Picture GetPictureById(Guid pictureId);
-        void CreatePicture(Picture picture);
-        void UpdatePicture(Picture picture);
+        List<Entities.Picture> GetPictures(Guid? postID = null);
+        Entities.Picture GetPictureById(Guid pictureId);
+        void CreatePicture(Entities.Picture picture);
+        void UpdatePicture(Entities.Picture picture);
         void DeletePicture(Guid pictureId);
         bool SaveChanges();
     }

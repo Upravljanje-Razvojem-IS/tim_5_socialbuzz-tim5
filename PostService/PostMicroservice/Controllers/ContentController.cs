@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using PostMicroservice.Auth;
+using PostMicroservice.Data;
 using PostMicroservice.Data.ContentRepository;
 using PostMicroservice.Entities;
 using PostMicroservice.FakeLogger;
@@ -16,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace PostMicroservice.Controllers
 {
+    /// <summary>
+    /// Content controller to perform crud operations.
+    /// </summary>
     [ApiController]
     [Route("api/contents")]
     [Produces("application/json", "application/xml")]
@@ -27,9 +31,10 @@ namespace PostMicroservice.Controllers
         private readonly IFakeLoggerRepository fakeLoggerRepository;
         private readonly IMapper mapper;
         private readonly IAuthService authService;
+        private readonly IObjectForSaleMockRepository objectForSaleMockRepository;
 
 
-        public ContentController(IContentRepository contentRepository, LinkGenerator linkGenerator, IFakeLoggerRepository fakeLoggerRepository, IHttpContextAccessor contextAccessor, IMapper mapper,IAuthService authService)
+        public ContentController(IContentRepository contentRepository, LinkGenerator linkGenerator, IFakeLoggerRepository fakeLoggerRepository, IHttpContextAccessor contextAccessor, IMapper mapper,IAuthService authService, IObjectForSaleMockRepository objectForSaleMockRepository)
         {
             this.contentRepository = contentRepository;
             this.linkGenerator = linkGenerator;
@@ -37,22 +42,22 @@ namespace PostMicroservice.Controllers
             this.contextAccessor = contextAccessor;
             this.mapper = mapper;
             this.authService = authService;
+            this.objectForSaleMockRepository = objectForSaleMockRepository;
         }
 
         /// <summary>
-        /// Returns list of all contents
+        /// Returns list of all contents.
         /// </summary>
-        /// <param name="contentID">ID of the content</param>
+        /// <param name="title">Title of the content</param>
         /// <returns>List of all contents</returns>
         ///  /// <remarks> 
         /// Example of request \
         /// GET '/api/contents' \
         /// </remarks>
         /// <response code="200">Success, returns list of all contents.</response>
-        /// <response code="404">No contents found.</response>
+        /// <response code="204">No contents found.</response>
         /// <response code="500">Server error.</response>
         [HttpGet]
-        [HttpHead]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -81,8 +86,8 @@ namespace PostMicroservice.Controllers
         /// <param name="contentId">ID of the content</param>
         ///  /// <remarks>        
         /// Example of request \
-        /// GET 'https://localhost:44200/api/pictures/' \
-        ///     --param  'contentId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'
+        /// GET '/api/contents/' \
+        /// param  'contentId = 2959689a-c09f-4c0b-6ceb-08d96643ade7'
         /// </remarks>
         /// <response code="200">Success, returns the specified content.</response>
         /// <response code="404">A content with that ID does not exist.</response>
@@ -116,28 +121,35 @@ namespace PostMicroservice.Controllers
         /// <remarks>
         /// Example of request \
         /// POST /api/contents \
-        /// --header 'key: Bearer Milica' \
+        /// header 'key: Bearer Milica' \
         /// {     \
-        ///     "Title" : "Prodaja rolera",\
-        ///     "Text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
-        ///     "Replacement" : false,\
-        ///     "State" : "odlicno",\
-        ///     "ItemForSaleID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+        ///     "title" : "Prodaja rolera",\
+        ///     "text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
+        ///     "replacement" : false,\
+        ///     "state" : "odlicno",\
+        ///     "itemForSaleID" : 5 \
         ///}
         /// </remarks>
-        /// <response code="200">Successfully added content.</response>
+        /// <response code="201">Successfully added content.</response>
+        /// <response code="400">Bad request, object for sale with that ID does not exist.</response>
         /// <response code="401">Unauthorized user.</response>
         /// <response code="500">Server error.</response>
         [Consumes("application/json")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<ContentConfirmationDTO> CreateContent([FromBody] ContentCreationDTO content, [FromHeader] string key)
         {
             if (!authService.Authorize(key))
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, "The user is not authorized!");
+            }
+            if (objectForSaleMockRepository.GetObjectForSaleByID(content.ItemForSaleID) == null)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "Object for sale with that id does not exist!");
+
             }
 
             try
@@ -175,15 +187,16 @@ namespace PostMicroservice.Controllers
         /// PUT /api/contents \
         /// --header 'key: Bearer Milica' \
         ///  {     \
-        ///     "ContentID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538",\
-        ///     "Title" : "Prodaja rolera",\
-        ///     "Text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
-        ///     "Replacement" : false,\
-        ///     "State" : "odlicno",\
-        ///     "ItemForSaleID" : "EA96AEA9-27B9-44E6-B46A-B735F559F538" \
+        ///     "contentID" : "2959689a-c09f-4c0b-6ceb-08d96643ade7",\
+        ///     "title" : "Prodaja rolera",\
+        ///     "text" : "Prodajem rolere stare 6 mjeseci, u odličnom stanju.",\
+        ///     "replacement" : false,\
+        ///     "state" : "odlicno",\
+        ///     "itemForSaleID" : 5 \
         ///}
         /// </remarks>
         /// <response code="200">Success, returns updated content.</response>
+        ///  <response code="400">Bad request, object for sale with that ID does not exist.</response>
         /// <response code="401">Unauthorized user.</response>
         /// <response code="404">A content with that ID does not exist.</response>
         /// <response code="500">Server error.</response>
@@ -191,6 +204,7 @@ namespace PostMicroservice.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<ContentDTO> UpdateContent(ContentUpdateDTO content, [FromHeader] string key)
@@ -199,6 +213,12 @@ namespace PostMicroservice.Controllers
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, "The user is not authorized!");
             }
+            if (objectForSaleMockRepository.GetObjectForSaleByID(content.ItemForSaleID) == null)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "Object for sale with that id does not exist!");
+
+            }
+
 
             try
             {
@@ -236,8 +256,8 @@ namespace PostMicroservice.Controllers
         /// <remarks>
         /// Example of request \
         /// DELETE '/api/contents/'\
-        ///  --header 'key: Bearer Milica' \
-        ///  --param  'contentId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db' 
+        ///  header 'key: Bearer Milica' \
+        ///  param  'contentId = 2959689a-c09f-4c0b-6ceb-08d96643ade7' 
         /// </remarks>
         /// <response code="204">Success, deleted content.</response>
         /// <response code="401">Unauthorized user.</response>

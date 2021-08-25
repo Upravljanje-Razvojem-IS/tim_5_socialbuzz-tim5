@@ -17,9 +17,9 @@ namespace PostMicroservice.Data.Image
         }
 
 
-        public void CreatePicture(Picture picture)
+        public void CreatePicture(Entities.Picture picture)
         {
-            context.Images.Add(picture);
+            context.Pictures.Add(picture);
         }
 
         public void DeletePicture(Guid pictureId)
@@ -29,13 +29,13 @@ namespace PostMicroservice.Data.Image
 
         }
 
-        public Picture GetPictureById(Guid pictureId)
+        public Entities.Picture GetPictureById(Guid pictureId)
         {
-            return context.Images.FirstOrDefault(e => e.ImageId == pictureId);
+            return context.Pictures.FirstOrDefault(e => e.PictureId == pictureId);
         }
 
 
-        public void UpdatePicture(Picture picture)
+        public void UpdatePicture(Entities.Picture picture)
         {
           
         }
@@ -46,9 +46,9 @@ namespace PostMicroservice.Data.Image
         }
 
 
-        public List<Picture> GetPictures(Guid? postID = null)
+        public List<Entities.Picture> GetPictures(Guid? postID = null)
         {
-            return context.Images.Where(e => (postID == null || e.PostID == postID)).ToList();
+            return context.Pictures.Where(e => (postID == null || e.PostID == postID)).ToList();
         }
     }
 }

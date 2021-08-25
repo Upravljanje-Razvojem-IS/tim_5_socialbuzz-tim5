@@ -34,11 +34,20 @@ namespace PostMicroservice.Data.PostRepository
 
         }
 
-        public List<Post> GetPosts(DateTime dateOfPublication)
+        public List<Post> GetPostByUser(int userID)
         {
-            return context.Posts.Where(e => (dateOfPublication == null || e.DateOfPublication == dateOfPublication)).ToList();
+            return context.Posts.Where(e => ( e.UserId == userID)).ToList();
 
         }
+
+        public List<Post> GetPosts(DateTime? dateOfPublication = null )
+        {
+
+            return context.Posts.Where(e => (dateOfPublication == null || e.DateOfPublication == dateOfPublication)) .ToList();
+
+        }
+
+      
 
         public bool SaveChanges()
         {

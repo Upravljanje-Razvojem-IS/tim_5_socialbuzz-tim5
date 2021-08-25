@@ -2,9 +2,9 @@
 
 namespace PostMicroservice.Data
 {
-    interface IObjectForSaleMockRepository
+    public interface IObjectForSaleMockRepository
     {
-        ObjectForSaleDTO GetObjectForSaleByID(string objectForSaleID);
+        ObjectForSaleDTO GetObjectForSaleByID(int objectForSaleID);
         ObjectForSaleDTO GetObjectForSaleByName(string name);
     }
 }

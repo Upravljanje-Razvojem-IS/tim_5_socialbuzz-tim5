@@ -20,7 +20,7 @@ namespace PostMicroservice.Entities
         /// </summary>
         [Key]
         [Required]
-        public Guid ImageId { get; set; }
+        public Guid PictureId { get; set; }
 
         /// <summary>
         /// Url path of the image.

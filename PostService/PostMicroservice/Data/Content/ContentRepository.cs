@@ -50,9 +50,8 @@ namespace PostMicroservice.Data.ContentRepository
 
         }
 
-        public void UpdateContent(Picture picture)
+        public void UpdateContent(Content content)
         {
-            
         }
     }
 }

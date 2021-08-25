@@ -17,7 +17,7 @@ namespace PostMicroservice.Models
         /// </summary>
         [Key]
         [Required(ErrorMessage = "You must enter id for the picture.")]
-        public Guid ImageId { get; set; }
+        public Guid PictureId { get; set; }
 
         /// <summary>
         /// Url path of the picture.

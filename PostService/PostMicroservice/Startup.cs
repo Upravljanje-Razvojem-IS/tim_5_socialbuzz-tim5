@@ -50,6 +50,9 @@ namespace PostMicroservice
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<IAuthService, AuthService>();
+
+
+
             services.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc("PostOpenApiSpecification",
@@ -57,7 +60,7 @@ namespace PostMicroservice
                     {
                         Title = "PostMicroservice API",
                         Version = "1",
-                        Description = "This API allows you to create, post new, modify, view, and delete existing posts. It also allows you to add, edit, delete and display content and photos in a post.",
+                        Description = "This API allows you to create new post, modify, view, and delete existing posts. It also allows you to add, edit, delete and display content and photos in a post.",
                         Contact = new Microsoft.OpenApi.Models.OpenApiContact
                         {
                             Name = "Milica Despotović",
@@ -78,6 +81,9 @@ namespace PostMicroservice
 
 
             services.AddSingleton<IFakeLoggerRepository, FakeLoggerRepository>();
+            services.AddSingleton<IUserAccountMockRepository, UserAccountMockRepository>();
+            services.AddSingleton< IObjectForSaleMockRepository, ObjectForSaleMockRepository >();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
