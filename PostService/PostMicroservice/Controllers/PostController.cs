@@ -69,7 +69,8 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<List<PostDTO>> GetPosts(DateTime? dateOfPublication, string? userName)
+        #nullable enable
+        public ActionResult<List<PostDTO>> GetPosts(DateTime? dateOfPublication,string? userName)
         {
             List<Post> posts;
 
@@ -149,11 +150,13 @@ namespace PostMicroservice.Controllers
         ///  } \
         /// </remarks>
         /// <response code="201">Successfully added post.</response>
+        /// <response code="400">Bad request, user or content with that id does not exists.</response>
         /// <response code="401">Unauthorized user.</response>
         /// <response code="500">Server error.</response>
         [Consumes("application/json")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<PostConfirmationDTO> CreatePost([FromBody] PostCreationDTO post, [FromHeader] string key)
@@ -263,6 +266,8 @@ namespace PostMicroservice.Controllers
                     return NotFound();
                 }
                 Post postEntity = mapper.Map<Post>(post);
+                postEntity.DateOfPublication = oldPost.DateOfPublication;
+                postEntity.ExpiryDate = oldPost.ExpiryDate;
 
                 mapper.Map(postEntity, oldPost);
 
@@ -325,7 +330,7 @@ namespace PostMicroservice.Controllers
                 }
 
 
-                if (post.UserId != accountId && post != null)
+                if (post.UserId != accountId/* && post != null*/)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, "Not allowed, user does not have permission for that action!");
 

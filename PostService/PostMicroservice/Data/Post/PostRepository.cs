@@ -57,7 +57,8 @@ namespace PostMicroservice.Data.PostRepository
 
         public void UpdatePost(Post post)
         {
- 
+            // No implementation required because the EF core monitors the entity we extracted from the database
+            // and when we change that object and do SaveChanges all changes will be persistent
         }
     }
 }

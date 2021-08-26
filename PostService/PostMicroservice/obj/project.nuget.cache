@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1t/qUXBbzOGIc3+0XrfXF2qH9K1lnceGH/Myt6ZNnWZ1yEIp0ro5E+wS45xnb/+XeHJloSESV0jb7TOiId/hqQ==",
+  "dgSpecHash": "4QTkan+NcDUYx9OrC+hqFUeCRNixxSjyoLODxl1GykXwxPaWU+aSIrOpFJMtdo6qQj9rFumIuabq0LOB0N/e5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Milica\\source\\repos\\tim_5_socialbuzz-tim5\\PostService\\PostMicroservice\\PostMicroservice.csproj",
+  "projectFilePath": "C:\\Users\\Milica\\git\\tim_5_socialbuzz-tim5\\PostService\\PostMicroservice\\PostMicroservice.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Milica\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Milica\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

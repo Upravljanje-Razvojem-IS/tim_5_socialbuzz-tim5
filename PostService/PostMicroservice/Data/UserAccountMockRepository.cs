@@ -41,15 +41,15 @@ namespace PostMicroservice.Data
         }
        
 
-        public UserAccountDTO GetAccountByUserAccountID(int UserAccountID)
+        public UserAccountDTO GetAccountByUserAccountID(int userAccountID)
         {
-            return UserAccounts.FirstOrDefault(e => e.UserAccountId == UserAccountID);
+            return UserAccounts.FirstOrDefault(e => e.UserAccountId == userAccountID);
 
         }
 
-        public UserAccountDTO GetAccountByUserName(string UserName)
+        public UserAccountDTO GetAccountByUserName(string userName)
         {
-            return UserAccounts.FirstOrDefault(e => e.UserName == UserName);
+            return UserAccounts.FirstOrDefault(e => e.UserName == userName);
 
         }
     }

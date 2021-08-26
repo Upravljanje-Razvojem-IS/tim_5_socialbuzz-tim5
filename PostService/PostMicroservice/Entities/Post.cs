@@ -37,7 +37,6 @@ namespace PostMicroservice.Entities
         [Required]
         [ForeignKey("ContentID")]
         public Guid ContentId { get; set; }
-        public Content Content { get; set; }
 
         /// <summary>
         /// Id of the user who posted the post.

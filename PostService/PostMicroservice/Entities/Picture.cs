@@ -34,7 +34,6 @@ namespace PostMicroservice.Entities
         [Required]
         [ForeignKey("PostID")]
         public Guid PostID { get; set; }
-        //public Post Post { get; set; }
 
 
     }

@@ -6059,11 +6059,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Milica\\source\\repos\\tim_5_socialbuzz-tim5\\PostService\\PostMicroservice\\PostMicroservice.csproj",
+      "projectUniqueName": "C:\\Users\\Milica\\git\\tim_5_socialbuzz-tim5\\PostService\\PostMicroservice\\PostMicroservice.csproj",
       "projectName": "PostMicroservice",
-      "projectPath": "C:\\Users\\Milica\\source\\repos\\tim_5_socialbuzz-tim5\\PostService\\PostMicroservice\\PostMicroservice.csproj",
+      "projectPath": "C:\\Users\\Milica\\git\\tim_5_socialbuzz-tim5\\PostService\\PostMicroservice\\PostMicroservice.csproj",
       "packagesPath": "C:\\Users\\Milica\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Milica\\source\\repos\\tim_5_socialbuzz-tim5\\PostService\\PostMicroservice\\obj\\",
+      "outputPath": "C:\\Users\\Milica\\git\\tim_5_socialbuzz-tim5\\PostService\\PostMicroservice\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Milica\\AppData\\Roaming\\NuGet\\NuGet.Config",

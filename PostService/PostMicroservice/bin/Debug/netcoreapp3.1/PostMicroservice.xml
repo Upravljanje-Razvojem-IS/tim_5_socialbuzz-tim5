@@ -228,8 +228,8 @@
              /// <remarks> 
             Example of request \
             GET '/api/posts' \
-            param  'dateOfPublication = 2021-08-24T12:25:11.1407013'
-            param  'userName = milica_despotovic'
+            param  'dateOfPublication = 2021-08-24T12:25:11.1407013' \
+            param  'userName = milica_despotovic' \
             </remarks>
             <response code="200">Success, returns list of all posts.</response>
             <response code="204">No posts found.</response>
@@ -265,6 +265,7 @@
              } \
             </remarks>
             <response code="201">Successfully added post.</response>
+            <response code="400">Bad request, user or content with that id does not exists.</response>
             <response code="401">Unauthorized user.</response>
             <response code="500">Server error.</response>
         </member>
@@ -301,9 +302,9 @@
             <remarks>
             Example of request \
             DELETE '/api/posts/'\
-             --header 'key: Bearer Milica' \
-             --header 'accountId = 5'  \
-             --param  'postId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'  \
+             header 'key: Bearer Milica' \
+             header 'accountId = 5'  \
+             param  'postId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'  \
             </remarks>
             <response code="204">Success, deleted post.</response>
             <response code="401">Unauthorized user.</response>
