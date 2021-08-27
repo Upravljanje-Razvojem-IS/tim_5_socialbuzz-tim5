@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PostMicroservice.Models.ContentDTO
+namespace PostMicroservice.Models.ContentDto
 {
     /// <summary>
     /// DTO class which represents model of content.
     /// </summary>
-    public class ContentDTO
+    public class ContentDto
     {
 
         /// <summary>

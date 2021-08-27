@@ -10,7 +10,7 @@ using PostMicroservice.Data.ContentRepository;
 using PostMicroservice.Data.PostRepository;
 using PostMicroservice.Entities;
 using PostMicroservice.FakeLogger;
-using PostMicroservice.Models.PostDTO;
+using PostMicroservice.Models.PostDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +58,7 @@ namespace PostMicroservice.Controllers
         ///  /// <remarks> 
         /// Example of request \
         /// GET '/api/posts' \
-        /// param  'dateOfPublication = 2021-08-24T12:25:11.1407013' \
+        /// param  'dateOfPublication = 2021-08-26T16:45:16.9288332' \
         /// param  'userName = milica_despotovic' \
         /// </remarks>
         /// <response code="200">Success, returns list of all posts.</response>
@@ -70,15 +70,15 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         #nullable enable
-        public ActionResult<List<PostDTO>> GetPosts(DateTime? dateOfPublication,string? userName)
+        public ActionResult<List<PostDto>> GetPosts(DateTime? dateOfPublication,string? userName, [FromHeader] int accountID)
         {
             List<Post> posts;
 
             if (userName != null)
             {
-                UserAccountDTO user = userMockRepository.GetAccountByUserName(userName);
+                UserAccountDto user = userMockRepository.GetAccountByUserName(userName);
                 int userID = user.UserAccountId;
-                 posts = postRepository.GetPostByUser(userID);
+                 posts = postRepository.GetPostByUser(userID,accountID);
             }
           
             else
@@ -86,6 +86,42 @@ namespace PostMicroservice.Controllers
                  posts = postRepository.GetPosts(dateOfPublication);
 
             }
+           
+
+            if (posts == null || posts.Count == 0)
+            {
+                return NoContent();
+            }
+            fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all posts", null);
+            return Ok(mapper.Map<List<PostDto>>(posts));
+
+
+
+
+        }
+
+
+        /// <summary>
+        /// Returns list of all posts.
+        /// </summary>
+        /// <returns>List of all posts</returns>
+        ///  /// <remarks> 
+        /// Example of request \
+        /// GET '/api/posts' \
+        /// </remarks>
+        /// <response code="200">Success, returns list of all posts.</response>
+        /// <response code="204">No posts found.</response>
+        /// <response code="500">Server error.</response>
+        [HttpGet("getPostByFollowedUser")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        #nullable enable
+        public ActionResult<List<PostDto>> GetPostsOfFollowingUser([FromQuery] int accountID)
+        {
+
+            var posts = postRepository.GetPostsByFollowingAccount(accountID);
 
 
             if (posts == null || posts.Count == 0)
@@ -93,12 +129,13 @@ namespace PostMicroservice.Controllers
                 return NoContent();
             }
             fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all posts", null);
-            return Ok(mapper.Map<List<PostDTO>>(posts));
+            return Ok(mapper.Map<List<PostDto>>(posts));
 
 
 
 
         }
+
 
 
 
@@ -109,7 +146,7 @@ namespace PostMicroservice.Controllers
         /// <remarks>        
         /// Example of request \
         /// GET '/api/posts/' \
-        /// param  'postId = 0c059681-6f1d-4663-c934-08d966e9793d'
+        /// param  'postId = 5cee7f04-b84b-480a-b930-08d9689a8b7c'
         /// </remarks>
         /// <response code="200">Success, returns the specified post.</response>
         /// <response code="404">A post with that ID does not exist.</response>
@@ -119,7 +156,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<PostDTO> GetPostById(Guid postId)
+        public ActionResult<PostDto> GetPostById(Guid postId)
         {
 
             var post = postRepository.GetPostById(postId);
@@ -130,7 +167,7 @@ namespace PostMicroservice.Controllers
             }
 
             fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get post by id", null);
-            return Ok(mapper.Map<PostDTO>(post));
+            return Ok(mapper.Map<PostDto>(post));
 
         }
 
@@ -159,7 +196,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<PostConfirmationDTO> CreatePost([FromBody] PostCreationDTO post, [FromHeader] string key)
+        public ActionResult<PostConfirmationDto> CreatePost([FromBody] PostCreationDto post, [FromHeader] string key)
         {
             if (!authService.Authorize(key))
             {
@@ -188,7 +225,7 @@ namespace PostMicroservice.Controllers
                 string location = linkGenerator.GetPathByAction("GetPostById", "Post", new { postId = postEntity.PostId });
                 fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Post created", null);
 
-                return Created(location, mapper.Map<PostConfirmationDTO>(postEntity));
+                return Created(location, mapper.Map<PostConfirmationDto>(postEntity));
 
 
 
@@ -215,9 +252,9 @@ namespace PostMicroservice.Controllers
         /// header 'key: Bearer Milica' \
         /// header 'accountId = 5'  \ 
         ///  {       \
-        ///   "postID" : "0c059681-6f1d-4663-c934-08d966e9793d",   \
-        ///   "contentId" : "33676ac7-b6c2-446a-969a-60eccba73965",  \
-        ///   "userId" : 5  \
+        ///    "postId": "5cee7f04-b84b-480a-b930-08d9689a8b7c", \
+        ///    "contentId": "2959689a-c09f-4c0b-6ceb-08d96643ade7", \
+        ///     "userId": 5 \
         ///  }
         /// </remarks>
         /// <response code="200">Success, returns updated post.</response>
@@ -234,7 +271,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<PostDTO> UpdatePost(PostUpdateDTO post, [FromHeader] int accountId,[FromHeader] string key)
+        public ActionResult<PostDto> UpdatePost(PostUpdateDto post, [FromHeader] int accountId,[FromHeader] string key)
         {
             if (!authService.Authorize(key))
             {
@@ -274,7 +311,7 @@ namespace PostMicroservice.Controllers
                 postRepository.SaveChanges();
                 fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Post updated", null);
 
-                return Ok(mapper.Map<PostDTO>(oldPost));
+                return Ok(mapper.Map<PostDto>(oldPost));
 
 
 
@@ -298,7 +335,7 @@ namespace PostMicroservice.Controllers
         /// DELETE '/api/posts/'\
         ///  header 'key: Bearer Milica' \
         ///  header 'accountId = 5'  \
-        ///  param  'postId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'  \
+        ///  param  'postId = d3c92e47-5518-4307-f3ea-08d9693f4f0e'  \
         /// </remarks>
         /// <response code="204">Success, deleted post.</response>
         /// <response code="401">Unauthorized user.</response>

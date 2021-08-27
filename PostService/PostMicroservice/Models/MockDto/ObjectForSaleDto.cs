@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PostMicroservice.Models
 {
-    public class ObjectForSaleDTO
+    public class ObjectForSaleDto
     {
         /// <summary>
         /// ID of object for sale

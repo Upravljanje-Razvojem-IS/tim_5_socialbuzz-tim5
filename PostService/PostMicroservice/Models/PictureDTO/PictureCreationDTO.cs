@@ -10,7 +10,7 @@ namespace PostMicroservice.Models
     /// <summary>
     /// DTO class which represents model of picture for creation.
     /// </summary>
-    public class PictureCreationDTO
+    public class PictureCreationDto
     {
      
         /// <summary>
@@ -25,6 +25,5 @@ namespace PostMicroservice.Models
         [Required(ErrorMessage = "You must enter post for the picture.")]
         [ForeignKey("PostID")]
         public Guid PostID { get; set; }
-        //public Post Post { get; set; }
     }
 }

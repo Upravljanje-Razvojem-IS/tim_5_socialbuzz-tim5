@@ -1,4 +1,5 @@
-﻿using PostMicroservice.Database;
+﻿using Microsoft.AspNetCore.Http;
+using PostMicroservice.Database;
 using PostMicroservice.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,14 @@ namespace PostMicroservice.Data.PostRepository
     public class PostRepository : IPostRepository
     {
         private readonly AppDbContext context;
+        private readonly IFollowMockRepository followMockRepository;
+        private readonly IBlockMockRepository blockMockRepository;
 
-        public PostRepository(AppDbContext context)
+        public PostRepository(AppDbContext context, IFollowMockRepository followMockRepository, IBlockMockRepository blockMockRepository)
         {
             this.context = context;
+            this.followMockRepository = followMockRepository;
+            this.blockMockRepository = blockMockRepository;
         }
 
         public void CreatePost(Post post)
@@ -34,9 +39,26 @@ namespace PostMicroservice.Data.PostRepository
 
         }
 
-        public List<Post> GetPostByUser(int userID)
+        public List<Post> GetPostByUser(int userID, int accountID)
         {
-            return context.Posts.Where(e => ( e.UserId == userID)).ToList();
+            List<Post> posts = new List<Post>();
+
+            if (blockMockRepository.CheckDidIBlockUser(accountID, userID))
+            {
+                
+
+
+
+            }
+            else
+            {
+
+                posts = context.Posts.Where(e => (e.UserId == userID)).ToList();
+
+            }
+
+            return posts;
+           
 
         }
 
@@ -47,7 +69,23 @@ namespace PostMicroservice.Data.PostRepository
 
         }
 
-      
+        public List<Post> GetPostsByFollowingAccount(int accountId)
+        {
+            List<Post> posts = GetPosts();
+             List<Post> postsByFollowing = new List<Post>();
+
+
+            foreach (Post post in posts)
+            {
+                if (followMockRepository.CheckDoIFollowUser(accountId,post.UserId))
+                {
+                    postsByFollowing.Add(post);
+                }
+               
+            }
+            return postsByFollowing;
+           
+            }
 
         public bool SaveChanges()
         {

@@ -203,3 +203,6 @@ C:\Users\Milica\git\tim_5_socialbuzz-tim5\PostService\PostMicroservice\obj\Debug
 C:\Users\Milica\git\tim_5_socialbuzz-tim5\PostService\PostMicroservice\obj\Debug\netcoreapp3.1\PostMicroservice.dll
 C:\Users\Milica\git\tim_5_socialbuzz-tim5\PostService\PostMicroservice\obj\Debug\netcoreapp3.1\PostMicroservice.pdb
 C:\Users\Milica\git\tim_5_socialbuzz-tim5\PostService\PostMicroservice\obj\Debug\netcoreapp3.1\PostMicroservice.genruntimeconfig.cache
+C:\Users\Milica\git\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\Postman\Content.postman_collection.json
+C:\Users\Milica\git\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\Postman\Pictures.postman_collection.json
+C:\Users\Milica\git\tim_5_socialbuzz-tim5\PostService\PostMicroservice\bin\Debug\netcoreapp3.1\Postman\Post.postman_collection.json

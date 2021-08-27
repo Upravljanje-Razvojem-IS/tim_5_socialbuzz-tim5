@@ -9,7 +9,7 @@ namespace PostMicroservice.Entities
     /// <summary>
     /// An identifier for the user account
     /// </summary>
-    public class UserAccountDTO
+    public class UserAccountDto
     {
            /// <summary>
            /// ID of user account

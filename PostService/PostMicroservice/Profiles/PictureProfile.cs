@@ -15,12 +15,12 @@ namespace PostMicroservice.Profiles
         {
          
 
-            CreateMap<PictureDTO,Picture>();
-            CreateMap<PictureCreationDTO, Picture>();
-            CreateMap<Picture, PictureDTO>();
+            CreateMap<PictureDto,Picture>();
+            CreateMap<PictureCreationDto, Picture>();
+            CreateMap<Picture, PictureDto>();
 
-            CreateMap<PictureUpdateDTO, Picture>();
-            CreateMap<Picture, PictureConfirmationDTO>();
+            CreateMap<PictureUpdateDto, Picture>();
+            CreateMap<Picture, PictureConfirmationDto>();
             CreateMap<Picture, Picture>();
 
         }

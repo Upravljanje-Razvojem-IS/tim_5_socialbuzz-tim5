@@ -83,6 +83,10 @@ namespace PostMicroservice
             services.AddSingleton<IFakeLoggerRepository, FakeLoggerRepository>();
             services.AddSingleton<IUserAccountMockRepository, UserAccountMockRepository>();
             services.AddSingleton< IObjectForSaleMockRepository, ObjectForSaleMockRepository >();
+            services.AddSingleton<IFollowMockRepository, FollowMockRepository>();
+            services.AddSingleton<IBlockMockRepository, BlockMockRepository>();
+
+
 
         }
 

@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PostMicroservice.Models.PostDTO
+namespace PostMicroservice.Models.PostDto
 {
 
     /// <summary>
     /// DTO class which represents post for update.
     /// </summary>
-    public class PostUpdateDTO
+    public class PostUpdateDto
     {
         /// <summary>
         /// Post ID

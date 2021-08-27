@@ -10,7 +10,7 @@ namespace PostMicroservice.Models
     /// <summary>
     /// DTO class which represents model of picture for confirmation.
     /// </summary>
-    public class PictureConfirmationDTO
+    public class PictureConfirmationDto
     {
         /// <summary>
         /// Picture ID.
@@ -31,7 +31,6 @@ namespace PostMicroservice.Models
         [Required(ErrorMessage = "You must enter post for the picture.")]
         [ForeignKey("PostID")]
         public Guid PostID { get; set; }
-        //public Post Post { get; set; }
 
     }
 }

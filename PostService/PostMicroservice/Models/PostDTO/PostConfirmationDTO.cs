@@ -5,12 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PostMicroservice.Models.PostDTO
+namespace PostMicroservice.Models.PostDto
 {
     /// <summary>
     /// DTO class which represents post for confirmation.
     /// </summary>
-    public class PostConfirmationDTO
+    public class PostConfirmationDto
     {
 
         /// <summary>

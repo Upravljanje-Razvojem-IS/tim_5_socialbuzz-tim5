@@ -53,7 +53,7 @@ namespace PostMicroservice.Controllers
         ///  /// <remarks> 
         /// Example of request \
         /// GET '/api/pictures' \
-        ///   param  'postId = f684f7ae-b1b6-4dfa-a01c-7edc54c689db'
+        ///   param  'postId = 5cee7f04-b84b-480a-b930-08d9689a8b7c'
         /// </remarks>
         /// <response code="200">Success, returns list of all pictures.</response>
         /// <response code="204">No pictures found.</response>
@@ -63,7 +63,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<List<PictureDTO>> GetPictures(Guid? postID)
+        public ActionResult<List<PictureDto>> GetPictures(Guid? postID)
         {
 
             var pictures = pictureRepository.GetPictures(postID);
@@ -72,7 +72,7 @@ namespace PostMicroservice.Controllers
                 return NoContent();
             }
             fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all pictures", null);
-            return Ok(mapper.Map<List<PictureDTO>>(pictures));
+            return Ok(mapper.Map<List<PictureDto>>(pictures));
 
 
 
@@ -88,7 +88,7 @@ namespace PostMicroservice.Controllers
         ///  /// <remarks>        
         /// Example of request \
         /// GET 'https://localhost:44200/api/pictures/' \
-        ///     param  'pictureId = da74fb64-4edc-468e-4373-08d9661a6abd'
+        ///     param  'pictureId = d0e5b759-f1bf-490c-a7fa-08d968a6710c'
         /// </remarks>
         /// <response code="200">Success, returns the specified picture.</response>
         /// <response code="404">A photo with that ID does not exist.</response>
@@ -98,7 +98,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<PictureDTO> GetPictureById(Guid pictureId)
+        public ActionResult<PictureDto> GetPictureById(Guid pictureId)
         {
 
             var picture = pictureRepository.GetPictureById(pictureId);
@@ -109,7 +109,7 @@ namespace PostMicroservice.Controllers
             }
 
             fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get picture by id", null);
-            return Ok(mapper.Map<PictureDTO>(picture));
+            return Ok(mapper.Map<PictureDto>(picture));
 
         }
 
@@ -125,7 +125,7 @@ namespace PostMicroservice.Controllers
         /// header 'key: Bearer Milica' \
         /// {     \
         ///     "url" : "url",\
-        ///     "postID" : "0c059681-6f1d-4663-c934-08d966e9793d" \
+        ///     "postID" : "5cee7f04-b84b-480a-b930-08d9689a8b7c" \
         ///}
         /// </remarks>
         /// <response code="201">Successfully added photo.</response>
@@ -138,7 +138,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<PictureConfirmationDTO> CreatePicture([FromBody] PictureCreationDTO picture, [FromHeader] string key)
+        public ActionResult<PictureConfirmationDto> CreatePicture([FromBody] PictureCreationDto picture, [FromHeader] string key)
         {
             if (!authService.Authorize(key))
             {
@@ -160,7 +160,7 @@ namespace PostMicroservice.Controllers
                 string location = linkGenerator.GetPathByAction("GetPictureById", "Picture", new { pictureId = pictureEntity.PictureId });
                 fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Picture created", null);
 
-                return Created(location, mapper.Map<PictureConfirmationDTO>(pictureEntity));
+                return Created(location, mapper.Map<PictureConfirmationDto>(pictureEntity));
 
 
 
@@ -186,9 +186,9 @@ namespace PostMicroservice.Controllers
         /// PUT /api/pictures \
         /// header 'key: Bearer Milica' \
         /// {     \
-        ///     "pictureId" : "da74fb64-4edc-468e-4373-08d9661a6abd", \
-        ///     "url" : "url",\
-        ///     "postID" : "0c059681-6f1d-4663-c934-08d966e9793d" \
+        ///    "pictureId": "d0e5b759-f1bf-490c-a7fa-08d968a6710c",\
+        /// "url": "URL1",\
+        /// "postID": "5cee7f04-b84b-480a-b930-08d9689a8b7c"\
         ///}
         /// </remarks>
         /// <response code="200">Success, returns updated picture.</response>
@@ -203,7 +203,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<PictureDTO> UpdatePicture(PictureUpdateDTO picture, [FromHeader] string key)
+        public ActionResult<PictureDto> UpdatePicture(PictureUpdateDto picture, [FromHeader] string key)
         {
             if (!authService.Authorize(key))
             {
@@ -229,7 +229,7 @@ namespace PostMicroservice.Controllers
                 pictureRepository.SaveChanges();
                 fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Picture updated", null);
 
-                return Ok(mapper.Map<PictureDTO>(oldPicture));
+                return Ok(mapper.Map<PictureDto>(oldPicture));
 
 
                
@@ -252,7 +252,7 @@ namespace PostMicroservice.Controllers
         /// Example of request \
         /// DELETE '/api/pictures/'\
         ///  header 'key: Bearer Milica' \
-        ///  param  'pictureId = da74fb64-4edc-468e-4373-08d9661a6abd' 
+        ///  param  'pictureId = 0663ca84-4664-42c2-37f9-08d9693d4228' 
         /// </remarks>
         /// <response code="204">Success, deleted picture.</response>
         /// <response code="401">Unauthorized user.</response>

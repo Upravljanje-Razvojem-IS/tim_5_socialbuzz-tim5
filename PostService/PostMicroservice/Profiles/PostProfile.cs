@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PostMicroservice.Entities;
-using PostMicroservice.Models.PostDTO;
+using PostMicroservice.Models.PostDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +15,12 @@ namespace PostMicroservice.Profiles
         {
 
 
-            CreateMap<PostDTO, Post>();
-            CreateMap<PostCreationDTO, Post>();
-            CreateMap<Post, PostDTO>();
+            CreateMap<PostDto, Post>();
+            CreateMap<PostCreationDto, Post>();
+            CreateMap<Post, PostDto>();
 
-            CreateMap<PostUpdateDTO, Post>();
-            CreateMap<Post, PostConfirmationDTO>();
+            CreateMap<PostUpdateDto, Post>();
+            CreateMap<Post, PostConfirmationDto>();
             CreateMap<Post, Post>();
 
         }

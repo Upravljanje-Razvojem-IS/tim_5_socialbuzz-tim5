@@ -5,8 +5,8 @@ namespace PostMicroservice.Data
 {
     public interface IUserAccountMockRepository 
     {
-        UserAccountDTO GetAccountByUserAccountID(int userAccountID);
-        UserAccountDTO GetAccountByUserName(string userName);
+        UserAccountDto GetAccountByUserAccountID(int userAccountID);
+        UserAccountDto GetAccountByUserName(string userName);
     }
 
 }

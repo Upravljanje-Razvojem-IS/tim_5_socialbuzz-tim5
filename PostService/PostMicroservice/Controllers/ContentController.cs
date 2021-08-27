@@ -9,7 +9,7 @@ using PostMicroservice.Data;
 using PostMicroservice.Data.ContentRepository;
 using PostMicroservice.Entities;
 using PostMicroservice.FakeLogger;
-using PostMicroservice.Models.ContentDTO;
+using PostMicroservice.Models.ContentDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +62,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<List<ContentDTO>> GetContents(string title)
+        public ActionResult<List<ContentDto>> GetContents(string title)
         {
 
             var contents = contentRepository.GetContents(title);
@@ -71,7 +71,7 @@ namespace PostMicroservice.Controllers
                 return NoContent();
             }
             fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all contents", null);
-            return Ok(mapper.Map<List<ContentDTO>>(contents));
+            return Ok(mapper.Map<List<ContentDto>>(contents));
 
 
 
@@ -97,7 +97,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<ContentDTO> GetContentById(Guid contentId)
+        public ActionResult<ContentDto> GetContentById(Guid contentId)
         {
 
             var content = contentRepository.GetContentById(contentId);
@@ -108,7 +108,7 @@ namespace PostMicroservice.Controllers
             }
 
             fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get content by id", null);
-            return Ok(mapper.Map<ContentDTO>(content));
+            return Ok(mapper.Map<ContentDto>(content));
 
         }
 
@@ -140,7 +140,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<ContentConfirmationDTO> CreateContent([FromBody] ContentCreationDTO content, [FromHeader] string key)
+        public ActionResult<ContentConfirmationDto> CreateContent([FromBody] ContentCreationDto content, [FromHeader] string key)
         {
             if (!authService.Authorize(key))
             {
@@ -161,7 +161,7 @@ namespace PostMicroservice.Controllers
                 string location = linkGenerator.GetPathByAction("GetContentById", "Content", new { contentId = contentEntity.ContentId });
                 fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Content created", null);
 
-                return Created(location, mapper.Map<ContentConfirmationDTO>(contentEntity));
+                return Created(location, mapper.Map<ContentConfirmationDto>(contentEntity));
 
 
 
@@ -207,7 +207,7 @@ namespace PostMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<ContentDTO> UpdateContent(ContentUpdateDTO content, [FromHeader] string key)
+        public ActionResult<ContentDto> UpdateContent(ContentUpdateDto content, [FromHeader] string key)
         {
             if (!authService.Authorize(key))
             {
@@ -234,7 +234,7 @@ namespace PostMicroservice.Controllers
                 contentRepository.SaveChanges();
                 fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Content updated", null);
 
-                return Ok(mapper.Map<ContentDTO>(oldContent));
+                return Ok(mapper.Map<ContentDto>(oldContent));
 
 
 
@@ -257,7 +257,7 @@ namespace PostMicroservice.Controllers
         /// Example of request \
         /// DELETE '/api/contents/'\
         ///  header 'key: Bearer Milica' \
-        ///  param  'contentId = 2959689a-c09f-4c0b-6ceb-08d96643ade7' 
+        ///  param  'contentId = 5594e266-329b-4425-8295-08d9693d80ac' 
         /// </remarks>
         /// <response code="204">Success, deleted content.</response>
         /// <response code="401">Unauthorized user.</response>

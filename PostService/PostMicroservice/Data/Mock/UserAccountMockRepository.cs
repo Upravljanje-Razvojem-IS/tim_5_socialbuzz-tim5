@@ -7,7 +7,7 @@ namespace PostMicroservice.Data
     public class UserAccountMockRepository : IUserAccountMockRepository
     {
 
-        public static List<UserAccountDTO> UserAccounts { get; set; } = new List<UserAccountDTO>();
+        public static List<UserAccountDto> UserAccounts { get; set; } = new List<UserAccountDto>();
 
         public UserAccountMockRepository()
         {
@@ -16,19 +16,19 @@ namespace PostMicroservice.Data
 
         private static void FillData()
         {
-            UserAccounts.AddRange(new List<UserAccountDTO>
+            UserAccounts.AddRange(new List<UserAccountDto>
             {
-                new UserAccountDTO
+                new UserAccountDto
                 {
                     UserAccountId = 5,
                     UserName = "milica_despotovic"
                 },
-                 new UserAccountDTO
+                 new UserAccountDto
                 {
                     UserAccountId = 7,
                     UserName = "verica_lulic"
                 },
-                  new UserAccountDTO
+                  new UserAccountDto
                 {
                     UserAccountId = 8,
                     UserName = "marija_krivokuca"
@@ -41,13 +41,13 @@ namespace PostMicroservice.Data
         }
        
 
-        public UserAccountDTO GetAccountByUserAccountID(int userAccountID)
+        public UserAccountDto GetAccountByUserAccountID(int userAccountID)
         {
             return UserAccounts.FirstOrDefault(e => e.UserAccountId == userAccountID);
 
         }
 
-        public UserAccountDTO GetAccountByUserName(string userName)
+        public UserAccountDto GetAccountByUserName(string userName)
         {
             return UserAccounts.FirstOrDefault(e => e.UserName == userName);
 

@@ -8,7 +8,7 @@ namespace PostMicroservice.Data
     public class ObjectForSaleMockRepository : IObjectForSaleMockRepository
     {
 
-        public static List<ObjectForSaleDTO> ObjectsForSale { get; set; } = new List<ObjectForSaleDTO>();
+        public static List<ObjectForSaleDto> ObjectsForSale { get; set; } = new List<ObjectForSaleDto>();
 
         public ObjectForSaleMockRepository()
         {
@@ -17,19 +17,19 @@ namespace PostMicroservice.Data
 
         private static void FillData()
         {
-            ObjectsForSale.AddRange(new List<ObjectForSaleDTO>
+            ObjectsForSale.AddRange(new List<ObjectForSaleDto>
             {
-                new ObjectForSaleDTO
+                new ObjectForSaleDto
                 {
                     ObjectForSaleId = 5,
                     Name = "stolica"
                 },
-                new ObjectForSaleDTO
+                new ObjectForSaleDto
                 {
                     ObjectForSaleId = 5,
                     Name = "krevet"
                 },
-                new ObjectForSaleDTO
+                new ObjectForSaleDto
                 {
                     ObjectForSaleId = 5,
                     Name = "ormar"
@@ -41,13 +41,13 @@ namespace PostMicroservice.Data
             });
         }
 
-        public ObjectForSaleDTO GetObjectForSaleByID(int objectForSaleID)
+        public ObjectForSaleDto GetObjectForSaleByID(int objectForSaleID)
         {
             return ObjectsForSale.FirstOrDefault(e => e.ObjectForSaleId == objectForSaleID);
 
         }
 
-        public ObjectForSaleDTO GetObjectForSaleByName(string name)
+        public ObjectForSaleDto GetObjectForSaleByName(string name)
         {
             throw new NotImplementedException();
         }

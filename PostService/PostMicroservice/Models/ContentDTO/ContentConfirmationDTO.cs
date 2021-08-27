@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PostMicroservice.Models.ContentDTO
+namespace PostMicroservice.Models.ContentDto
 {
     /// <summary>
     /// DTO class which represents model of content for confirmation.
     /// </summary>
-    public class ContentConfirmationDTO
+    public class ContentConfirmationDto
     {
 
         /// <summary>
