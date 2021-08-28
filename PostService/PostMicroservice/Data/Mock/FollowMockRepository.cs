@@ -8,7 +8,7 @@ namespace PostMicroservice.Data
 {
     public class FollowMockRepository : IFollowMockRepository
     {
-        public static List<FollowMockDto> FollowingUsers { get; set; } = new List<FollowMockDto>();
+        public static List<FollowMockDto> FollowedUsers { get; set; } = new List<FollowMockDto>();
 
         public FollowMockRepository()
         {
@@ -23,18 +23,18 @@ namespace PostMicroservice.Data
             f.FollowerID = 7;
             f.FollowedID = 5;
 
-            FollowingUsers.Add(f);
+            FollowedUsers.Add(f);
         }
 
-        public bool CheckDoIFollowUser(int userId, int followingId)
+        public bool CheckDoIFollowUser(int followerId, int followedUser)
         {
 
-            var query = from l1 in FollowingUsers
+            var query = from l1 in FollowedUsers
                         select l1;
 
             foreach (var v in query)
             {
-                if (v.FollowerID == userId && v.FollowedID == followingId)
+                if (v.FollowerID == followerId && v.FollowedID == followedUser)
                 {
                     return true;
                 }

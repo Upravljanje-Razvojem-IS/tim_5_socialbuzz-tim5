@@ -45,8 +45,8 @@ namespace PostMicroservice.Data.PostRepository
 
             if (blockMockRepository.CheckDidIBlockUser(accountID, userID))
             {
-                
 
+                return null;
 
 
             }
@@ -69,21 +69,21 @@ namespace PostMicroservice.Data.PostRepository
 
         }
 
-        public List<Post> GetPostsByFollowingAccount(int accountId)
+        public List<Post> GetPostsFromWall(int accountId,DateTime? dateOfPublication = null)
         {
-            List<Post> posts = GetPosts();
-             List<Post> postsByFollowing = new List<Post>();
+            List<Post> posts = context.Posts.Where(e => (dateOfPublication == null || e.DateOfPublication == dateOfPublication)).ToList();
+            List<Post> postsFromWall = new List<Post>();
 
 
             foreach (Post post in posts)
             {
                 if (followMockRepository.CheckDoIFollowUser(accountId,post.UserId))
                 {
-                    postsByFollowing.Add(post);
+                    postsFromWall.Add(post);
                 }
                
             }
-            return postsByFollowing;
+            return postsFromWall;
            
             }
 

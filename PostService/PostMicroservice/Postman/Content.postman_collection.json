@@ -11,27 +11,116 @@
 				{
 					"name": "GetContentById404",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/contents/27431934-FBAB-4571-BC9D-A3580BEF9ED4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents",
+								"27431934-FBAB-4571-BC9D-A3580BEF9ED4"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeleteContent404",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/contents/27431934-FBAB-4571-BC9D-A3580BEF9ED4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents",
+								"27431934-FBAB-4571-BC9D-A3580BEF9ED4"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdateContent404",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contentId\": \"27431934-FBAB-4571-BC9D-A3580BEF9ED4\",\r\n    \"title\": \"Prodajem rolere\",\r\n    \"text\": \"Prodajem rolere stare 6. mjeseci, broj 37, slabo vožene.\",\r\n    \"replacement\": false,\r\n    \"state\": \"odlično\",\r\n    \"itemForSaleID\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				}
@@ -45,25 +134,104 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/contents?title=Prodajem rolere",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Prodajem rolere"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeleteContent",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/contents/6f04e4c8-034c-4239-7fbd-08d96a37d419",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents",
+								"6f04e4c8-034c-4239-7fbd-08d96a37d419"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdateContent",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n        \"title\": \"Prodajem rolere\",\r\n        \"text\": \"Prodajem rolere stare 6. mjeseci, broj 38, slabo vožene.\",\r\n        \"replacement\": false,\r\n        \"state\": \"odlično\",\r\n        \"itemForSaleID\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				},
@@ -72,25 +240,38 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "OptionsContents",
 					"request": {
-						"method": "GET",
+						"method": "OPTIONS",
 						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "HeadContents",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				},
@@ -99,16 +280,63 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/contents/2959689a-c09f-4c0b-6ceb-08d96643ade7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents",
+								"2959689a-c09f-4c0b-6ceb-08d96643ade7"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "PostContent",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n   \"Title\" : \"Prodajem rolere\",\r\n   \"Text\" : \"Prodajem rolere stare 6. mjeseci, broj 37, slabo vožene.\",\r\n   \"Replacement\" : false,\r\n   \"State\" : \"odlično\",\r\n   \"ItemForSaleID\" : 5\r\n\r\n } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				}
@@ -120,27 +348,82 @@
 				{
 					"name": "PostContent401",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Prodajem rolere\",\r\n    \"text\": \"Prodajem rolere stare 6. mjeseci, broj 37, slabo vožene.\",\r\n    \"replacement\": false,\r\n    \"state\": \"odlično\",\r\n    \"itemForSaleID\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdateContent401",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contentId\": \"b572be03-105c-4d46-cf84-08d966448c93\",\r\n    \"title\": \"Prodajem rolere\",\r\n    \"text\": \"Prodajem rolere stare 6. mjeseci, broj 37, slabo vožene.\",\r\n    \"replacement\": false,\r\n    \"state\": \"odlično\",\r\n    \"itemForSaleID\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeleteContent401",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/contents/b572be03-105c-4d46-cf84-08d966448c93",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents",
+								"b572be03-105c-4d46-cf84-08d966448c93"
+							]
+						}
 					},
 					"response": []
 				}
@@ -152,18 +435,88 @@
 				{
 					"name": "PostContent400",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Prodajem rolere\",\r\n    \"text\": \"Prodajem rolere stare 6. mjeseci, broj 37, slabo vožene.\",\r\n    \"replacement\": false,\r\n    \"state\": \"odlično\",\r\n    \"itemForSaleID\": 554\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "PutContent400",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Prodajem rolere\",\r\n    \"text\": \"Prodajem rolere stare 6. mjeseci, broj 37, slabo vožene.\",\r\n    \"replacement\": false,\r\n    \"state\": \"odlično\",\r\n    \"itemForSaleID\": 554\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/contents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"contents"
+							]
+						}
 					},
 					"response": []
 				}

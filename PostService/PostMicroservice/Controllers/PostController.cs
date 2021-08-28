@@ -51,47 +51,56 @@ namespace PostMicroservice.Controllers
 
         /// <summary>
         /// Returns list of all posts.
+        /// For the passed username parameter, returns all posts of that user, provided it is not blocked.
         /// </summary>
-        /// <param name="dateOfPublication">Date of publication post</param>
         ///  <param name="userName">Username of the user who posted the post</param>
+        ///  <param name="accountID">Id of user who sent request</param>
         /// <returns>List of all posts</returns>
         ///  /// <remarks> 
         /// Example of request \
         /// GET '/api/posts' \
-        /// param  'dateOfPublication = 2021-08-26T16:45:16.9288332' \
-        /// param  'userName = milica_despotovic' \
+        /// param  'userName = verica_lulic' \
+        /// param  'userName = marija_krivokuca' \ blocked user \
+        /// param  'accountId = 5' \
         /// </remarks>
         /// <response code="200">Success, returns list of all posts.</response>
         /// <response code="204">No posts found.</response>
+        /// <response code="400">Bad request, user is blocked.</response>
         /// <response code="500">Server error.</response>
         [HttpGet]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         #nullable enable
-        public ActionResult<List<PostDto>> GetPosts(DateTime? dateOfPublication,string? userName, [FromHeader] int accountID)
+        public ActionResult<List<PostDto>> GetPosts(string? userName, [FromHeader] int accountID)
         {
             List<Post> posts;
 
-            if (userName != null)
+                if(userName!=null)
             {
-                UserAccountDto user = userMockRepository.GetAccountByUserName(userName);
+            UserAccountDto user = userMockRepository.GetAccountByUserName(userName);
                 int userID = user.UserAccountId;
                  posts = postRepository.GetPostByUser(userID,accountID);
+                if(posts == null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, "You can't see the posts because the user is blocked!");
+
+                }
             }
+                else
+            {
+                posts = postRepository.GetPosts();
+
+
+                if (posts == null || posts.Count == 0)
+                {
+                    return NoContent();
+                }
+            }
+
           
-            else
-            {
-                 posts = postRepository.GetPosts(dateOfPublication);
-
-            }
-           
-
-            if (posts == null || posts.Count == 0)
-            {
-                return NoContent();
-            }
             fakeLoggerRepository.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all posts", null);
             return Ok(mapper.Map<List<PostDto>>(posts));
 
@@ -102,26 +111,30 @@ namespace PostMicroservice.Controllers
 
 
         /// <summary>
-        /// Returns list of all posts.
+        /// Returns all posts from the wall, exactly all the posts of the users we follow.
         /// </summary>
-        /// <returns>List of all posts</returns>
+        /// <param name="dateOfPublication">Date of publication post</param>
+        /// <returns>List of all posts from the wall</returns>
         ///  /// <remarks> 
         /// Example of request \
         /// GET '/api/posts' \
+        /// param  'dateOfPublication = 2021-08-27T11:44:47.9864747' \
+        /// param  'accountId = 7' \
         /// </remarks>
-        /// <response code="200">Success, returns list of all posts.</response>
+        /// <response code="200">Success, returns list of all posts from the wall.</response>
         /// <response code="204">No posts found.</response>
         /// <response code="500">Server error.</response>
-        [HttpGet("getPostByFollowedUser")]
+        [HttpGet("postsFromWall")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         #nullable enable
-        public ActionResult<List<PostDto>> GetPostsOfFollowingUser([FromQuery] int accountID)
+        public ActionResult<List<PostDto>> GetPostsFromWall(DateTime? dateOfPublication,[FromQuery] int accountID)
         {
+            
 
-            var posts = postRepository.GetPostsByFollowingAccount(accountID);
+            var posts = postRepository.GetPostsFromWall(accountID,dateOfPublication);
 
 
             if (posts == null || posts.Count == 0)
@@ -184,7 +197,7 @@ namespace PostMicroservice.Controllers
         /// {      \
         ///  "contentId" : "2959689a-c09f-4c0b-6ceb-08d96643ade7",  \
         ///   "userId" : 5  \
-        ///  } \
+        ///  } 
         /// </remarks>
         /// <response code="201">Successfully added post.</response>
         /// <response code="400">Bad request, user or content with that id does not exists.</response>
@@ -250,12 +263,12 @@ namespace PostMicroservice.Controllers
         /// Example of request \
         /// PUT /api/posts \
         /// header 'key: Bearer Milica' \
-        /// header 'accountId = 5'  \ 
-        ///  {       \
+        /// header 'accountId = 5' \ 
+        /// {       \
         ///    "postId": "5cee7f04-b84b-480a-b930-08d9689a8b7c", \
         ///    "contentId": "2959689a-c09f-4c0b-6ceb-08d96643ade7", \
         ///     "userId": 5 \
-        ///  }
+        /// }
         /// </remarks>
         /// <response code="200">Success, returns updated post.</response>
         /// <response code="400">Bad request, content or user with that ID does not exist.</response>
@@ -335,7 +348,7 @@ namespace PostMicroservice.Controllers
         /// DELETE '/api/posts/'\
         ///  header 'key: Bearer Milica' \
         ///  header 'accountId = 5'  \
-        ///  param  'postId = d3c92e47-5518-4307-f3ea-08d9693f4f0e'  \
+        ///  param  'postId = 2959689a-c09f-4c0b-6ceb-08d96643ade7'  \
         /// </remarks>
         /// <response code="204">Success, deleted post.</response>
         /// <response code="401">Unauthorized user.</response>

@@ -13,25 +13,99 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/pictures/C3EE1F60-4935-4C27-93B4-6F2730AA0F5D",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures",
+								"C3EE1F60-4935-4C27-93B4-6F2730AA0F5D"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeletePicture404",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/pictures/C3EE1F60-4935-4C27-93B4-6F2730AA0F5D",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures",
+								"C3EE1F60-4935-4C27-93B4-6F2730AA0F5D"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdatePicture404",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"pictureId\": \"d0e5b759-f1bf-490c-a7fa-08d968a6710d\",\r\n        \"url\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.b92.net%2Fautomobili%2Faktuelno.php%3Fyyyy%\",\r\n        \"postID\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\"\r\n\r\n } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				}
@@ -45,34 +119,155 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/pictures?PostID=5cee7f04-b84b-480a-b930-08d9689a8b7c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							],
+							"query": [
+								{
+									"key": "PostID",
+									"value": "5cee7f04-b84b-480a-b930-08d9689a8b7c"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "PostPicture",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n   \"Url\" : \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.b92.net%2Fautomobili%2Faktuelno.php%3Fyyyy%3D2019%26mm%3D03%26nav_id%3D1512759&psig=AOvVaw1Hyozs6evTc8pGcGrpfp6l&ust=1629464928590000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCMDVx-GUvfICFQAAAAAdAAAAABAD\",\r\n   \"PostID\" : \"5cee7f04-b84b-480a-b930-08d9689a8b7c\"\r\n\r\n } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeletePicture",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/pictures/cbed466d-23df-4299-96de-08d96a37dc75",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures",
+								"cbed466d-23df-4299-96de-08d96a37dc75"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdatePicture",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"pictureId\": \"d0e5b759-f1bf-490c-a7fa-08d968a6710c\",\r\n        \"url\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.b92.net%2Fautomobili%2Faktuelno.php%3Fyyyy%\",\r\n        \"postID\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\"\r\n\r\n } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				},
@@ -81,16 +276,38 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "OptionsPictures",
 					"request": {
-						"method": "GET",
+						"method": "OPTIONS",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				},
@@ -99,7 +316,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/pictures/d0e5b759-f1bf-490c-a7fa-08d968a6710c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures",
+								"d0e5b759-f1bf-490c-a7fa-08d968a6710c"
+							]
+						}
 					},
 					"response": []
 				}
@@ -111,27 +340,94 @@
 				{
 					"name": "PostPicture401",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"url\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.b92.net%2Fautomobili%2Faktuelno.php%3Fyyyy%\",\r\n        \"postID\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\"\r\n\r\n } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdatePicture401",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"pictureId\": \"d0e5b759-f1bf-490c-a7fa-08d968a6710c\",\r\n        \"url\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.b92.net%2Fautomobili%2Faktuelno.php%3Fyyyy%\",\r\n        \"postID\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\"\r\n\r\n } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeletePicture401",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milicaa",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/pictures/f8d44944-5fef-4ffd-a7fb-08d968a6710c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures",
+								"f8d44944-5fef-4ffd-a7fb-08d968a6710c"
+							]
+						}
 					},
 					"response": []
 				}
@@ -143,18 +439,88 @@
 				{
 					"name": "PostPicture400",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"pictureId\": \"d0e5b759-f1bf-490c-a7fa-08d968a6710c\",\r\n        \"url\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.b92.net%2Fautomobili%2Faktuelno.php%3Fyyyy%\",\r\n        \"postID\": \"5cee7f04-b84b-480a-b930-08d9689a8b8c\"\r\n\r\n } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdatePicture400",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"pictureId\": \"d0e5b759-f1bf-490c-a7fa-08d968a6710c\",\r\n        \"url\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.b92.net%2Fautomobili%2Faktuelno.php%3Fyyyy%\",\r\n        \"postID\": \"5cee7f04-b84b-480a-b930-08d9689a8b8d\"\r\n\r\n } ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/pictures",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"pictures"
+							]
+						}
 					},
 					"response": []
 				}

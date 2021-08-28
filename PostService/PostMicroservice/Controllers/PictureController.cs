@@ -252,7 +252,7 @@ namespace PostMicroservice.Controllers
         /// Example of request \
         /// DELETE '/api/pictures/'\
         ///  header 'key: Bearer Milica' \
-        ///  param  'pictureId = 0663ca84-4664-42c2-37f9-08d9693d4228' 
+        ///  param  'pictureId = bc2b117e-7eda-44c0-981d-08d96a33dc15' 
         /// </remarks>
         /// <response code="204">Success, deleted picture.</response>
         /// <response code="401">Unauthorized user.</response>

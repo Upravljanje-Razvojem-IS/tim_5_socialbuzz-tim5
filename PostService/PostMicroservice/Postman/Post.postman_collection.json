@@ -11,18 +11,80 @@
 				{
 					"name": "UpdatePost403",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\",\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n    \"userId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeletePost403",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/posts/5cee7f04-b84b-480a-b930-08d9689a8b7c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts",
+								"5cee7f04-b84b-480a-b930-08d9689a8b7c"
+							]
+						}
 					},
 					"response": []
 				}
@@ -34,18 +96,135 @@
 				{
 					"name": "CreatePost",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\",\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n    \"userId\": 55\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdatePost",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\",\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n    \"userId\": 55\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllPostsByBlockedUser",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accountID",
+								"value": "5",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:44200/api/posts?userName=marija_krivokuca",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "marija_krivokuca"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -57,27 +236,136 @@
 				{
 					"name": "CreatePost401",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milicaa",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\",\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n    \"userId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdatePost401",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milicaa",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accountID",
+								"value": "5",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\",\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n    \"userId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeletePost401",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milicaa",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/posts/5cee7f04-b84b-480a-b930-08d9689a8b7c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts",
+								"5cee7f04-b84b-480a-b930-08d9689a8b7c"
+							]
+						}
 					},
 					"response": []
 				}
@@ -87,74 +375,393 @@
 			"name": "200Response",
 			"item": [
 				{
-					"name": "GetAllPostsByDatePublication",
+					"name": "GetAllPostsByDatePublicationFromWall",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
-						"url": null
+						"header": [
+							{
+								"key": "accountID",
+								"value": "7",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:44200/api/posts/postsFromWall?dateOfPublication=2021-08-27T11:44:47.9864747&accountId=7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts",
+								"postsFromWall"
+							],
+							"query": [
+								{
+									"key": "dateOfPublication",
+									"value": "2021-08-27T11:44:47.9864747"
+								},
+								{
+									"key": "accountId",
+									"value": "7"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeletePost",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accountID",
+								"value": "5",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:44200/api/posts/2959689a-c09f-4c0b-6ceb-08d96643ade7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts",
+								"2959689a-c09f-4c0b-6ceb-08d96643ade7"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdatePost",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accountID",
+								"value": "5",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": \"5cee7f04-b84b-480a-b930-08d9689a8b7c\",\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n    \"userId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "GetAllPosts",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "OptionsPosts",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "GetPostById",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/posts/5cee7f04-b84b-480a-b930-08d9689a8b7c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts",
+								"5cee7f04-b84b-480a-b930-08d9689a8b7c"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "CreatePost",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n    \"userId\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "GetAllPostsByUserName",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
-						"url": null
+						"header": [
+							{
+								"key": "accountId",
+								"value": "5",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:44200/api/posts?userName=verica_lulic",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "verica_lulic"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllPostsFromWall",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accountId",
+								"value": "7",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:44200/api/posts/postsFromWall?accountId=7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts",
+								"postsFromWall"
+							],
+							"query": [
+								{
+									"key": "accountId",
+									"value": "7"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -166,27 +773,122 @@
 				{
 					"name": "GetPostById404",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/posts/5cee7f04-b84b-480a-b930-08d9689a8b7D",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts",
+								"5cee7f04-b84b-480a-b930-08d9689a8b7D"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DeletePost404",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:44200/api/posts/5cee7f04-b84b-480a-b930-08d9689a8b7D",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts",
+								"5cee7f04-b84b-480a-b930-08d9689a8b7D"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "UpdatePost404",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Bearer Milica",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accountID",
+								"value": "5",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": \"5cee7f04-b84b-480a-b930-08d9689a8b7D\",\r\n    \"contentId\": \"2959689a-c09f-4c0b-6ceb-08d96643ade7\",\r\n    \"userId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:44200/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "44200",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				}

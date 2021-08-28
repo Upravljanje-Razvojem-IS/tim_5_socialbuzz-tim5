@@ -29,8 +29,8 @@ namespace PostMicroservice.Data
 
         public bool CheckDidIBlockUser(int userId, int blockedId)
         {
-            var query = from l1 in BlockedUsers
-                        select l1;
+            var query = from user in BlockedUsers
+                        select user;
 
             foreach (var v in query)
             {

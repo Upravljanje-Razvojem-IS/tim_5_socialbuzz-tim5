@@ -10,22 +10,22 @@ namespace PostMicroservice.Models
         /// <summary>
         /// ID of block
         /// </summary>
-        public Guid BlockingID;
+        public Guid BlockingID { get; set; }
 
 
         /// <summary>
         /// Id of the user who blocked another user.
         /// </summary>
-        public int BlockerID;
+        public int BlockerID { get; set; }
 
 
 
         /// <summary>
         /// Id of the blocked user.
         /// </summary>
-        public int BlockedID;
+        public int BlockedID { get; set; }
 
-       
+
     }
 
 }

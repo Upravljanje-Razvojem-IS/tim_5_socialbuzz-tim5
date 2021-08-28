@@ -11,22 +11,22 @@ namespace PostMicroservice.Models
 
     public class FollowMockDto
     {
-            /// <summary>
-            /// ID of following
-            /// </summary>
-            public int FollowingID;
+           /// <summary>
+           /// ID of following
+           /// </summary>
+           public int FollowingID { get; set; }
 
 
-            /// <summary>
-            /// Id of the user who followed the other user
-            /// </summary>
-             public int FollowerID;
+           /// <summary>
+           /// Id of the user who followed the other user
+           /// </summary>
+           public int FollowerID { get; set; }
 
 
             /// <summary>
             /// Id of the user followed by another user
             /// </summary>
-            public int FollowedID;
+            public int FollowedID { get; set; }
 
            
         }

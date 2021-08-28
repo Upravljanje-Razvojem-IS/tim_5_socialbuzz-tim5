@@ -52,7 +52,7 @@ namespace PostMicroservice.Controllers
         /// <returns>List of all contents</returns>
         ///  /// <remarks> 
         /// Example of request \
-        /// GET '/api/contents' \
+        /// GET '/api/contents' 
         /// </remarks>
         /// <response code="200">Success, returns list of all contents.</response>
         /// <response code="204">No contents found.</response>
@@ -185,7 +185,7 @@ namespace PostMicroservice.Controllers
         /// <remarks>
         /// Example of request \
         /// PUT /api/contents \
-        /// --header 'key: Bearer Milica' \
+        /// header 'key: Bearer Milica' \
         ///  {     \
         ///     "contentID" : "2959689a-c09f-4c0b-6ceb-08d96643ade7",\
         ///     "title" : "Prodaja rolera",\
@@ -257,7 +257,7 @@ namespace PostMicroservice.Controllers
         /// Example of request \
         /// DELETE '/api/contents/'\
         ///  header 'key: Bearer Milica' \
-        ///  param  'contentId = 5594e266-329b-4425-8295-08d9693d80ac' 
+        ///  param  'contentId = ad369512-e9c6-4f44-a5d9-08d96a32dba3' 
         /// </remarks>
         /// <response code="204">Success, deleted content.</response>
         /// <response code="401">Unauthorized user.</response>

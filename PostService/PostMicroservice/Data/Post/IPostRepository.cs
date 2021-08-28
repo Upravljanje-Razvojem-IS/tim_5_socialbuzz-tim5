@@ -10,7 +10,7 @@ namespace PostMicroservice.Data.PostRepository
     {
 
         List<Post> GetPosts(DateTime? dateOfPublication = null);
-        List<Post> GetPostsByFollowingAccount(int accountId);
+        List<Post> GetPostsFromWall(int accountId, DateTime? dateOfPublication = null);
         Post GetPostById(Guid postId);
         List<Post> GetPostByUser(int userID, int accountID);
         void CreatePost(Post post);
