@@ -1,0 +1,8 @@
+﻿namespace FriendsService.Dtos
+{
+    public class UserReadDto
+    {
+        public int Id { get; set; }
+        public LocationReadDto Location { get; set; }
+    }
+}
