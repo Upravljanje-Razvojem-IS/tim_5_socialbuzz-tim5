@@ -7,7 +7,7 @@ namespace BlockingService.Repositories
 {
     public class MockLocationRepository : ILocationRepository
     {
-        private List<Location> _entities;
+        private readonly List<Location> _entities;
 
         public MockLocationRepository()
         {
