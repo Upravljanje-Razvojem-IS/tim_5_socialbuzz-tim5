@@ -34,7 +34,7 @@ namespace IsporukaService.Repository
 
             User prodavac = UserData.Users.FirstOrDefault(e => e.Id == dto.ProdavacId);
 
-            if (kupac == null)
+            if (prodavac == null)
                 throw new IsporukaServiceException("Prodavac ne postoji");
 
             Isporuka kreiranaIsporuka = new Isporuka()
@@ -85,7 +85,7 @@ namespace IsporukaService.Repository
 
             User prodavac = UserData.Users.FirstOrDefault(e => e.Id == dto.ProdavacId);
 
-            if (kupac == null)
+            if (prodavac == null)
                 throw new IsporukaServiceException("Prodavac ne postoji");
 
             var isporuka = _context.Isporuke.FirstOrDefault(e => e.Id == id);
