@@ -1,0 +1,922 @@
+{
+	"info": {
+		"_postman_id": "5c0392e8-76b2-41ff-b4e7-18fe7bc5199c",
+		"name": "ProductsAndServices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/items",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get item by first name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/items?firstName=Violeta",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"items"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Violeta"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get item by first name that doesn't exist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/items?firstName=Jovana",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"items"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Jovana"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Returns all items",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/items",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Options for working with items",
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/items",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get item by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/items/4e1f1f8d-a8f7-44b1-9abd-1c1ee122628d",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"items",
+						"4e1f1f8d-a8f7-44b1-9abd-1c1ee122628d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get item by id that doesn't exist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/items/23953e78-4f64-4dfe-b032-29455c8685a0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"items",
+						"23953e78-4f64-4dfe-b032-29455c8685a0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/products",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by product name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/products?pName=iMac%2027%2C%2011.1%20i7%2C%2014gb%2C500hd",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "pName",
+							"value": "iMac%2027%2C%2011.1%20i7%2C%2014gb%2C500hd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"name1\",\r\n  \"description\": \"description1\",\r\n  \"price\": \"test3\",\r\n  \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\r\n  \"weight\": \"test3\",\r\n  \"quantity\": \"test4\",\r\n  \"productionDate\": \"2021-11-27T14:20:32.781Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/products",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Options for working with products",
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/products",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/products/4e1f1f8d-a8f7-44b1-9abd-1c1ee122628d",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products",
+						"4e1f1f8d-a8f7-44b1-9abd-1c1ee122628d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by id that doesn't exist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/products/5a5701e8-e91e-437f-b612-3abeaa82348b",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products",
+						"5a5701e8-e91e-437f-b612-3abeaa82348b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					},
+					{
+						"key": "accountId",
+						"value": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"itemId\": \"5e54651d-f75b-48bf-a36a-08d9b1b37616\",\r\n        \"name\": \"promjena imena1\",\r\n        \"description\": \"promjena opisa1\",\r\n        \"price\": \"test3\",\r\n        \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\r\n        \"weight\": \"promjena tezine1\",\r\n        \"quantity\": \"promjena kolicine1\",\r\n        \"productionDate\": \"2021-11-27T14:20:32.781\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/products/5e54651d-f75b-48bf-a36a-08d9b1b37616",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products",
+						"5e54651d-f75b-48bf-a36a-08d9b1b37616"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product when user doesn't have permission",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					},
+					{
+						"key": "accountId",
+						"value": "5a5701e8-e91e-437f-b612-3abeaa82348b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"itemId\": \"5e54651d-f75b-48bf-a36a-08d9b1b37616\",\r\n        \"name\": \"promjena imena\",\r\n        \"description\": \"promjena opisa\",\r\n        \"price\": \"test3\",\r\n        \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\r\n        \"weight\": \"promjena tezine\",\r\n        \"quantity\": \"promjena kolicine\",\r\n        \"productionDate\": \"2021-11-27T14:20:32.781\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/products/5e54651d-f75b-48bf-a36a-08d9b1b37616",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products",
+						"5e54651d-f75b-48bf-a36a-08d9b1b37616"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accountId",
+						"value": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+						"type": "text"
+					},
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44395/api/products/f070fd51-4475-4619-44e0-08d9b1b1cc80",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"products",
+						"f070fd51-4475-4619-44e0-08d9b1b1cc80"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all services",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/services",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get service by service name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/services?sName=Popravka%20Sony%20i%20Panasonic%20maticnih%20ploca",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services"
+					],
+					"query": [
+						{
+							"key": "sName",
+							"value": "Popravka%20Sony%20i%20Panasonic%20maticnih%20ploca"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"service name\",\r\n  \"description\": \"service description\",\r\n  \"price\": \"service price\",\r\n  \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\r\n  \"startDate\": \"2021-11-28T14:40:44.447Z\",\r\n  \"endDate\": \"2021-11-28T14:40:44.447Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/services",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Options for working with service",
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/services",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get service by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/services/1f8aa5b3-a67f-45c5-b519-771a7c09a944",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services",
+						"1f8aa5b3-a67f-45c5-b519-771a7c09a944"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get service by id that doesn't exist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/services/5a5701e8-e91e-437f-b612-3abeaa82348b",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services",
+						"5a5701e8-e91e-437f-b612-3abeaa82348b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update service",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accountId",
+						"value": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+						"type": "text"
+					},
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"itemId\": \"707e6c80-496a-492a-46c4-08d9b27d5730\",\r\n    \"name\": \"update name\",\r\n    \"description\": \"update description\",\r\n    \"price\": \"update price\",\r\n    \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\r\n    \"startDate\": \"2021-11-28T14:40:44.447\",\r\n    \"endDate\": \"2021-11-28T14:40:44.447\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/services/707e6c80-496a-492a-46c4-08d9b27d5730",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services",
+						"707e6c80-496a-492a-46c4-08d9b27d5730"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update service when user doesn't have permission",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accountId",
+						"value": "5a5701e8-e91e-437f-b612-3abeaa82348b",
+						"type": "text"
+					},
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"itemId\": \"707e6c80-496a-492a-46c4-08d9b27d5730\",\r\n    \"name\": \"update name1\",\r\n    \"description\": \"update description1\",\r\n    \"price\": \"update price1\",\r\n    \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\r\n    \"startDate\": \"2021-11-28T14:40:44.447\",\r\n    \"endDate\": \"2021-11-28T14:40:44.447\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/services/707e6c80-496a-492a-46c4-08d9b27d5730",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services",
+						"707e6c80-496a-492a-46c4-08d9b27d5730"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete service",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accountId",
+						"value": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+						"type": "text"
+					},
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44395/api/services/03cd0444-3a7b-4aec-a343-08d9b27dd4bd",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"services",
+						"03cd0444-3a7b-4aec-a343-08d9b27dd4bd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all past prices",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44395/api/pastPrices",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"pastPrices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create past price",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"itemId\": \"2d53fc22-eac4-43bb-8f55-d2b8495603cc\",\r\n  \"price\": \"new price\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/pastPrices",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"pastPrices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error while creating past price",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"itemId\": \"5a5701e8-e91e-437f-b612-3abeaa82348b\",\r\n  \"price\": \"new price\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/pastPrices",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"pastPrices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Options for working with past prices",
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44395/api/pastPrices",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"pastPrices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get past price by item id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44395/api/pastPrices/2d53fc22-eac4-43bb-8f55-d2b8495603cc",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"pastPrices",
+						"2d53fc22-eac4-43bb-8f55-d2b8495603cc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update past price",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"itemId\": \"2d53fc22-eac4-43bb-8f55-d2b8495603cc\",\r\n  \"price\": \"update-ovana cijena\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/pastPrices/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"pastPrices",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error while updating past price",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"itemId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"price\": \"update-ovana cijena\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44395/api/pastPrices/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"pastPrices",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete past price",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Verica",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44395/api/pastPrices/9",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44395",
+					"path": [
+						"api",
+						"pastPrices",
+						"9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
