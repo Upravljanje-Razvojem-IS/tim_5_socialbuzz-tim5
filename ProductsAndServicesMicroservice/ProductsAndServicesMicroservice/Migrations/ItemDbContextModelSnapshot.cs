@@ -41,26 +41,32 @@ namespace ProductsAndServicesMicroservice.Migrations
                         new
                         {
                             PastPriceId = 1,
-                            ItemId = new Guid("4f29d0a1-a000-4b56-9005-1a40ffcea3ae"),
+                            ItemId = new Guid("4e1f1f8d-a8f7-44b1-9abd-1c1ee122628d"),
                             Price = "56998.00 RSD"
                         },
                         new
                         {
                             PastPriceId = 2,
-                            ItemId = new Guid("86f5ae7c-ef07-4339-9f46-c8f597560565"),
+                            ItemId = new Guid("bee9273d-d6ed-47f8-84ed-b645dc6d9f2f"),
                             Price = "17600.00 RSD"
                         },
                         new
                         {
                             PastPriceId = 3,
-                            ItemId = new Guid("1f4aa5b3-a67f-45c5-b519-771a7c09a944"),
-                            Price = "6200.00 RSD"
+                            ItemId = new Guid("c99d5b97-6984-43ef-b0a5-89d04569466e"),
+                            Price = "61200.00 RSD"
                         },
                         new
                         {
                             PastPriceId = 4,
+                            ItemId = new Guid("1f8aa5b3-a67f-45c5-b519-771a7c09a944"),
+                            Price = "6089.00 RSD"
+                        },
+                        new
+                        {
+                            PastPriceId = 5,
                             ItemId = new Guid("2d53fc22-eac4-43bb-8f55-d2b8495603cc"),
-                            Price = "2089.00 RSD"
+                            Price = "3050.00 RSD"
                         });
                 });
 
@@ -108,7 +114,7 @@ namespace ProductsAndServicesMicroservice.Migrations
                             Description = "Model - Lenovo TAB M10 FHD Plus, memorija - 4gb-128gb, polovan, perfektno ocuvan.",
                             Name = "Lenovo TAB M10 FHD Plus",
                             Price = "39000.00 RSD",
-                            ProductionDate = new DateTime(2021, 11, 17, 9, 36, 32, 881, DateTimeKind.Utc).AddTicks(8059),
+                            ProductionDate = new DateTime(2021, 11, 18, 14, 20, 15, 214, DateTimeKind.Utc).AddTicks(7761),
                             Quantity = "1",
                             Weight = "1kg"
                         },
@@ -116,10 +122,10 @@ namespace ProductsAndServicesMicroservice.Migrations
                         {
                             ItemId = new Guid("bee9273d-d6ed-47f8-84ed-b645dc6d9f2f"),
                             AccountId = new Guid("1bc6929f-0e75-4bef-a835-7dbb50d9e41a"),
-                            Description = "﻿﻿﻿Jednostavan je za montazu i koriscenje. H.265 i 4K visoka rezolucija, vodootporan, detekcija pokreta i nocni mod.",
+                            Description = "﻿﻿﻿H.265 i 4K visoka rezolucija, vodootporan, detekcija pokreta i nocni mod.",
                             Name = "Wifi KAMERA poe kamera",
                             Price = "11500.00 RSD",
-                            ProductionDate = new DateTime(2021, 11, 12, 9, 36, 32, 882, DateTimeKind.Utc).AddTicks(258),
+                            ProductionDate = new DateTime(2021, 11, 13, 14, 20, 15, 215, DateTimeKind.Utc).AddTicks(3516),
                             Quantity = "3",
                             Weight = "0.5kg"
                         },
@@ -130,7 +136,7 @@ namespace ProductsAndServicesMicroservice.Migrations
                             Description = "﻿﻿﻿Konfiguracija: I7 2.8ghz, 14gb rama, 500gb.",
                             Name = "iMac 27, 11.1 i7, 14gb,500hd",
                             Price = "45500.00 RSD",
-                            ProductionDate = new DateTime(2021, 11, 12, 9, 36, 32, 882, DateTimeKind.Utc).AddTicks(319),
+                            ProductionDate = new DateTime(2021, 11, 13, 14, 20, 15, 215, DateTimeKind.Utc).AddTicks(3581),
                             Quantity = "2",
                             Weight = "0.5kg"
                         });
@@ -174,21 +180,21 @@ namespace ProductsAndServicesMicroservice.Migrations
                         {
                             ItemId = new Guid("1f8aa5b3-a67f-45c5-b519-771a7c09a944"),
                             AccountId = new Guid("b1d1e043-85c9-4ee1-9eb7-38314c109607"),
-                            Description = "﻿﻿﻿Uspješno rješavamo probleme matičnih ploča Sony i Panasonic.",
-                            EndDate = new DateTime(2021, 11, 19, 9, 36, 32, 884, DateTimeKind.Utc).AddTicks(2460),
+                            Description = "﻿﻿﻿Uspjesno rjesavamo probleme maticnih ploca Sony i Panasonic.",
+                            EndDate = new DateTime(2021, 11, 20, 14, 20, 15, 218, DateTimeKind.Utc).AddTicks(2538),
                             Name = "Popravka Sony i Panasonic maticnih ploca",
                             Price = "8500.00 RSD",
-                            StartDate = new DateTime(2021, 11, 17, 9, 36, 32, 884, DateTimeKind.Utc).AddTicks(2429)
+                            StartDate = new DateTime(2021, 11, 18, 14, 20, 15, 218, DateTimeKind.Utc).AddTicks(2506)
                         },
                         new
                         {
                             ItemId = new Guid("2d53fc22-eac4-43bb-8f55-d2b8495603cc"),
                             AccountId = new Guid("9888cf22-b353-4162-aedc-734ca2dc26a4"),
-                            Description = "Zlatna maska je izuzetno kvalitetan proizvod . Na nevjerovatan način obnavlja kožu, hidrira je i zateže.",
-                            EndDate = new DateTime(2021, 11, 21, 9, 36, 32, 884, DateTimeKind.Utc).AddTicks(4299),
+                            Description = "Zlatna maska je izuzetno kvalitetan proizvod . Na nevjerovatan nacin obnavlja kozu, hidrira je i zateze.",
+                            EndDate = new DateTime(2021, 11, 22, 14, 20, 15, 218, DateTimeKind.Utc).AddTicks(4324),
                             Name = "Tretman lica- zlatna maska",
                             Price = "2700.00 RSD",
-                            StartDate = new DateTime(2021, 11, 16, 9, 36, 32, 884, DateTimeKind.Utc).AddTicks(4290)
+                            StartDate = new DateTime(2021, 11, 17, 14, 20, 15, 218, DateTimeKind.Utc).AddTicks(4316)
                         });
                 });
 #pragma warning restore 612, 618

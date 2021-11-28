@@ -52,13 +52,13 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <returns>List of products</returns>
         /// <remarks> 
         /// Example of request \
-        /// GET 'https://localhost:44349/api/products' \
+        /// GET 'https://localhost:44395/api/products' \
         /// </remarks>
         /// <response code="200">Success answer - return all products</response>
         /// <response code="204">No content</response>
         /// <response code="500">Server error</response>
         [HttpGet]
-        [AllowAnonymous] //svi korisnici mogu da pristupe metodi (GET je bezbedna i idempotentna metoda), tj. mogu da izlistaju sve proizvode
+        [AllowAnonymous] 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -82,7 +82,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="productId">Id of one product</param>
         /// <remarks>        
         /// Example of request \
-        /// GET 'https://localhost:44349/api/products/' \
+        /// GET 'https://localhost:44395/api/products/' \
         ///     --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae'
         /// </remarks>
         /// <response code="200">Success answer</response>
@@ -92,7 +92,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{productId}")]
-        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju proizvode po id-ju
+        [AllowAnonymous] 
         public ActionResult<Product> GetProductById(Guid productId)
         {
 
@@ -115,8 +115,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of request \
-        /// POST 'https://localhost:44349/api/products/'\
-        /// --header 'key: Bearer Bojana' \
+        /// POST 'https://localhost:44395/api/products/'\
+        /// --header 'key: Bearer Verica' \
         /// Example: \
         /// { \
         ///        "name": "Test", \
@@ -124,6 +124,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         ///        "price": "100000.00 RSD", \
         ///        "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c", \
         ///        "weight": "500g" \
+        ///        "quantity": "3",\
+        ///        "productionDate": "2021-11-28T16:52:52.828Z"\
         /// }
         /// </remarks>
         /// <response code="201">Returns the created product</response>
@@ -138,7 +140,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+               
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
@@ -170,8 +172,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of successful request \
-        /// PUT 'https://localhost:44349/api/products/'\
-        ///  --header 'key: Bearer Bojana' \
+        /// PUT 'https://localhost:44395/api/products/'\
+        ///  --header 'key: Bearer Verica' \
         ///  --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
         ///  --header 'accountId = f2d8362a-124f-41a9-a22b-6e35b3a2953c' \
         /// Example: \
@@ -181,10 +183,12 @@ namespace ProductsAndServicesMicroservice.Controllers
         ///     "price": "150000.00 RSD",
         ///     "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
         ///     "weight": "165g" \
+        ///     "quantity": "3",\
+        ///     "productionDate": "2021-11-28T16:52:52.828Z"\
         /// } \
         /// Example of bad request \
-        /// PUT 'https://localhost:44349/api/products/'\
-        ///  --header 'key: Bearer Bojana' \
+        /// PUT 'https://localhost:44395/api/products/'\
+        ///  --header 'key: Bearer Verica' \
         ///  --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
         ///  --header 'accountId = 1bc6929f-0e75-4bef-a835-7dbb50d9e41a' -> this user can not change product \
         /// Example: \
@@ -194,6 +198,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         ///     "price": "150000.00 RSD",
         ///     "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
         ///     "weight": "165g" \
+        ///     "quantity": "3",\
+        ///     "productionDate": "2021-11-28T16:52:52.828Z"\
         /// }
         /// </remarks>
         /// <response code="200">Success answer - updated product</response>
@@ -212,13 +218,13 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+                
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
                 }
 
-                //Samo onaj koji je postavio proizvod moze da ga modifikuje
+              
                 if (productUpdateDto.AccountId != accountId)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, "Not allowed! User does not have permission!");
@@ -253,8 +259,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of request \
-        /// DELETE 'https://localhost:44349/api/products/'\
-        ///  --header 'key: Bearer Bojana' \
+        /// DELETE 'https://localhost:44395/api/products/'\
+        ///  --header 'key: Bearer Verica' \
         ///  --param  'productId = 3ca21d04-26fd-494d-a1fc-08d95c4724a9' -> change this for testing\
         ///  --header 'accountId = f2d8362a-124f-41a9-a22b-6e35b3a2953c' \
         /// </remarks>
@@ -273,7 +279,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+               
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
@@ -281,7 +287,7 @@ namespace ProductsAndServicesMicroservice.Controllers
 
                 var product = productRepository.GetProductById(productId);
 
-                //Samo onaj koji je postavio proizvod moze da ga brise
+                
                 if (product.AccountId != accountId)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, "Not allowed!");
@@ -311,11 +317,11 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <returns></returns>
         /// <remarks>
         /// Example of request \
-        /// OPTIONS 'https://localhost:44349/api/products'
+        /// OPTIONS 'https://localhost:44395/api/products'
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpOptions]
-        [AllowAnonymous] //svi mogu da pristupe
+        [AllowAnonymous] 
         public IActionResult GetProductOptions()
         {
             Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");

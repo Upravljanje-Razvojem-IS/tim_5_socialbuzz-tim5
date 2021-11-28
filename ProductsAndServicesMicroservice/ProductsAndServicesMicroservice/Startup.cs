@@ -34,7 +34,7 @@ namespace ProductsAndServicesMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ItemDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsAndServicesMDb")));
+            services.AddDbContext<ItemDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsAndServicesDb")));
 
             services.AddControllers(setup =>
             {
@@ -62,10 +62,10 @@ namespace ProductsAndServicesMicroservice
                          }
                      });
 
-               // var xmlComments = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml";
-               // var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments);
+                var xmlComments = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml";
+                var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments);
 
-               // setupAction.IncludeXmlComments(xmlCommentsPath);
+               setupAction.IncludeXmlComments(xmlCommentsPath);
             });
 
 

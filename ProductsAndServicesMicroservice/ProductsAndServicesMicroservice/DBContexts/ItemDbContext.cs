@@ -23,7 +23,7 @@ namespace ProductsAndServicesMicroservice.DBContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("ProductsAndServicesMDb"));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("ProductsAndServicesDb"));
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ProductsAndServicesMicroservice.DBContexts
                 {
                     ItemId = Guid.Parse("bee9273d-d6ed-47f8-84ed-b645dc6d9f2f"),
                     Name = "Wifi KAMERA poe kamera",
-                    Description = "﻿﻿﻿Jednostavan je za montazu i koriscenje. H.265 i 4K visoka rezolucija, vodootporan, detekcija pokreta i nocni mod.",
+                    Description = "﻿﻿﻿H.265 i 4K visoka rezolucija, vodootporan, detekcija pokreta i nocni mod.",
                     Price = "11500.00 RSD",
                     AccountId = Guid.Parse("1bc6929f-0e75-4bef-a835-7dbb50d9e41a"),
                     Weight = "0.5kg",
@@ -71,7 +71,7 @@ namespace ProductsAndServicesMicroservice.DBContexts
                {
                    ItemId = Guid.Parse("1f8aa5b3-a67f-45c5-b519-771a7c09a944"),
                    Name = "Popravka Sony i Panasonic maticnih ploca",
-                   Description = "﻿﻿﻿Uspješno rješavamo probleme matičnih ploča Sony i Panasonic.",
+                   Description = "﻿﻿﻿Uspjesno rjesavamo probleme maticnih ploca Sony i Panasonic.",
                    Price = "8500.00 RSD",
                    AccountId = Guid.Parse("b1d1e043-85c9-4ee1-9eb7-38314c109607"),
                    StartDate = DateTime.UtcNow.AddDays(-10),
@@ -81,7 +81,7 @@ namespace ProductsAndServicesMicroservice.DBContexts
                {
                    ItemId = Guid.Parse("2d53fc22-eac4-43bb-8f55-d2b8495603cc"),
                    Name = "Tretman lica- zlatna maska",
-                   Description = "Zlatna maska je izuzetno kvalitetan proizvod . Na nevjerovatan način obnavlja kožu, hidrira je i zateže.",
+                   Description = "Zlatna maska je izuzetno kvalitetan proizvod . Na nevjerovatan nacin obnavlja kozu, hidrira je i zateze.",
                    Price = "2700.00 RSD",
                    AccountId = Guid.Parse("9888cf22-b353-4162-aedc-734ca2dc26a4"),
                    StartDate = DateTime.UtcNow.AddDays(-11),
@@ -92,26 +92,32 @@ namespace ProductsAndServicesMicroservice.DBContexts
                 new
                 {
                     PastPriceId = 1,
-                    ItemId = Guid.Parse("4f29d0a1-a000-4b56-9005-1a40ffcea3ae"),
+                    ItemId = Guid.Parse("4e1f1f8d-a8f7-44b1-9abd-1c1ee122628d"),
                     Price = "56998.00 RSD"
                 },
                 new
                 {
                     PastPriceId = 2,
-                    ItemId = Guid.Parse("86f5ae7c-ef07-4339-9f46-c8f597560565"),
+                    ItemId = Guid.Parse("bee9273d-d6ed-47f8-84ed-b645dc6d9f2f"),
                     Price = "17600.00 RSD"
                 },
                 new
                 {
                     PastPriceId = 3,
-                    ItemId = Guid.Parse("1f4aa5b3-a67f-45c5-b519-771a7c09a944"),
-                    Price = "6200.00 RSD"
+                    ItemId = Guid.Parse("c99d5b97-6984-43ef-b0a5-89d04569466e"),
+                    Price = "61200.00 RSD"
                 },
                 new
                 {
                     PastPriceId = 4,
+                    ItemId = Guid.Parse("1f8aa5b3-a67f-45c5-b519-771a7c09a944"),
+                    Price = "6089.00 RSD"
+                },
+                new
+                {
+                    PastPriceId = 5,
                     ItemId = Guid.Parse("2d53fc22-eac4-43bb-8f55-d2b8495603cc"),
-                    Price = "2089.00 RSD"
+                    Price = "3050.00 RSD"
                 });
 
         }

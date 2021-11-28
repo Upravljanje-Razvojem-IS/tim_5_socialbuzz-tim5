@@ -52,13 +52,13 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <returns>List of services</returns>
         /// <remarks> 
         /// Example of request \
-        /// GET 'https://localhost:44349/api/services' \
+        /// GET 'https://localhost:44395/api/services' \
         /// </remarks>
         /// <response code="200">Success answer - return all services</response>
         /// <response code="204">No content</response>
         /// <response code="500">Server error</response>
         [HttpGet]
-        [AllowAnonymous] //svi korisnici mogu da pristupe metodi (GET je bezbedna i idempotentna metoda), tj. mogu da izlistaju sve usluge
+        [AllowAnonymous] 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -83,7 +83,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="serviceId">Id of one service</param>
         /// <remarks>    
         /// Example of request \
-        /// GET 'https://localhost:44349/api/services/' \
+        /// GET 'https://localhost:44395/api/services/' \
         ///     --param  'serviceId = 1f4aa5b3-a67f-45c5-b519-771a7c09a944'
         /// </remarks>
         /// <response code="200">Success answer - return service by id</response>
@@ -93,7 +93,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{serviceId}")]
-        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju usluge po id-ju
+        [AllowAnonymous] 
         public ActionResult<Service> GetServiceById(Guid serviceId)
         {
 
@@ -116,14 +116,16 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of request \
-        /// POST 'https://localhost:44349/api/services/'\
-        ///     --header 'key: Bearer Bojana' \
+        /// POST 'https://localhost:44395/api/services/'\
+        ///     --header 'key: Bearer Verica' \
         /// Example: \
         /// { \
         ///        "name": "Test service", \
         ///        "description": "Test description", \
         ///        "price": "5000.00 RSD", \
-        ///        "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607" \
+        ///        "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607", \
+        ///         "startDate": "2021-11-28T14:36:25.883Z", \
+        ///         "endDate": "2021-11-28T14:36:25.883Z"\
         ///}
         /// </remarks>
         /// <response code="201">Returns the created service</response>
@@ -138,7 +140,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+                
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
@@ -170,8 +172,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of successful request \
-        /// PUT 'https://localhost:44349/api/products/'\
-        ///  --header 'key: Bearer Bojana' \
+        /// PUT 'https://localhost:44395/api/products/'\
+        ///  --header 'key: Bearer Verica' \
         ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing\
         ///  --header 'accountId = b1d1e043-85c9-4ee1-9eb7-38314c109607' \
         /// Example: \
@@ -179,11 +181,13 @@ namespace ProductsAndServicesMicroservice.Controllers
         ///        "name": "Update Test service", \
         ///        "description": "Update Test description", \
         ///        "price": "5000.00 RSD", \
-        ///        "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607" \
+        ///        "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607", \
+        ///        "startDate": "2021-11-28T14:36:25.883Z", \
+        ///        "endDate": "2021-11-28T14:36:25.883Z"\
         /// } \
         /// Example of bad request \
-        /// PUT 'https://localhost:44349/api/products/'\
-        ///  --header 'key: Bearer Bojana' \
+        /// PUT 'https://localhost:44395/api/products/'\
+        ///  --header 'key: Bearer Verica ' \
         ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing\
         ///  --header 'accountId = 9888cf22-b353-4162-aedc-734ca2dc26a4' \
         /// Example: \
@@ -192,6 +196,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         ///        "description": "Update Test description", \
         ///        "price": "5000.00 RSD", \
         ///        "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607" \
+        ///        "startDate": "2021-11-28T14:36:25.883Z", \
+        ///        "endDate": "2021-11-28T14:36:25.883Z"\
         /// } \
         /// </remarks>
         /// <response code="200">Success answer - updated service</response>
@@ -210,13 +216,13 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+             
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
                 }
 
-                //Samo onaj koji je postavio uslugu moze da je modifikuje
+               
                 if (serviceUpdateDto.AccountId != accountId)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, "Not allowed! User does not have permission!");
@@ -251,8 +257,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of request \
-        /// DELETE 'https://localhost:44349/api/services/'\
-        ///  --header 'key: Bearer Bojana' \
+        /// DELETE 'https://localhost:44395/api/services/'\
+        ///  --header 'key: Bearer Verica' \
         ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing \
         ///  --header 'accountId = b1d1e043-85c9-4ee1-9eb7-38314c109607' \
         /// </remarks>
@@ -271,7 +277,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+                
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
@@ -279,7 +285,7 @@ namespace ProductsAndServicesMicroservice.Controllers
 
                 var service = serviceRepository.GetServiceById(serviceId);
 
-                //Samo onaj koji je postavio uslugu moze da je brise
+              
                 if (service.AccountId != accountId)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, "Not allowed!");
@@ -309,11 +315,11 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <returns></returns>
         /// <remarks>
         /// Example of request
-        /// OPTIONS 'https://localhost:44349/api/services'
+        /// OPTIONS 'https://localhost:44395/api/services'
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpOptions]
-        [AllowAnonymous] //svi mogu da pristupe
+        [AllowAnonymous] 
         public IActionResult GetServiceOptions()
         {
             Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");

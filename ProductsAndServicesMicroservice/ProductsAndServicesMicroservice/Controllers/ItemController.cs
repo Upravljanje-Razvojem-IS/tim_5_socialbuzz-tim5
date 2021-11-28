@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace ProductsAndServicesMicroservice.Controllers
 {
     /// <summary>
-    /// ItemForSale controller which shows all items for sale 
+    /// Item controller which shows all items (products or services)
     /// </summary>
     [ApiController]
     [Route("api/items")]
@@ -36,13 +36,13 @@ namespace ProductsAndServicesMicroservice.Controllers
         }
 
         /// <summary>
-        /// Returns all items for sale
+        /// Returns all items
         /// </summary>
         /// <param name="firstName">First name of the user who added item</param>
-        /// <returns>List of items for sale</returns>
+        /// <returns>List of items</returns>
         /// <remarks>
         /// Example of request \
-        /// GET 'https://localhost:44349/api/itemsForSale'
+        /// GET 'https://localhost:44395/api/items'
         /// </remarks>
         /// <response code="200">Success answer - return items</response>
         /// <response code="204">No content</response>
@@ -50,12 +50,12 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <response code="500">Server error</response>
         [HttpGet]
         [HttpHead]
-        [AllowAnonymous] //svi korisnici mogu da pristupe metodi (GET je bezbedna i idempotentna metoda), tj. mogu da izlistaju sve oglase
+        [AllowAnonymous] 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<List<ItemDto>> GetItemForSales(string firstName)
+        public ActionResult<List<ItemDto>> GetItems(string firstName)
         {
             try
             {
@@ -70,25 +70,25 @@ namespace ProductsAndServicesMicroservice.Controllers
                     }
                     else
                     {
-                        //vracamo items for sale koje je neki user dodao
+                       
                         products = productRepository.GetProductsByAccountId(user.AccountId);
                         services = serviceRepository.GetServicesByAccountId(user.AccountId);
                     }
                 }
                 else
                 {
-                    //vracamo sve items for sale
+                   
                     products = productRepository.GetProducts();
                     services = serviceRepository.GetServices();
                 }
-                List<ItemDto> itemForSale = new List<ItemDto>();
-                itemForSale.AddRange(mapper.Map<List<ItemDto>>(products));
-                itemForSale.AddRange(mapper.Map<List<ItemDto>>(services));
-                if (itemForSale.Count == 0)
+                List<ItemDto> items = new List<ItemDto>();
+                items.AddRange(mapper.Map<List<ItemDto>>(products));
+                items.AddRange(mapper.Map<List<ItemDto>>(services));
+                if (items.Count == 0)
                 {
                     return NoContent();
                 }
-                return Ok(itemForSale);
+                return Ok(items);
             }
             catch (Exception ex)
             {
@@ -97,29 +97,29 @@ namespace ProductsAndServicesMicroservice.Controllers
         }
 
         /// <summary>
-        /// Returns options for working with items for sale
+        /// Returns options for working with items 
         /// </summary>
         /// <returns>Options for a given URL</returns>
         /// <remarks>
         /// Example of request \
-        /// OPTIONS 'https://localhost:44349/api/itemsForSale'
+        /// OPTIONS 'https://localhost:44395/api/items'
         /// </remarks>
         [HttpOptions]
         [AllowAnonymous]
-        public IActionResult GetItemForSalesOptions()
+        public IActionResult GetItemsOptions()
         {
             Response.Headers.Add("Allow", "GET");
             return Ok();
         }
 
         /// <summary>
-        /// Returns item for sale by id
+        /// Returns item by id
         /// </summary>
-        /// <param name="itemForSaleId">Id of item for sale</param>
+        /// <param name="itemId">Id of item</param>
         /// <remarks>        
         /// Example of request \
-        /// GET 'https://localhost:44349/api/itemsForSale/' \
-        ///     --param  'itemForSaleId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae'
+        /// GET 'https://localhost:44395/api/items/' \
+        ///     --param  'itemId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae'
         /// </remarks>
         ///<response code="200">Success answer - return item by id</response>
         /// <response code="404">Not found</response>
@@ -128,18 +128,18 @@ namespace ProductsAndServicesMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        [HttpGet("{itemForSaleId}")]
-        public ActionResult<ItemDto> GetItemForSaleById(Guid itemForSaleId)
+        [HttpGet("{itemId}")]
+        public ActionResult<ItemDto> GetItemById(Guid itemId)
         {
             try
             {
-                var product = productRepository.GetProductById(itemForSaleId);
+                var product = productRepository.GetProductById(itemId);
                 if (product != null)
                 {
                     return Ok(mapper.Map<ItemDto>(product));
                 }
 
-                var service = serviceRepository.GetServiceById(itemForSaleId);
+                var service = serviceRepository.GetServiceById(itemId);
                 if (service != null)
                 {
                     return Ok(mapper.Map<ItemDto>(service));

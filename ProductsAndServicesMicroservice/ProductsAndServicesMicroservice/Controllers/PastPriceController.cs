@@ -55,8 +55,8 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <returns>List of all past prices</returns>
         /// <remarks> 
         /// Example of request \
-        /// GET 'https://localhost:44349/api/pastPrices' \
-        /// --header 'key: Bearer Bojana'
+        /// GET 'https://localhost:44395/api/pastPrices' \
+        /// --header 'key: Bearer Verica'
         /// </remarks>
         /// <param name="key">Authorization Key Value</param>
         /// <response code="200">Return list of past prices</response>
@@ -70,7 +70,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<List<PastPrice>> GetPastPrices([FromHeader] string key)
         {
-            //pristup metodi imaju samo autorizovani korisnici
+          
             if (!auth.AuthorizeUser(key))
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
@@ -89,15 +89,15 @@ namespace ProductsAndServicesMicroservice.Controllers
         }
 
         /// <summary>
-        /// Returns past price by itemForSaleId
+        /// Returns past price by itemId
         /// </summary>
-        /// <param name="itemForSaleId">Id of item for sale</param>
+        /// <param name="itemId">Id of item</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>        
         /// Example of request \
-        /// GET 'https://localhost:44349/api/pastPrices/' \
-        ///     --param  'itemForSaleId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
-        ///     --header 'key: Bearer Bojana' 
+        /// GET 'https://localhost:44395/api/pastPrices/' \
+        ///     --param  'itemId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
+        ///     --header 'key: Bearer Verica' 
         /// </remarks>
         /// <response code="200">Success answer - return past price by id</response>
         /// <response code="401">Unauthorized user</response>
@@ -107,17 +107,17 @@ namespace ProductsAndServicesMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpGet("{itemForSaleId}")]
-        public ActionResult<List<PastPrice>> GetPastPriceById(Guid itemForSaleId, [FromHeader] string key)
+        [HttpGet("{itemId}")]
+        public ActionResult<List<PastPrice>> GetPastPriceById(Guid itemId, [FromHeader] string key)
         {
 
-            //pristup metodi imaju samo autorizovani korisnici
+         
             if (!auth.AuthorizeUser(key))
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
             }
 
-            var pastPrice = pastPriceRepository.GetPastPriceByItemId(itemForSaleId);
+            var pastPrice = pastPriceRepository.GetPastPriceByItemId(itemId);
             if (pastPrice == null)
             {
                 return NotFound();
@@ -135,11 +135,11 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of request \
-        /// POST 'https://localhost:44349/api/pastPrices/'\
-        ///     --header 'key: Bearer Bojana' \
+        /// POST 'https://localhost:44395/api/pastPrices/'\
+        ///     --header 'key: Bearer Verica' \
         /// Example: \
         /// {   
-        ///  "ItemForSaleId": "2d53fc22-eac4-43bb-8f55-d2b8495603cc", \
+        ///  "ItemId": "2d53fc22-eac4-43bb-8f55-d2b8495603cc", \
         ///  "Price": "3000.00RSD" \
         /// } 
         /// </remarks>
@@ -155,7 +155,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+               
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
@@ -165,10 +165,10 @@ namespace ProductsAndServicesMicroservice.Controllers
 
                 Product product = productRepository.GetProductById(pastPrice.ItemId);
                 Service service = serviceRepository.GetServiceById(pastPrice.ItemId);
-                //prosla cena mora da se odnosi na neki proizvod ili uslugu koji vec postoje
+               
                 if (product == null && service == null)
                 {
-                    throw new DatabaseException("Item for sale with that id does not exists!");
+                    throw new DatabaseException("Item with that id does not exists!");
                 }
 
                 pastPriceRepository.CreatePastPrice(pastPrice);
@@ -176,7 +176,7 @@ namespace ProductsAndServicesMicroservice.Controllers
 
                 logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "New past price created", null);
 
-                var location = linkGenerator.GetPathByAction("GetPastPriceById", "PastPrice", new { ItemForSaleId = pastPrice.ItemId });
+                var location = linkGenerator.GetPathByAction("GetPastPriceById", "PastPrice", new { ItemId = pastPrice.ItemId });
                 return Created(location, pastPrice);
             }
             catch (Exception ex)
@@ -195,12 +195,12 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of request \
-        /// PUT 'https://localhost:44349/api/pastPrices/'\
-        ///  --header 'key: Bearer Bojana' \
+        /// PUT 'https://localhost:44395/api/pastPrices/'\
+        ///  --header 'key: Bearer Verica' \
         ///  --param  'pastPriceId = 9' \
         /// Example: \
         /// {   
-        ///  "ItemForSaleId": "4f29d0a1-a000-4b56-9005-1a40ffcea3ae", \
+        ///  "ItemId": "4f29d0a1-a000-4b56-9005-1a40ffcea3ae", \
         ///  "Price": "40000.00RSD \
         /// } 
         /// </remarks>
@@ -218,7 +218,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+               
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
@@ -234,10 +234,10 @@ namespace ProductsAndServicesMicroservice.Controllers
                 Product product = productRepository.GetProductById(newPastPrice.ItemId);
                 Service service = serviceRepository.GetServiceById(newPastPrice.ItemId);
 
-                //prosla cena mora da se odnosi na neki proizvod ili uslugu koji vec postoje
+             
                 if (product == null && service == null)
                 {
-                    throw new DatabaseException("Item for sale with that id does not exists!");
+                    throw new DatabaseException("Item with that id does not exists!");
                 }
 
                 pastPriceRepository.UpdatePastPrice(oldPastPrice, newPastPrice);
@@ -262,9 +262,9 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// Example of request \
-        /// DELETE 'https://localhost:44349/api/pastPrices/'\
+        /// DELETE 'https://localhost:44395/api/pastPrices/'\
         ///  --param  'pastPriceId = 10'
-        ///  --header 'key: Bearer Bojana' \
+        ///  --header 'key: Bearer Verica' \
         /// </remarks>
         /// <response code="204">Success answer - deleted price</response>
         /// <response code="401">Unauthorized user</response>
@@ -279,7 +279,7 @@ namespace ProductsAndServicesMicroservice.Controllers
         {
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
+             
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
@@ -310,11 +310,11 @@ namespace ProductsAndServicesMicroservice.Controllers
         /// <returns></returns>
         /// <remarks>
         /// Example of request \
-        /// OPTIONS 'https://localhost:44349/api/pastPrices'
+        /// OPTIONS 'https://localhost:44395/api/pastPrices'
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpOptions]
-        [AllowAnonymous] //svi mogu da pristupe
+        [AllowAnonymous] 
         public IActionResult GetPastPriceOptions()
         {
             Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");
