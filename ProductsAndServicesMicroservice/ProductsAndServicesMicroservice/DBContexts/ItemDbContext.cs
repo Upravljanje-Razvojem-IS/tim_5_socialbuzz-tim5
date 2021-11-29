@@ -23,7 +23,7 @@ namespace ProductsAndServicesMicroservice.DBContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("ProductsAndServicesDb"));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DatabaseForProductsAndServices"));
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ProductsAndServicesMicroservice.DBContexts
                 {
                     ItemId = Guid.Parse("bee9273d-d6ed-47f8-84ed-b645dc6d9f2f"),
                     Name = "Wifi KAMERA poe kamera",
-                    Description = "﻿﻿﻿H.265 i 4K visoka rezolucija, vodootporan, detekcija pokreta i nocni mod.",
+                    Description = "H\uFEFF265 i 4K visoka rezolucija, vodootporan, detekcija pokreta i nocni mod.",
                     Price = "11500.00 RSD",
                     AccountId = Guid.Parse("1bc6929f-0e75-4bef-a835-7dbb50d9e41a"),
                     Weight = "0.5kg",
@@ -58,7 +58,7 @@ namespace ProductsAndServicesMicroservice.DBContexts
                 {
                     ItemId = Guid.Parse("c99d5b97-6984-43ef-b0a5-89d04569466e"),
                     Name = "iMac 27, 11.1 i7, 14gb,500hd",
-                    Description = "﻿﻿﻿Konfiguracija: I7 2.8ghz, 14gb rama, 500gb.",
+                    Description = "﻿﻿﻿Konfiguracija\uFEFF I7 2.8ghz, 14gb rama, 500gb.",
                     Price = "45500.00 RSD",
                     AccountId = Guid.Parse("1bc6929f-0e75-4bef-a835-7dbb50d9e41a"),
                     Weight = "0.5kg",
@@ -71,7 +71,7 @@ namespace ProductsAndServicesMicroservice.DBContexts
                {
                    ItemId = Guid.Parse("1f8aa5b3-a67f-45c5-b519-771a7c09a944"),
                    Name = "Popravka Sony i Panasonic maticnih ploca",
-                   Description = "﻿﻿﻿Uspjesno rjesavamo probleme maticnih ploca Sony i Panasonic.",
+                   Description = "﻿﻿﻿Uspjesno\uFEFF rjesavamo probleme maticnih ploca Sony i Panasonic.",
                    Price = "8500.00 RSD",
                    AccountId = Guid.Parse("b1d1e043-85c9-4ee1-9eb7-38314c109607"),
                    StartDate = DateTime.UtcNow.AddDays(-10),
