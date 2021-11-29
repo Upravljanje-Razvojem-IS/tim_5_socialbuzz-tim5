@@ -34,7 +34,7 @@ namespace ProductsAndServicesMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ItemDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsAndServicesDb")));
+            services.AddDbContext<ItemDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseForProductsAndServices")));
 
             services.AddControllers(setup =>
             {

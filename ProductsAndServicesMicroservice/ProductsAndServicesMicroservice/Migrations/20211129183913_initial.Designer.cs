@@ -10,7 +10,7 @@ using ProductsAndServicesMicroservice.DBContexts;
 namespace ProductsAndServicesMicroservice.Migrations
 {
     [DbContext(typeof(ItemDbContext))]
-    [Migration("20211128142016_initial")]
+    [Migration("20211129183913_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,7 +116,7 @@ namespace ProductsAndServicesMicroservice.Migrations
                             Description = "Model - Lenovo TAB M10 FHD Plus, memorija - 4gb-128gb, polovan, perfektno ocuvan.",
                             Name = "Lenovo TAB M10 FHD Plus",
                             Price = "39000.00 RSD",
-                            ProductionDate = new DateTime(2021, 11, 18, 14, 20, 15, 214, DateTimeKind.Utc).AddTicks(7761),
+                            ProductionDate = new DateTime(2021, 11, 19, 18, 39, 11, 890, DateTimeKind.Utc).AddTicks(6052),
                             Quantity = "1",
                             Weight = "1kg"
                         },
@@ -124,10 +124,10 @@ namespace ProductsAndServicesMicroservice.Migrations
                         {
                             ItemId = new Guid("bee9273d-d6ed-47f8-84ed-b645dc6d9f2f"),
                             AccountId = new Guid("1bc6929f-0e75-4bef-a835-7dbb50d9e41a"),
-                            Description = "﻿﻿﻿H.265 i 4K visoka rezolucija, vodootporan, detekcija pokreta i nocni mod.",
+                            Description = "H﻿265 i 4K visoka rezolucija, vodootporan, detekcija pokreta i nocni mod.",
                             Name = "Wifi KAMERA poe kamera",
                             Price = "11500.00 RSD",
-                            ProductionDate = new DateTime(2021, 11, 13, 14, 20, 15, 215, DateTimeKind.Utc).AddTicks(3516),
+                            ProductionDate = new DateTime(2021, 11, 14, 18, 39, 11, 891, DateTimeKind.Utc).AddTicks(1592),
                             Quantity = "3",
                             Weight = "0.5kg"
                         },
@@ -135,10 +135,10 @@ namespace ProductsAndServicesMicroservice.Migrations
                         {
                             ItemId = new Guid("c99d5b97-6984-43ef-b0a5-89d04569466e"),
                             AccountId = new Guid("1bc6929f-0e75-4bef-a835-7dbb50d9e41a"),
-                            Description = "﻿﻿﻿Konfiguracija: I7 2.8ghz, 14gb rama, 500gb.",
+                            Description = "﻿﻿﻿Konfiguracija﻿ I7 2.8ghz, 14gb rama, 500gb.",
                             Name = "iMac 27, 11.1 i7, 14gb,500hd",
                             Price = "45500.00 RSD",
-                            ProductionDate = new DateTime(2021, 11, 13, 14, 20, 15, 215, DateTimeKind.Utc).AddTicks(3581),
+                            ProductionDate = new DateTime(2021, 11, 14, 18, 39, 11, 891, DateTimeKind.Utc).AddTicks(1657),
                             Quantity = "2",
                             Weight = "0.5kg"
                         });
@@ -182,21 +182,21 @@ namespace ProductsAndServicesMicroservice.Migrations
                         {
                             ItemId = new Guid("1f8aa5b3-a67f-45c5-b519-771a7c09a944"),
                             AccountId = new Guid("b1d1e043-85c9-4ee1-9eb7-38314c109607"),
-                            Description = "﻿﻿﻿Uspjesno rjesavamo probleme maticnih ploca Sony i Panasonic.",
-                            EndDate = new DateTime(2021, 11, 20, 14, 20, 15, 218, DateTimeKind.Utc).AddTicks(2538),
+                            Description = "﻿﻿﻿Uspjesno﻿ rjesavamo probleme maticnih ploca Sony i Panasonic.",
+                            EndDate = new DateTime(2021, 11, 21, 18, 39, 11, 893, DateTimeKind.Utc).AddTicks(189),
                             Name = "Popravka Sony i Panasonic maticnih ploca",
                             Price = "8500.00 RSD",
-                            StartDate = new DateTime(2021, 11, 18, 14, 20, 15, 218, DateTimeKind.Utc).AddTicks(2506)
+                            StartDate = new DateTime(2021, 11, 19, 18, 39, 11, 893, DateTimeKind.Utc).AddTicks(173)
                         },
                         new
                         {
                             ItemId = new Guid("2d53fc22-eac4-43bb-8f55-d2b8495603cc"),
                             AccountId = new Guid("9888cf22-b353-4162-aedc-734ca2dc26a4"),
                             Description = "Zlatna maska je izuzetno kvalitetan proizvod . Na nevjerovatan nacin obnavlja kozu, hidrira je i zateze.",
-                            EndDate = new DateTime(2021, 11, 22, 14, 20, 15, 218, DateTimeKind.Utc).AddTicks(4324),
+                            EndDate = new DateTime(2021, 11, 23, 18, 39, 11, 893, DateTimeKind.Utc).AddTicks(1852),
                             Name = "Tretman lica- zlatna maska",
                             Price = "2700.00 RSD",
-                            StartDate = new DateTime(2021, 11, 17, 14, 20, 15, 218, DateTimeKind.Utc).AddTicks(4316)
+                            StartDate = new DateTime(2021, 11, 18, 18, 39, 11, 893, DateTimeKind.Utc).AddTicks(1844)
                         });
                 });
 #pragma warning restore 612, 618
