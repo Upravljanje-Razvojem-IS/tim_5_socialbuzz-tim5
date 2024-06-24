@@ -1,0 +1,6 @@
+projectKey=CommentService
+serverUrl=http://localhost:9099
+serverVersion=10.5.1.90531
+dashboardUrl=http://localhost:9099/dashboard?id=CommentService
+ceTaskId=96932158-fe65-4487-b313-de2f250ac2d9
+ceTaskUrl=http://localhost:9099/api/ce/task?id=96932158-fe65-4487-b313-de2f250ac2d9

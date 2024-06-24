@@ -26,6 +26,7 @@ namespace CommentService.Controllers
             _commentRepository = commentRepository;
             _logger = logger;
             _accountRepository = accountRepository;
+           
         }
 
         /// <summary>
