@@ -27,7 +27,7 @@ namespace CommentService.Data.Repositories
 
         public Ad Get(int adId)
         {
-            return posts.Where(a => a.AdId == adId).SingleOrDefault();
+            return posts.SingleOrDefault(a => a.AdId == adId);
         }
     }
 }

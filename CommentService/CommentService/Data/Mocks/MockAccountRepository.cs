@@ -34,7 +34,7 @@ namespace CommentService.Data.Repositories
 
         public Account Get(Guid accoutnUid)
         {
-            return _accounts.Where(a => a.AccountUid == accoutnUid).SingleOrDefault();
+            return _accounts.SingleOrDefault(a => a.AccountUid == accoutnUid);
         }
     }
 }
