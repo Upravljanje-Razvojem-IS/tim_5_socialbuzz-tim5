@@ -5,6 +5,6 @@ namespace CommentService.Data.Interfaces
 {
     public interface IAdRepository
     {
-        Post Get(int adId);
+        Ad Get(int adId);
     }
 }
